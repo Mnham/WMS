@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="WMS.ClassLibrary">
+      <HintPath>..\Packages\WMS.ClassLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

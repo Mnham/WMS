@@ -1,0 +1,78 @@
+﻿<ContentDialog
+    x:Class="WMS.Manager.Nomenclature.NomenclatureSearchDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    mc:Ignorable="d">
+    <ContentDialog.Resources>
+        <Thickness x:Key="ContentDialogPadding">20</Thickness>
+    </ContentDialog.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <StackPanel Spacing="12">
+            <!--  TODO локализация  -->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                    Width="140"
+                    VerticalAlignment="Center"
+                    Text="Код номенклатуры" />
+                <TextBox
+                    Width="150"
+                    ui:TextBoxExtensions.ValidationMode="Dynamic"
+                    ui:TextBoxExtensions.ValidationType="Number"
+                    MaxLength="19"
+                    Text="{x:Bind NomenclatureId, Mode=TwoWay}" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                    Width="140"
+                    VerticalAlignment="Center"
+                    Text="Наименование" />
+                <TextBox
+                    Width="150"
+                    MaxLength="256"
+                    Text="{x:Bind NomenclatureName, Mode=TwoWay}" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                    Width="140"
+                    VerticalAlignment="Center"
+                    Text="Тип" />
+                <ComboBox
+                    Width="150"
+                    DisplayMemberPath="Name"
+                    ItemsSource="{x:Bind NomenclatureTypeViewModels}"
+                    SelectedValue="{x:Bind NomenclatureTypeId, Mode=TwoWay}"
+                    SelectedValuePath="Id" />
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="1"
+            Margin="0 32 0 0"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal"
+            Spacing="32">
+
+            <Button Width="120" Click="CancelButtonClickHandler">
+                <TextBlock x:Uid="CancelTextBlock" d:Text="Отмена" />
+            </Button>
+
+            <Button
+                Width="120"
+                Click="FindButtonClickHandler"
+                Style="{StaticResource AccentButtonStyle}">
+                <TextBlock x:Uid="NoTextBlock" d:Text="Найти" />
+            </Button>
+        </StackPanel>
+    </Grid>
+</ContentDialog>

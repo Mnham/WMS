@@ -1,0 +1,51 @@
+﻿syntax = "proto3";
+option csharp_namespace = "WMS.NomenclatureService.Grpc";
+package NomenclatureService;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+
+
+service NomenclatureTypeGrpcService
+{
+    rpc GetAll (google.protobuf.Empty) returns (NomenclatureTypeList) {}
+    rpc Insert (NomenclatureTypeGrpc) returns (NomenclatureTypeGrpc) {}
+    rpc Update (NomenclatureTypeGrpc) returns (NomenclatureTypeGrpc) {}
+}
+
+message NomenclatureTypeGrpc {
+    int64 id = 1;
+	string name = 2;
+}
+
+message NomenclatureTypeList {
+    repeated NomenclatureTypeGrpc nomenclature_types = 1;
+}
+
+
+service NomenclatureGrpcService
+{
+    rpc Insert (NomenclatureGrpc) returns (NomenclatureGrpc) {}
+    rpc Update (NomenclatureGrpc) returns (NomenclatureGrpc) {}
+	rpc Search (NomenclatureSearchFilter) returns (NomenclatureList) {}
+}
+
+message NomenclatureGrpc {
+    int64 id = 1;
+	string name = 2;
+	NomenclatureTypeGrpc type = 3;
+	int64 length = 4;
+	int64 width = 5;
+	int64 height = 6;
+    int32 weight = 7;
+}
+
+message NomenclatureSearchFilter {
+    google.protobuf.Int64Value nomenclature_id = 1;
+	google.protobuf.StringValue nomenclature_name = 2;
+    google.protobuf.Int64Value nomenclature_type_id = 3;
+}
+
+message NomenclatureList {
+    repeated NomenclatureGrpc nomenclatures = 1;
+}
