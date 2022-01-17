@@ -20,7 +20,12 @@ namespace WMS.NomenclatureService.GrpcServices
 
         public override async Task<NomenclatureGrpc> Insert(NomenclatureGrpc request, ServerCallContext context)
         {
-            throw new System.Exception();
+            InsertNomenclatureQueryResponse response = await _mediator.Send(new InsertNomenclatureQuery()
+            {
+                Nomenclature = NomenclatureMapper.GrpcToDto(request)
+            }, context.CancellationToken);
+
+            return NomenclatureMapper.DtoToGrpc(response.Nomenclature);
         }
 
         public override async Task<NomenclatureList> Search(NomenclatureSearchFilter request, ServerCallContext context)
@@ -40,7 +45,12 @@ namespace WMS.NomenclatureService.GrpcServices
 
         public override async Task<NomenclatureGrpc> Update(NomenclatureGrpc request, ServerCallContext context)
         {
-            throw new System.Exception();
+            UpdateNomenclatureQueryResponse response = await _mediator.Send(new UpdateNomenclatureQuery()
+            {
+                Nomenclature = NomenclatureMapper.GrpcToDto(request)
+            }, context.CancellationToken);
+
+            return NomenclatureMapper.DtoToGrpc(response.Nomenclature);
         }
     }
 }
