@@ -79,8 +79,86 @@ namespace WMS.NomenclatureService.Domain.Infrastructure.Repositories.Implementat
             return result.ToList();
         }
 
-        public Task<Nomenclature> Insert(Nomenclature nomenclature, CancellationToken cancellationToken) => throw new System.NotImplementedException();
+        public async Task<Nomenclature> Insert(Nomenclature itemToInsert, CancellationToken cancellationToken)
+        {
+            const string sql = @"
+                INSERT INTO nomenclature (
+                    name
+                    ,nomenclature_type_id
+                    ,length
+                    ,width
+                    ,height
+                    ,weight
+                )
+                VALUES (
+                    @Name
+                    @NomenclatureTypeId
+                    @Length
+                    @Width
+                    @Height
+                    @Weight
+                )
+                RETURNING id ;";
 
-        public Task<Nomenclature> Update(Nomenclature nomenclature, CancellationToken cancellationToken) => throw new System.NotImplementedException();
+            var parameters = new
+            {
+                Name = itemToInsert.Name,
+                NomenclatureTypeId = itemToInsert.Type.Id,
+                Length = itemToInsert.Length,
+                Width = itemToInsert.Width,
+                Height = itemToInsert.Height,
+                Weight = itemToInsert.Weight
+            };
+
+            using NpgsqlConnection connection = new(_options.ConnectionString);
+            await connection.OpenAsync(cancellationToken);
+
+            CommandDefinition commandDefinition = new(
+                sql,
+                parameters: parameters,
+                commandTimeout: TIMEOUT,
+                cancellationToken: cancellationToken);
+
+            return await _queryExecutor.Execute(itemToInsert, async () =>
+            {
+                long id = await connection.QuerySingleAsync<long>(commandDefinition);
+                itemToInsert.SetId(id);
+            });
+        }
+
+        public async Task<Nomenclature> Update(Nomenclature itemToUpdate, CancellationToken cancellationToken)
+        {
+            const string sql = @"
+                UPDATE nomenclature
+                SET name = @Name
+                    ,nomenclature_type_id = @NomenclatureTypeId
+                    ,length = @Length
+                    ,width = @Width
+                    ,height = @Height
+                    ,weight = @Weight
+                WHERE id = @NomenclatureId ;";
+
+            var parameters = new
+            {
+                NomenclatureId = itemToUpdate.Id,
+                Name = itemToUpdate.Name,
+                NomenclatureTypeId = itemToUpdate.Type.Id,
+                Length = itemToUpdate.Length,
+                Width = itemToUpdate.Width,
+                Height = itemToUpdate.Height,
+                Weight = itemToUpdate.Weight
+            };
+
+            using NpgsqlConnection connection = new(_options.ConnectionString);
+            await connection.OpenAsync(cancellationToken);
+
+            CommandDefinition commandDefinition = new(
+                sql,
+                parameters: parameters,
+                commandTimeout: TIMEOUT,
+                cancellationToken: cancellationToken);
+
+            return await _queryExecutor.Execute(itemToUpdate, async () => await connection.ExecuteAsync(commandDefinition));
+        }
     }
 }
