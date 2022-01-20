@@ -59,7 +59,7 @@ namespace WMS.NomenclatureService.GrpcServices
                 return NomenclatureMapper.DtoToGrpc(response.Nomenclature);
             });
 
-        private async Task<T> Execute<T>(Func<Task<T>> func) where T : IMessage<T>
+        private static async Task<T> Execute<T>(Func<Task<T>> func) where T : IMessage<T>
         {
             try
             {
