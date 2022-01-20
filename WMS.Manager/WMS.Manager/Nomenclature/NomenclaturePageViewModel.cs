@@ -2,6 +2,7 @@
 using Microsoft.Toolkit.Mvvm.Input;
 
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 
 using WMS.Manager.GrpcClient.Clients;
@@ -14,14 +15,18 @@ namespace WMS.Manager.Nomenclature
     {
         private readonly WmsGrpcClient _grpcClient;
         private readonly DialogService _serviceDialog;
-        private NomenclatureViewModel selectedNomenclature;
+        private NomenclatureViewModel _selectedNomenclature;
 
         public NomenclaturePageViewModel(WmsGrpcClient grpcClient, DialogService serviceDialog)
         {
             _grpcClient = grpcClient;
             _serviceDialog = serviceDialog;
             LoadNomenclatureTypes();
+            Editor.PropertyChanged += EditorPropertyChangedHandler;
         }
+
+        private void EditorPropertyChangedHandler(object sender, PropertyChangedEventArgs e) =>
+            SaveCommand.NotifyCanExecuteChanged();
 
         private async void LoadNomenclatureTypes()
         {
@@ -35,55 +40,95 @@ namespace WMS.Manager.Nomenclature
             }
         }
 
-        public RelayCommand SaveCommand => new(
-            async () =>
+        private RelayCommand _saveCommand;
+        public RelayCommand SaveCommand => _saveCommand ??= new(async () =>
+        {
+            switch (EditorMode)
             {
-                RequestResult<NomenclatureGrpc> result = await _grpcClient.NomenclatureUpdateAsync(new NomenclatureGrpc());
-                if (result.IsSuccess)
-                {
-                }
-            });
-
-        public RelayCommand AddCommand => new(
-            () =>
-            {
-            });
-
-        public RelayCommand SearchCommand => new(
-            async () =>
-            {
-                NomenclatureSearchDialog dialog = await _serviceDialog.ShowNomenclatureSearchDialogAsync(NomenclatureTypes);
-                if (dialog.IsDone == false)
-                {
-                    return;
-                }
-
-                Nomenclatures.Clear();
-
-                RequestResult<NomenclatureList> result = await _grpcClient.NomenclatureSearchAsync(new NomenclatureSearchFilter()
-                {
-                    NomenclatureId = dialog.NomenclatureIdResult,
-                    NomenclatureName = dialog.NomenclatureNameResult,
-                    NomenclatureTypeId = dialog.NomenclatureTypeIdResult
-                });
-
-                if (result.IsSuccess)
-                {
-                    foreach (NomenclatureGrpc item in result.Response.Nomenclatures)
+                case EditorMode.Edit:
+                    RequestResult<NomenclatureGrpc> updateResult = await _grpcClient.NomenclatureUpdateAsync(Editor.GetNewNomenclatureGrpc());
+                    if (updateResult.IsSuccess)
                     {
-                        Nomenclatures.Add(new NomenclatureViewModel(item));
+                        SelectedNomenclature.Update(updateResult.Response);
                     }
-                }
+
+                    break;
+                case EditorMode.Create:
+                    RequestResult<NomenclatureGrpc> insertResult = await _grpcClient.NomenclatureInsertAsync(Editor.GetNewNomenclatureGrpc());
+                    if (insertResult.IsSuccess)
+                    {
+                        NomenclatureViewModel viewModel = new(insertResult.Response);
+                        Nomenclatures.Add(viewModel);
+                        SelectedNomenclature = viewModel;
+                    }
+
+                    break;
+            }
+
+            SaveCommand.NotifyCanExecuteChanged();
+        }, () => EditorMode switch
+        {
+            EditorMode.Edit => Editor.CanSaveChange() && SelectedNomenclature?.Model.Equals(Editor.GetNewNomenclatureGrpc()) == false,
+            EditorMode.Create => Editor.CanSaveChange(),
+            _ => false,
+        });
+
+        public bool IsCreateMode => EditorMode == EditorMode.Create;
+
+        public EditorMode EditorMode
+        {
+            get => _editorMode;
+            set
+            {
+                _editorMode = value;
+                OnPropertyChanged(nameof(IsCreateMode));
+            }
+        }
+
+        private RelayCommand _addCommand;
+        public RelayCommand AddCommand => _addCommand ??= new(() =>
+        {
+            EditorMode = EditorMode.Create;
+            SelectedNomenclature = null;
+        });
+
+        private RelayCommand _searchCommand;
+        private EditorMode _editorMode;
+
+        public RelayCommand SearchCommand => _searchCommand ??= new(async () =>
+        {
+            NomenclatureSearchDialog dialog = await _serviceDialog.ShowNomenclatureSearchDialogAsync(NomenclatureTypes);
+            if (dialog.IsDone == false)
+            {
+                return;
+            }
+
+            Nomenclatures.Clear();
+
+            RequestResult<NomenclatureList> result = await _grpcClient.NomenclatureSearchAsync(new NomenclatureSearchFilter()
+            {
+                NomenclatureId = dialog.NomenclatureIdResult,
+                NomenclatureName = dialog.NomenclatureNameResult,
+                NomenclatureTypeId = dialog.NomenclatureTypeIdResult
             });
+
+            if (result.IsSuccess)
+            {
+                foreach (NomenclatureGrpc item in result.Response.Nomenclatures)
+                {
+                    Nomenclatures.Add(new NomenclatureViewModel(item));
+                }
+            }
+        });
 
         public NomenclatureEditorViewModel Editor { get; } = new();
 
         public NomenclatureViewModel SelectedNomenclature
         {
-            get => selectedNomenclature;
+            get => _selectedNomenclature;
             set
             {
-                selectedNomenclature = value;
+                SetProperty(ref _selectedNomenclature, value);
                 if (value is null)
                 {
                     Editor.Reset();
@@ -92,6 +137,7 @@ namespace WMS.Manager.Nomenclature
                 {
                     value.UpdateType(NomenclatureTypes.First(t => t.Id == value.Type.Id).Model);
                     Editor.Update(value);
+                    EditorMode = EditorMode.Edit;
                 }
             }
         }

@@ -17,6 +17,17 @@ namespace WMS.NomenclatureService.Domain.Infrastructure.Helpers
             Weight = item.Weight
         };
 
+        public static NomenclatureDto GrpcToDto(NomenclatureGrpc item) => new()
+        {
+            Id = item.Id,
+            Type = NomenclatureTypeMapper.GrpcToDto(item.Type),
+            Name = item.Name,
+            Length = item.Length,
+            Width = item.Width,
+            Height = item.Height,
+            Weight = item.Weight
+        };
+
         public static NomenclatureDto EntityToDto(Nomenclature item) => new()
         {
             Id = item.Id,

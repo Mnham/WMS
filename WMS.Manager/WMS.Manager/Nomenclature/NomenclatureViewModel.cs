@@ -6,33 +6,30 @@ namespace WMS.Manager.Nomenclature
 {
     public class NomenclatureViewModel : ObservableObject
     {
-        private NomenclatureGrpc _model;
+        public NomenclatureGrpc Model { get; private set; }
 
-        public NomenclatureViewModel(NomenclatureGrpc model) => _model = model;
+        public NomenclatureViewModel(NomenclatureGrpc model) => Model = model;
 
-        public long Id => _model.Id;
+        public long Id => Model.Id;
 
-        public string Name => _model.Name;
+        public string Name => Model.Name;
 
-        public NomenclatureTypeGrpc Type => _model.Type;
+        public NomenclatureTypeGrpc Type => Model.Type;
 
-        public long Length => _model.Length;
+        public long Length => Model.Length;
 
-        public long Width => _model.Width;
+        public long Width => Model.Width;
 
-        public long Height => _model.Height;
+        public long Height => Model.Height;
 
-        public int Weight => _model.Weight;
+        public int Weight => Model.Weight;
 
         public void Update(NomenclatureGrpc model)
         {
-            _model = model;
+            Model = model;
             OnPropertyChanged(string.Empty);
         }
 
-        public void UpdateType(NomenclatureTypeGrpc type)
-        {
-            _model.Type = type;
-        }
+        public void UpdateType(NomenclatureTypeGrpc type) => Model.Type = type;
     }
 }

@@ -12,6 +12,12 @@ namespace WMS.NomenclatureService.Domain.Infrastructure.Helpers
             Name = item.Name
         };
 
+        public static NomenclatureTypeDto GrpcToDto(NomenclatureTypeGrpc item) => new()
+        {
+            Id = item.Id,
+            Name = item.Name
+        };
+
         public static NomenclatureTypeDto EntityToDto(NomenclatureType item) => new()
         {
             Id = item.Id,

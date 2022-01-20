@@ -127,6 +127,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Converters\InvertBoolConverter.cs" />
     <Compile Include="Infrastructure\ExceptionDialog.xaml.cs">
       <DependentUpon>ExceptionDialog.xaml</DependentUpon>
     </Compile>
@@ -137,6 +138,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Nomenclature\EditorMode.cs" />
     <Compile Include="Nomenclature\NomenclatureEditorViewModel.cs" />
     <Compile Include="Nomenclature\NomenclatureSearchDialog.xaml.cs">
       <DependentUpon>NomenclatureSearchDialog.xaml</DependentUpon>

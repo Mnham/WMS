@@ -43,7 +43,7 @@ namespace WMS.Manager
         public App()
         {
             ConfigureLogger();
-            NativeMethods.AllocConsole();
+            //NativeMethods.AllocConsole();
 
             string[] langs = new string[]
             {
