@@ -3,10 +3,14 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:converters="using:WMS.Manager.Infrastructure.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     mc:Ignorable="d">
+    <Page.Resources>
+        <converters:InvertBoolConverter x:Key="InvertBoolConverter" />
+    </Page.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -88,12 +92,22 @@
                 Orientation="Horizontal"
                 Spacing="12">
 
-                <Button Command="{x:Bind VM.AddCommand}">
+                <ToggleButton
+                    Command="{x:Bind VM.AddCommand}"
+                    IsChecked="{x:Bind VM.IsCreateMode, Mode=OneWay}"
+                    IsHitTestVisible="{x:Bind VM.IsCreateMode, Converter={StaticResource InvertBoolConverter}, Mode=OneWay}">
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <FontIcon Glyph="&#xE710;" />
                         <TextBlock x:Uid="AddButton_TextBlock" d:Text="Добавить" />
                     </StackPanel>
-                </Button>
+                </ToggleButton>
+
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Foreground="{ThemeResource SystemAccentColor}"
+                    Text="Для добавления номенклатуры необходимо заполнить поля"
+                    Visibility="{x:Bind VM.IsCreateMode, Mode=OneWay}" />
+
             </StackPanel>
 
             <Grid

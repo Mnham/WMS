@@ -56,26 +56,45 @@ namespace WMS.Manager.Nomenclature
             set => SetProperty(ref weight, value);
         }
 
+        public bool CanSaveChange() =>
+            string.IsNullOrWhiteSpace(Name) == false
+            && Type is not null
+            && string.IsNullOrWhiteSpace(Length) == false
+            && string.IsNullOrWhiteSpace(Width) == false
+            && string.IsNullOrWhiteSpace(Height) == false
+            && string.IsNullOrWhiteSpace(Weight) == false;
+
+        public NomenclatureGrpc GetNewNomenclatureGrpc() => new()
+        {
+            Id = long.TryParse(Id, out long id) ? id : 0,
+            Name = Name,
+            Type = Type,
+            Length = long.TryParse(Length, out long length) ? length : 0,
+            Width = long.TryParse(Width, out long width) ? width : 0,
+            Height = long.TryParse(Height, out long height) ? height : 0,
+            Weight = int.TryParse(Weight, out int weight) ? weight : 0
+        };
+
         public void Update(NomenclatureViewModel model)
         {
-            Id = model.Id.ToString();
             Name = model.Name;
             Type = model.Type;
             Length = model.Length.ToString();
             Width = model.Width.ToString();
             Height = model.Height.ToString();
             Weight = model.Weight.ToString();
+            Id = model.Id.ToString();
         }
 
         public void Reset()
         {
-            Id = default;
             Name = default;
             Type = default;
             Length = default;
             Width = default;
             Height = default;
             Weight = default;
+            Id = default;
         }
     }
 }

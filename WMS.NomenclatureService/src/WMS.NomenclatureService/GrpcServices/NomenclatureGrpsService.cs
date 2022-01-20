@@ -1,10 +1,14 @@
-﻿using Grpc.Core;
+﻿using Google.Protobuf;
+
+using Grpc.Core;
 
 using MediatR;
 
+using System;
 using System.Threading.Tasks;
 
 using WMS.ClassLibrary.Extensions;
+using WMS.NomenclatureService.Domain.Exceptions;
 using WMS.NomenclatureService.Domain.Infrastructure.Commands.NomenclatureAggregate;
 using WMS.NomenclatureService.Domain.Infrastructure.Commands.NomenclatureAggregate.Responses;
 using WMS.NomenclatureService.Domain.Infrastructure.Helpers;
@@ -18,15 +22,16 @@ namespace WMS.NomenclatureService.GrpcServices
 
         public NomenclatureGrpsService(IMediator mediator) => _mediator = mediator;
 
-        public override async Task<NomenclatureGrpc> Insert(NomenclatureGrpc request, ServerCallContext context)
-        {
-            InsertNomenclatureQueryResponse response = await _mediator.Send(new InsertNomenclatureQuery()
+        public override async Task<NomenclatureGrpc> Insert(NomenclatureGrpc request, ServerCallContext context) =>
+            await Execute(async () =>
             {
-                Nomenclature = NomenclatureMapper.GrpcToDto(request)
-            }, context.CancellationToken);
+                InsertNomenclatureQueryResponse response = await _mediator.Send(new InsertNomenclatureQuery()
+                {
+                    Nomenclature = NomenclatureMapper.GrpcToDto(request)
+                }, context.CancellationToken);
 
-            return NomenclatureMapper.DtoToGrpc(response.Nomenclature);
-        }
+                return NomenclatureMapper.DtoToGrpc(response.Nomenclature);
+            });
 
         public override async Task<NomenclatureList> Search(NomenclatureSearchFilter request, ServerCallContext context)
         {
@@ -43,14 +48,31 @@ namespace WMS.NomenclatureService.GrpcServices
             };
         }
 
-        public override async Task<NomenclatureGrpc> Update(NomenclatureGrpc request, ServerCallContext context)
-        {
-            UpdateNomenclatureQueryResponse response = await _mediator.Send(new UpdateNomenclatureQuery()
+        public override async Task<NomenclatureGrpc> Update(NomenclatureGrpc request, ServerCallContext context) =>
+            await Execute(async () =>
             {
-                Nomenclature = NomenclatureMapper.GrpcToDto(request)
-            }, context.CancellationToken);
+                UpdateNomenclatureQueryResponse response = await _mediator.Send(new UpdateNomenclatureQuery()
+                {
+                    Nomenclature = NomenclatureMapper.GrpcToDto(request)
+                }, context.CancellationToken);
 
-            return NomenclatureMapper.DtoToGrpc(response.Nomenclature);
+                return NomenclatureMapper.DtoToGrpc(response.Nomenclature);
+            });
+
+        private async Task<T> Execute<T>(Func<Task<T>> func) where T : IMessage<T>
+        {
+            try
+            {
+                return await func();
+            }
+            catch (ArgumentException ex)
+            {
+                throw new RpcException(new Status(StatusCode.InvalidArgument, ex.Message));
+            }
+            catch (NegativeOrZeroValueException ex)
+            {
+                throw new RpcException(new Status(StatusCode.InvalidArgument, ex.Message));
+            }
         }
     }
 }

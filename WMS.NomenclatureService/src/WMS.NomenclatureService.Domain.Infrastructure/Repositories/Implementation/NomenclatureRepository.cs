@@ -92,11 +92,11 @@ namespace WMS.NomenclatureService.Domain.Infrastructure.Repositories.Implementat
                 )
                 VALUES (
                     @Name
-                    @NomenclatureTypeId
-                    @Length
-                    @Width
-                    @Height
-                    @Weight
+                    ,@NomenclatureTypeId
+                    ,@Length
+                    ,@Width
+                    ,@Height
+                    ,@Weight
                 )
                 RETURNING id ;";
 
