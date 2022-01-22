@@ -18,7 +18,11 @@ namespace WMS.Manager.Nomenclature
         public string Height
         {
             get => _height;
-            set => SetProperty(ref _height, value);
+            set
+            {
+                SetProperty(ref _height, value);
+                OnPropertyChanged(nameof(Volume));
+            }
         }
 
         public string Id
@@ -30,7 +34,11 @@ namespace WMS.Manager.Nomenclature
         public string Length
         {
             get => _length;
-            set => SetProperty(ref _length, value);
+            set
+            {
+                SetProperty(ref _length, value);
+                OnPropertyChanged(nameof(Volume));
+            }
         }
 
         public string Name
@@ -44,6 +52,12 @@ namespace WMS.Manager.Nomenclature
             get => _type;
             set => SetProperty(ref _type, value);
         }
+
+        public string Volume =>
+            string.IsNullOrWhiteSpace(Length)
+            && string.IsNullOrWhiteSpace(Width)
+            && string.IsNullOrWhiteSpace(Height) ? null : GetVolume().ToString("F9");
+
         public string Weight
         {
             get => _weight;
@@ -53,7 +67,11 @@ namespace WMS.Manager.Nomenclature
         public string Width
         {
             get => _width;
-            set => SetProperty(ref _width, value);
+            set
+            {
+                SetProperty(ref _width, value);
+                OnPropertyChanged(nameof(Volume));
+            }
         }
 
         public bool CanSaveChange() =>
@@ -66,12 +84,12 @@ namespace WMS.Manager.Nomenclature
 
         public NomenclatureGrpc GetNewGrpcModel() => new()
         {
-            Id = long.TryParse(Id, out long id) ? id : 0,
+            Id = GetValue(Id),
             Name = Name,
             Type = Type,
-            Length = long.TryParse(Length, out long length) ? length : 0,
-            Width = long.TryParse(Width, out long width) ? width : 0,
-            Height = long.TryParse(Height, out long height) ? height : 0,
+            Length = GetValue(Length),
+            Width = GetValue(Width),
+            Height = GetValue(Height),
             Weight = int.TryParse(Weight, out int weight) ? weight : 0
         };
 
@@ -96,5 +114,8 @@ namespace WMS.Manager.Nomenclature
             Weight = model.Weight.ToString();
             Id = model.Id.ToString();
         }
+
+        private long GetValue(string text) => long.TryParse(text, out long value) ? value : 0;
+        private double GetVolume() => GetValue(Length) * GetValue(Width) * GetValue(Height) / 1000000000.0;
     }
 }

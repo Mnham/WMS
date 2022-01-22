@@ -14,8 +14,11 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition />
+            <ColumnDefinition
+                Width="Auto"
+                MinWidth="200"
+                MaxWidth="1000" />
+            <ColumnDefinition MinWidth="200" />
         </Grid.ColumnDefinitions>
 
         <Grid>
@@ -25,7 +28,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel
-                Padding="12 8"
+                Padding="24 8"
                 VerticalAlignment="Top"
                 Orientation="Horizontal"
                 Spacing="12">
@@ -33,7 +36,7 @@
                 <Button Command="{x:Bind VM.SearchCommand}">
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <FontIcon Glyph="&#xE721;" />
-                        <TextBlock x:Uid="SearchButton_TextBlock" d:Text="Найти" />
+                        <TextBlock Text="Найти" />
                     </StackPanel>
                 </Button>
             </StackPanel>
@@ -48,30 +51,13 @@
                 SelectedItem="{x:Bind VM.SelectedItem, Mode=TwoWay}">
                 <controls:DataGrid.Columns>
                     <controls:DataGridTextColumn Binding="{Binding Id}" Header="Id" />
-                    <controls:DataGridTextColumn
-                        x:Uid="NomenclatureName_DataGridTextColumn"
-                        d:Header="Наименование"
-                        Binding="{Binding Name}" />
-                    <controls:DataGridTextColumn
-                        x:Uid="NomenclatureType_DataGridTextColumn"
-                        d:Header="Тип"
-                        Binding="{Binding Type.Name}" />
-                    <controls:DataGridTextColumn
-                        x:Uid="NomenclatureLength_DataGridTextColumn"
-                        d:Header="Длина"
-                        Binding="{Binding Length}" />
-                    <controls:DataGridTextColumn
-                        x:Uid="NomenclatureWidth_DataGridTextColumn"
-                        d:Header="Ширина"
-                        Binding="{Binding Width}" />
-                    <controls:DataGridTextColumn
-                        x:Uid="NomenclatureHeight_DataGridTextColumn"
-                        d:Header="Высота"
-                        Binding="{Binding Height}" />
-                    <controls:DataGridTextColumn
-                        x:Uid="NomenclatureWeight_DataGridTextColumn"
-                        d:Header="Вес"
-                        Binding="{Binding Weight}" />
+                    <controls:DataGridTextColumn Binding="{Binding Name}" Header="Наименование" />
+                    <controls:DataGridTextColumn Binding="{Binding Type.Name}" Header="Тип" />
+                    <controls:DataGridTextColumn Binding="{Binding Length}" Header="Длина (мм)" />
+                    <controls:DataGridTextColumn Binding="{Binding Width}" Header="Ширина (мм)" />
+                    <controls:DataGridTextColumn Binding="{Binding Height}" Header="Высота (мм)" />
+                    <controls:DataGridTextColumn Binding="{Binding Volume}" Header="Объем (м³)" />
+                    <controls:DataGridTextColumn Binding="{Binding Weight}" Header="Вес (гр)" />
                 </controls:DataGrid.Columns>
             </controls:DataGrid>
         </Grid>
@@ -87,7 +73,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel
-                Padding="12 8"
+                Padding="28 8"
                 VerticalAlignment="Top"
                 Orientation="Horizontal"
                 Spacing="12">
@@ -98,7 +84,7 @@
                     IsHitTestVisible="{x:Bind VM.IsCreateMode, Converter={StaticResource InvertBoolConverter}, Mode=OneWay}">
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <FontIcon Glyph="&#xE710;" />
-                        <TextBlock x:Uid="AddButton_TextBlock" d:Text="Добавить" />
+                        <TextBlock Text="Добавить" />
                     </StackPanel>
                 </ToggleButton>
 
@@ -112,14 +98,22 @@
 
             <Grid
                 Grid.Row="1"
-                Padding="20 20 20 0"
+                Padding="28 12 20 0"
                 BorderBrush="{ThemeResource NavigationViewContentGridBorderBrush}"
                 BorderThickness="0 1 0 0">
                 <StackPanel Spacing="20">
                     <StackPanel.Resources>
+
                         <Style x:Key="PropertyHeader" TargetType="TextBlock">
                             <Setter Property="Width" Value="140" />
                             <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+
+                        <Style x:Key="NumericTextBox" TargetType="TextBox">
+                            <Setter Property="Width" Value="150" />
+                            <Setter Property="ui:TextBoxExtensions.ValidationMode" Value="Dynamic" />
+                            <Setter Property="ui:TextBoxExtensions.ValidationType" Value="Number" />
+                            <Setter Property="MaxLength" Value="4" />
                         </Style>
                     </StackPanel.Resources>
 
@@ -144,7 +138,7 @@
                         <TextBox
                             Grid.Column="1"
                             MaxLength="256"
-                            Text="{x:Bind VM.Editor.Name, Mode=TwoWay}" />
+                            Text="{x:Bind VM.Editor.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
 
                     <StackPanel Orientation="Horizontal">
@@ -158,43 +152,28 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource PropertyHeader}" Text="Длина" />
-                        <TextBox
-                            Width="150"
-                            ui:TextBoxExtensions.ValidationMode="Dynamic"
-                            ui:TextBoxExtensions.ValidationType="Number"
-                            MaxLength="256"
-                            Text="{x:Bind VM.Editor.Length, Mode=TwoWay}" />
+                        <TextBlock Style="{StaticResource PropertyHeader}" Text="Длина (мм)" />
+                        <TextBox Style="{StaticResource NumericTextBox}" Text="{x:Bind VM.Editor.Length, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource PropertyHeader}" Text="Ширина" />
-                        <TextBox
-                            Width="150"
-                            ui:TextBoxExtensions.ValidationMode="Dynamic"
-                            ui:TextBoxExtensions.ValidationType="Number"
-                            MaxLength="256"
-                            Text="{x:Bind VM.Editor.Width, Mode=TwoWay}" />
+                        <TextBlock Style="{StaticResource PropertyHeader}" Text="Ширина (мм)" />
+                        <TextBox Style="{StaticResource NumericTextBox}" Text="{x:Bind VM.Editor.Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource PropertyHeader}" Text="Высота" />
-                        <TextBox
-                            Width="150"
-                            ui:TextBoxExtensions.ValidationMode="Dynamic"
-                            ui:TextBoxExtensions.ValidationType="Number"
-                            MaxLength="256"
-                            Text="{x:Bind VM.Editor.Height, Mode=TwoWay}" />
+                        <TextBlock Style="{StaticResource PropertyHeader}" Text="Высота (мм)" />
+                        <TextBox Style="{StaticResource NumericTextBox}" Text="{x:Bind VM.Editor.Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource PropertyHeader}" Text="Вес" />
-                        <TextBox
-                            Width="150"
-                            ui:TextBoxExtensions.ValidationMode="Dynamic"
-                            ui:TextBoxExtensions.ValidationType="Number"
-                            MaxLength="256"
-                            Text="{x:Bind VM.Editor.Weight, Mode=TwoWay}" />
+                        <TextBlock Style="{StaticResource PropertyHeader}" Text="Объем (м³)" />
+                        <TextBlock Text="{x:Bind VM.Editor.Volume, Mode=OneWay}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource PropertyHeader}" Text="Вес (гр)" />
+                        <TextBox Style="{StaticResource NumericTextBox}" Text="{x:Bind VM.Editor.Weight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
 
                     <Button
@@ -204,11 +183,17 @@
                         Style="{StaticResource AccentButtonStyle}">
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <FontIcon Glyph="&#xE74E;" />
-                            <TextBlock x:Uid="SaveButton_TextBlock" d:Text="Сохранить" />
+                            <TextBlock Text="Сохранить" />
                         </StackPanel>
                     </Button>
                 </StackPanel>
             </Grid>
         </Grid>
+
+        <controls:GridSplitter Grid.Column="1" HorizontalAlignment="Left">
+            <controls:GridSplitter.RenderTransform>
+                <TranslateTransform X="-8" />
+            </controls:GridSplitter.RenderTransform>
+        </controls:GridSplitter>
     </Grid>
 </Page>

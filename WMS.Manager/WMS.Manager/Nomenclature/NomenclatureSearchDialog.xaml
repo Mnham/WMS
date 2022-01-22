@@ -17,14 +17,14 @@
         </Grid.RowDefinitions>
 
         <StackPanel Spacing="12">
-            <!--  TODO локализация  -->
+
             <StackPanel Orientation="Horizontal">
                 <TextBlock
-                    Width="140"
+                    Width="150"
                     VerticalAlignment="Center"
                     Text="Код номенклатуры" />
                 <TextBox
-                    Width="150"
+                    Width="200"
                     ui:TextBoxExtensions.ValidationMode="Dynamic"
                     ui:TextBoxExtensions.ValidationType="Number"
                     MaxLength="19"
@@ -33,22 +33,23 @@
 
             <StackPanel Orientation="Horizontal">
                 <TextBlock
-                    Width="140"
-                    VerticalAlignment="Center"
-                    Text="Наименование" />
-                <TextBox
                     Width="150"
+                    VerticalAlignment="Center"
+                    Text="Наименование 🛈"
+                    ToolTipService.ToolTip="_ = любой символ, % = любая строка" />
+                <TextBox
+                    Width="200"
                     MaxLength="256"
                     Text="{x:Bind NomenclatureName, Mode=TwoWay}" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
                 <TextBlock
-                    Width="140"
+                    Width="150"
                     VerticalAlignment="Center"
                     Text="Тип" />
                 <ComboBox
-                    Width="150"
+                    Width="200"
                     DisplayMemberPath="Name"
                     ItemsSource="{x:Bind NomenclatureTypeViewModels}"
                     SelectedValue="{x:Bind NomenclatureTypeId, Mode=TwoWay}"
@@ -64,14 +65,14 @@
             Spacing="32">
 
             <Button Width="120" Click="CancelButtonClickHandler">
-                <TextBlock x:Uid="CancelTextBlock" d:Text="Отмена" />
+                <TextBlock Text="Отмена" />
             </Button>
 
             <Button
                 Width="120"
                 Click="FindButtonClickHandler"
                 Style="{StaticResource AccentButtonStyle}">
-                <TextBlock x:Uid="NoTextBlock" d:Text="Найти" />
+                <TextBlock Text="Найти" />
             </Button>
         </StackPanel>
     </Grid>

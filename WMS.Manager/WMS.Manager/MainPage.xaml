@@ -10,6 +10,7 @@
 
     <muxc:NavigationView
         AlwaysShowHeader="False"
+        IsBackButtonVisible="Collapsed"
         IsPaneOpen="False"
         PaneDisplayMode="Top"
         SelectionChanged="NavigationView_SelectionChanged">
