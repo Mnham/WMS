@@ -1,59 +1,59 @@
 ﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
 
+using WMS.Manager.Domain.Interfaces;
 using WMS.NomenclatureService.Grpc;
 
 namespace WMS.Manager.Nomenclature
 {
-    public class NomenclatureEditorViewModel : ObservableObject
+    public class NomenclatureEditorViewModel : ObservableObject, IGrpcModelEditor<NomenclatureGrpc, NomenclatureViewModel>
     {
-        private string id;
-        private string name;
-        private NomenclatureTypeGrpc type;
-        private string length;
-        private string width;
-        private string height;
-        private string weight;
+        private string _height;
+        private string _id;
+        private string _length;
+        private string _name;
+        private NomenclatureTypeGrpc _type;
+        private string _weight;
+        private string _width;
+
+        public string Height
+        {
+            get => _height;
+            set => SetProperty(ref _height, value);
+        }
 
         public string Id
         {
-            get => id;
-            set => SetProperty(ref id, value);
-        }
-
-        public string Name
-        {
-            get => name;
-            set => SetProperty(ref name, value);
-        }
-
-        public NomenclatureTypeGrpc Type
-        {
-            get => type;
-            set => SetProperty(ref type, value);
+            get => _id;
+            set => SetProperty(ref _id, value);
         }
 
         public string Length
         {
-            get => length;
-            set => SetProperty(ref length, value);
+            get => _length;
+            set => SetProperty(ref _length, value);
+        }
+
+        public string Name
+        {
+            get => _name;
+            set => SetProperty(ref _name, value);
+        }
+
+        public NomenclatureTypeGrpc Type
+        {
+            get => _type;
+            set => SetProperty(ref _type, value);
+        }
+        public string Weight
+        {
+            get => _weight;
+            set => SetProperty(ref _weight, value);
         }
 
         public string Width
         {
-            get => width;
-            set => SetProperty(ref width, value);
-        }
-
-        public string Height
-        {
-            get => height;
-            set => SetProperty(ref height, value);
-        }
-
-        public string Weight
-        {
-            get => weight;
-            set => SetProperty(ref weight, value);
+            get => _width;
+            set => SetProperty(ref _width, value);
         }
 
         public bool CanSaveChange() =>
@@ -64,7 +64,7 @@ namespace WMS.Manager.Nomenclature
             && string.IsNullOrWhiteSpace(Height) == false
             && string.IsNullOrWhiteSpace(Weight) == false;
 
-        public NomenclatureGrpc GetNewNomenclatureGrpc() => new()
+        public NomenclatureGrpc GetNewGrpcModel() => new()
         {
             Id = long.TryParse(Id, out long id) ? id : 0,
             Name = Name,
@@ -75,17 +75,6 @@ namespace WMS.Manager.Nomenclature
             Weight = int.TryParse(Weight, out int weight) ? weight : 0
         };
 
-        public void Update(NomenclatureViewModel model)
-        {
-            Name = model.Name;
-            Type = model.Type;
-            Length = model.Length.ToString();
-            Width = model.Width.ToString();
-            Height = model.Height.ToString();
-            Weight = model.Weight.ToString();
-            Id = model.Id.ToString();
-        }
-
         public void Reset()
         {
             Name = default;
@@ -95,6 +84,17 @@ namespace WMS.Manager.Nomenclature
             Height = default;
             Weight = default;
             Id = default;
+        }
+
+        public void Update(NomenclatureViewModel model)
+        {
+            Name = model.Name;
+            Type = model.Type;
+            Length = model.Length.ToString();
+            Width = model.Width.ToString();
+            Height = model.Height.ToString();
+            Weight = model.Weight.ToString();
+            Id = model.Id.ToString();
         }
     }
 }

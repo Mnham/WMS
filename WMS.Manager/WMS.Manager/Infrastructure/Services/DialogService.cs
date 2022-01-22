@@ -6,6 +6,7 @@ using Windows.UI.Xaml.Controls;
 
 using WMS.Manager.Infrastructure.Helpers;
 using WMS.Manager.Nomenclature;
+using WMS.Manager.NomenclatureType;
 
 namespace WMS.Manager.Infrastructure.Services;
 

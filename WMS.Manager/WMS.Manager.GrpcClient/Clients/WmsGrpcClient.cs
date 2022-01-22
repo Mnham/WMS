@@ -17,12 +17,6 @@ namespace WMS.Manager.GrpcClient.Clients
 {
     public class WmsGrpcClient
     {
-        public Action<Exception> ExceptionHandler { get; set; }
-
-        private NomenclatureGrpcServiceClient Nomenclature { get; }
-
-        private NomenclatureTypeGrpcServiceClient NomenclatureType { get; }
-
         public WmsGrpcClient()
         {
             Nomenclature = new NomenclatureGrpcServiceClient(GrpcChannel.ForAddress("http://localhost:8010", new GrpcChannelOptions
@@ -36,9 +30,11 @@ namespace WMS.Manager.GrpcClient.Clients
             }));
         }
 
-        public async Task<RequestResult<NomenclatureGrpc>> NomenclatureUpdateAsync(NomenclatureGrpc nomenclature)
-            => await Execute(async () => await Nomenclature.UpdateAsync(nomenclature));
+        public Action<Exception> ExceptionHandler { get; set; }
 
+        private NomenclatureGrpcServiceClient Nomenclature { get; }
+
+        private NomenclatureTypeGrpcServiceClient NomenclatureType { get; }
         public async Task<RequestResult<NomenclatureGrpc>> NomenclatureInsertAsync(NomenclatureGrpc nomenclature)
             => await Execute(async () => await Nomenclature.InsertAsync(nomenclature));
 
@@ -53,6 +49,9 @@ namespace WMS.Manager.GrpcClient.Clients
 
         public async Task<RequestResult<NomenclatureTypeGrpc>> NomenclatureTypeUpdateAsync(NomenclatureTypeGrpc nomenclatureType)
             => await Execute(async () => await NomenclatureType.UpdateAsync(nomenclatureType));
+
+        public async Task<RequestResult<NomenclatureGrpc>> NomenclatureUpdateAsync(NomenclatureGrpc nomenclature)
+            => await Execute(async () => await Nomenclature.UpdateAsync(nomenclature));
 
         private async Task<RequestResult<T>> Execute<T>(Func<Task<T>> func) where T : IMessage<T>
         {
