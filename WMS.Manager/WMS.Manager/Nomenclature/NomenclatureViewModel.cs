@@ -12,6 +12,7 @@ namespace WMS.Manager.Nomenclature
         public string Name => Model.Name;
 
         public NomenclatureTypeGrpc Type => Model.Type;
+        public string Volume => (Length * Width * Height / 1000000000.0).ToString("F9");
         public int Weight => Model.Weight;
         public long Width => Model.Width;
         public void UpdateType(NomenclatureTypeGrpc type) => Model.Type = type;

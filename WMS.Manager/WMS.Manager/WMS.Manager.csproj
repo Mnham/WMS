@@ -231,16 +231,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\en-US\Resources.resw" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\WMS.Manager.GrpcClient\WMS.Manager.GrpcClient.csproj">
       <Project>{eeb21f1f-22cf-4104-aab7-9b65830cde10}</Project>
       <Name>WMS.Manager.GrpcClient</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <PRIResource Include="Strings\ru-RU\Resources.resw" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
