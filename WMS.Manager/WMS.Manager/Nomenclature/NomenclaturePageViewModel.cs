@@ -1,103 +1,90 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
+﻿using Microsoft.Toolkit.Mvvm.Input;
 
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 
+using WMS.Manager.Domain.ViewModels;
 using WMS.Manager.GrpcClient.Clients;
 using WMS.Manager.Infrastructure.Services;
+using WMS.Manager.NomenclatureType;
 using WMS.NomenclatureService.Grpc;
 
 namespace WMS.Manager.Nomenclature
 {
-    public class NomenclaturePageViewModel : ObservableObject
+    public class NomenclaturePageViewModel : PageViewModel<
+        NomenclatureGrpc,
+        NomenclatureViewModel,
+        NomenclatureEditorViewModel>
     {
-        private readonly WmsGrpcClient _grpcClient;
         private readonly DialogService _serviceDialog;
-        private NomenclatureViewModel selectedNomenclature;
+        private RelayCommand _searchCommand;
 
-        public NomenclaturePageViewModel(WmsGrpcClient grpcClient, DialogService serviceDialog)
+        public NomenclaturePageViewModel(WmsGrpcClient grpcClient, DialogService serviceDialog) : base(grpcClient)
         {
-            _grpcClient = grpcClient;
             _serviceDialog = serviceDialog;
             LoadNomenclatureTypes();
         }
 
+        public new NomenclatureEditorViewModel Editor => (NomenclatureEditorViewModel)base.Editor;
+        public ObservableCollection<NomenclatureTypeViewModel> NomenclatureTypes { get; } = new();
+
+        public RelayCommand SearchCommand => _searchCommand ??= new(async () =>
+        {
+            NomenclatureSearchDialog dialog = await _serviceDialog.ShowNomenclatureSearchDialogAsync(NomenclatureTypes);
+            if (dialog.IsDone == false)
+            {
+                return;
+            }
+
+            Items.Clear();
+
+            RequestResult<NomenclatureList> result = await GrpcClient.NomenclatureSearchAsync(new NomenclatureSearchFilter()
+            {
+                NomenclatureId = dialog.NomenclatureIdResult,
+                NomenclatureName = dialog.NomenclatureNameResult,
+                NomenclatureTypeId = dialog.NomenclatureTypeIdResult
+            });
+
+            if (result.IsSuccess)
+            {
+                foreach (NomenclatureGrpc item in result.Response.Nomenclatures)
+                {
+                    NomenclatureViewModel vm = new();
+                    vm.SetModel(item);
+                    Items.Add(vm);
+                }
+            }
+        });
+
+        protected override async Task<RequestResult<NomenclatureGrpc>> InsertAsync() =>
+            await GrpcClient.NomenclatureInsertAsync(Editor.GetNewGrpcModel());
+        protected override async Task<RequestResult<NomenclatureGrpc>> UpdateAsync() =>
+            await GrpcClient.NomenclatureUpdateAsync(Editor.GetNewGrpcModel());
+
+        protected override void UpdateSelectedItem(NomenclatureViewModel selectedItem)
+        {
+            NomenclatureTypeGrpc nomenclatureType = NomenclatureTypes.First(t => t.Id == selectedItem.Type.Id).Model;
+            selectedItem.UpdateType(nomenclatureType);
+        }
+
+        private void EditorPropertyChangedHandler(object sender, PropertyChangedEventArgs e) =>
+            SaveCommand.NotifyCanExecuteChanged();
+
+
         private async void LoadNomenclatureTypes()
         {
-            RequestResult<NomenclatureTypeList> result = await _grpcClient.NomenclatureTypeGetAllAsync();
+            RequestResult<NomenclatureTypeList> result = await GrpcClient.NomenclatureTypeGetAllAsync();
             if (result.IsSuccess)
             {
                 foreach (NomenclatureTypeGrpc type in result.Response.NomenclatureTypes)
                 {
-                    NomenclatureTypes.Add(new NomenclatureTypeViewModel(type));
+                    NomenclatureTypeViewModel vm = new();
+                    vm.SetModel(type);
+                    NomenclatureTypes.Add(vm);
                 }
             }
         }
-
-        public RelayCommand SaveCommand => new(
-            async () =>
-            {
-                RequestResult<NomenclatureGrpc> result = await _grpcClient.NomenclatureUpdateAsync(new NomenclatureGrpc());
-                if (result.IsSuccess)
-                {
-                }
-            });
-
-        public RelayCommand AddCommand => new(
-            () =>
-            {
-            });
-
-        public RelayCommand SearchCommand => new(
-            async () =>
-            {
-                NomenclatureSearchDialog dialog = await _serviceDialog.ShowNomenclatureSearchDialogAsync(NomenclatureTypes);
-                if (dialog.IsDone == false)
-                {
-                    return;
-                }
-
-                Nomenclatures.Clear();
-
-                RequestResult<NomenclatureList> result = await _grpcClient.NomenclatureSearchAsync(new NomenclatureSearchFilter()
-                {
-                    NomenclatureId = dialog.NomenclatureIdResult,
-                    NomenclatureName = dialog.NomenclatureNameResult,
-                    NomenclatureTypeId = dialog.NomenclatureTypeIdResult
-                });
-
-                if (result.IsSuccess)
-                {
-                    foreach (NomenclatureGrpc item in result.Response.Nomenclatures)
-                    {
-                        Nomenclatures.Add(new NomenclatureViewModel(item));
-                    }
-                }
-            });
-
-        public NomenclatureEditorViewModel Editor { get; } = new();
-
-        public NomenclatureViewModel SelectedNomenclature
-        {
-            get => selectedNomenclature;
-            set
-            {
-                selectedNomenclature = value;
-                if (value is null)
-                {
-                    Editor.Reset();
-                }
-                else
-                {
-                    value.UpdateType(NomenclatureTypes.First(t => t.Id == value.Type.Id).Model);
-                    Editor.Update(value);
-                }
-            }
-        }
-
-        public ObservableCollection<NomenclatureTypeViewModel> NomenclatureTypes { get; } = new();
-
-        public ObservableCollection<NomenclatureViewModel> Nomenclatures { get; } = new();
     }
 }

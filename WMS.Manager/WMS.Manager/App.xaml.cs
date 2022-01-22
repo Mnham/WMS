@@ -18,32 +18,16 @@ using WMS.Manager.GrpcClient.Clients;
 using WMS.Manager.Infrastructure.Helpers;
 using WMS.Manager.Infrastructure.Services;
 using WMS.Manager.Nomenclature;
+using WMS.Manager.NomenclatureType;
 
 namespace WMS.Manager
 {
     public sealed partial class App : Application
     {
-        public static new App Current => (App)Application.Current;
-
-        public IServiceProvider Services { get; }
-
-        private static IServiceProvider ConfigureServices() =>
-            new ServiceCollection()
-            .AddSingleton<DialogService>()
-            .AddSingleton<WmsGrpcClient>()
-            .AddTransient<NomenclaturePageViewModel>()
-            .BuildServiceProvider();
-
-        public static void ConfigureLogger() =>
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Verbose()
-                .WriteTo.Console(theme: AnsiConsoleTheme.Code)
-                .CreateLogger();
-
         public App()
         {
             ConfigureLogger();
-            NativeMethods.AllocConsole();
+            //NativeMethods.AllocConsole();
 
             string[] langs = new string[]
             {
@@ -66,13 +50,15 @@ namespace WMS.Manager
             InitializeComponent();
         }
 
-        private void ConfigureWmsGrpcClient()
-        {
-            WmsGrpcClient grpcClient = Services.GetService<WmsGrpcClient>();
-            DialogService serviceDialog = Services.GetService<DialogService>();
+        public static new App Current => (App)Application.Current;
 
-            grpcClient.ExceptionHandler = async ex => await serviceDialog.ShowExceptionDialogAsync(ex);
-        }
+        public IServiceProvider Services { get; }
+
+        public static void ConfigureLogger() =>
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Verbose()
+                .WriteTo.Console(theme: AnsiConsoleTheme.Code)
+                .CreateLogger();
 
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
@@ -84,12 +70,6 @@ namespace WMS.Manager
             if (Window.Current.Content is not Frame rootFrame)
             {
                 rootFrame = new Frame();
-
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
-                    //TODO: Загрузить состояние из ранее приостановленного приложения
-                }
-
                 Window.Current.Content = rootFrame;
             }
 
@@ -103,6 +83,22 @@ namespace WMS.Manager
                 Window.Current.Activate();
                 ThemeHelper.Initialize();
             }
+        }
+
+        private static IServiceProvider ConfigureServices() =>
+                            new ServiceCollection()
+            .AddSingleton<DialogService>()
+            .AddSingleton<WmsGrpcClient>()
+            .AddTransient<NomenclaturePageViewModel>()
+            .AddTransient<NomenclatureTypePageViewModel>()
+            .BuildServiceProvider();
+
+        private void ConfigureWmsGrpcClient()
+        {
+            WmsGrpcClient grpcClient = Services.GetService<WmsGrpcClient>();
+            DialogService serviceDialog = Services.GetService<DialogService>();
+
+            grpcClient.ExceptionHandler = async ex => await serviceDialog.ShowExceptionDialogAsync(ex);
         }
     }
 

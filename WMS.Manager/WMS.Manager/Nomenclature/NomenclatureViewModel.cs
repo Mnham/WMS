@@ -1,38 +1,20 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
-
+﻿using WMS.Manager.Domain.ViewModels;
 using WMS.NomenclatureService.Grpc;
 
 namespace WMS.Manager.Nomenclature
 {
-    public class NomenclatureViewModel : ObservableObject
+    public class NomenclatureViewModel : GrpcViewModel<NomenclatureGrpc>
     {
-        private NomenclatureGrpc _model;
+        public long Height => Model.Height;
+        public long Id => Model.Id;
 
-        public NomenclatureViewModel(NomenclatureGrpc model) => _model = model;
+        public long Length => Model.Length;
+        public string Name => Model.Name;
 
-        public long Id => _model.Id;
-
-        public string Name => _model.Name;
-
-        public NomenclatureTypeGrpc Type => _model.Type;
-
-        public long Length => _model.Length;
-
-        public long Width => _model.Width;
-
-        public long Height => _model.Height;
-
-        public int Weight => _model.Weight;
-
-        public void Update(NomenclatureGrpc model)
-        {
-            _model = model;
-            OnPropertyChanged(string.Empty);
-        }
-
-        public void UpdateType(NomenclatureTypeGrpc type)
-        {
-            _model.Type = type;
-        }
+        public NomenclatureTypeGrpc Type => Model.Type;
+        public string Volume => (Length * Width * Height / 1000000000.0).ToString("F9");
+        public int Weight => Model.Weight;
+        public long Width => Model.Width;
+        public void UpdateType(NomenclatureTypeGrpc type) => Model.Type = type;
     }
 }

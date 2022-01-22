@@ -10,6 +10,7 @@
 
     <muxc:NavigationView
         AlwaysShowHeader="False"
+        IsBackButtonVisible="Collapsed"
         IsPaneOpen="False"
         PaneDisplayMode="Top"
         SelectionChanged="NavigationView_SelectionChanged">
@@ -23,7 +24,7 @@
                     <muxc:NavigationViewItem
                         Content="Тип номенклатуры"
                         Icon="List"
-                        Tag="SamplePage4" />
+                        Tag="WMS.Manager.NomenclatureType.NomenclatureTypePage" />
                 </muxc:NavigationViewItem.MenuItems>
             </muxc:NavigationViewItem>
         </muxc:NavigationView.MenuItems>
