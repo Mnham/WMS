@@ -56,8 +56,57 @@ namespace WMS.NomenclatureService.Domain.Infrastructure.Repositories.Implementat
             return result.ToList();
         }
 
-        public Task<NomenclatureType> Insert(NomenclatureType nomenclatureType, CancellationToken cancellationToken) => throw new System.NotImplementedException();
+        public async Task<NomenclatureType> Insert(NomenclatureType itemToInsert, CancellationToken cancellationToken)
+        {
+            const string sql = @"
+                INSERT INTO nomenclature_type (name)
+                VALUES (@Name)
+                RETURNING id ;";
 
-        public Task<NomenclatureType> Update(NomenclatureType nomenclatureType, CancellationToken cancellationToken) => throw new System.NotImplementedException();
+            var parameters = new
+            {
+                Name = itemToInsert.Name
+            };
+
+            using NpgsqlConnection connection = new(_options.ConnectionString);
+            await connection.OpenAsync(cancellationToken);
+
+            CommandDefinition commandDefinition = new(
+                sql,
+                parameters: parameters,
+                commandTimeout: TIMEOUT,
+                cancellationToken: cancellationToken);
+
+            return await _queryExecutor.Execute(itemToInsert, async () =>
+            {
+                long id = await connection.QuerySingleAsync<long>(commandDefinition);
+                itemToInsert.SetId(id);
+            });
+        }
+
+        public async Task<NomenclatureType> Update(NomenclatureType itemToUpdate, CancellationToken cancellationToken)
+        {
+            const string sql = @"
+                UPDATE nomenclature_type
+                SET name = @Name
+                WHERE id = @NomenclatureTypeId ;";
+
+            var parameters = new
+            {
+                NomenclatureTypeId = itemToUpdate.Id,
+                Name = itemToUpdate.Name,
+            };
+
+            using NpgsqlConnection connection = new(_options.ConnectionString);
+            await connection.OpenAsync(cancellationToken);
+
+            CommandDefinition commandDefinition = new(
+                sql,
+                parameters: parameters,
+                commandTimeout: TIMEOUT,
+                cancellationToken: cancellationToken);
+
+            return await _queryExecutor.Execute(itemToUpdate, async () => await connection.ExecuteAsync(commandDefinition));
+        }
     }
 }

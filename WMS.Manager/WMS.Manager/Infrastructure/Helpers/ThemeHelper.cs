@@ -5,31 +5,31 @@ namespace WMS.Manager.Infrastructure.Helpers;
 
 public static class ThemeHelper
 {
-    private const string SelectedAppThemeKey = "SelectedAppTheme";
-    private static Window CurrentWindow;
+    private const string SELECTED_APP_THEME_KEY = "SelectedAppTheme";
+    private static Window _currentWindow;
 
-    public static ElementTheme ActualTheme => ((FrameworkElement)CurrentWindow.Content).RequestedTheme;
+    public static ElementTheme ActualTheme => ((FrameworkElement)_currentWindow.Content).RequestedTheme;
 
     public static ElementTheme RootTheme
     {
-        get => CurrentWindow.Content is FrameworkElement rootElement
+        get => _currentWindow.Content is FrameworkElement rootElement
             ? rootElement.RequestedTheme
             : ElementTheme.Default;
         set
         {
-            if (CurrentWindow.Content is FrameworkElement rootElement)
+            if (_currentWindow.Content is FrameworkElement rootElement)
             {
                 rootElement.RequestedTheme = value;
             }
 
-            ApplicationData.Current.LocalSettings.Values[SelectedAppThemeKey] = value.ToString();
+            ApplicationData.Current.LocalSettings.Values[SELECTED_APP_THEME_KEY] = value.ToString();
         }
     }
 
     public static void Initialize()
     {
-        CurrentWindow = Window.Current;
-        string savedTheme = ApplicationData.Current.LocalSettings.Values[SelectedAppThemeKey]?.ToString();
+        _currentWindow = Window.Current;
+        string savedTheme = ApplicationData.Current.LocalSettings.Values[SELECTED_APP_THEME_KEY]?.ToString();
 
         if (savedTheme is not null)
         {

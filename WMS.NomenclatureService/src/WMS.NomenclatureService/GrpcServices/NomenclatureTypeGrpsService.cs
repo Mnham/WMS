@@ -1,9 +1,11 @@
-﻿using Google.Protobuf.WellKnownTypes;
+﻿using Google.Protobuf;
+using Google.Protobuf.WellKnownTypes;
 
 using Grpc.Core;
 
 using MediatR;
 
+using System;
 using System.Threading.Tasks;
 
 using WMS.ClassLibrary.Extensions;
@@ -30,8 +32,38 @@ namespace WMS.NomenclatureService.GrpcServices
             };
         }
 
-        public override Task<NomenclatureTypeGrpc> Insert(NomenclatureTypeGrpc request, ServerCallContext context) => base.Insert(request, context);
+        public override async Task<NomenclatureTypeGrpc> Insert(NomenclatureTypeGrpc request, ServerCallContext context) =>
+            await Execute(async () =>
+            {
+                InsertNomenclatureTypeQueryResponse response = await _mediator.Send(new InsertNomenclatureTypeQuery()
+                {
+                    NomenclatureType = NomenclatureTypeMapper.GrpcToDto(request)
+                }, context.CancellationToken);
 
-        public override Task<NomenclatureTypeGrpc> Update(NomenclatureTypeGrpc request, ServerCallContext context) => base.Update(request, context);
+                return NomenclatureTypeMapper.DtoToGrpc(response.NomenclatureType);
+            });
+
+        public override async Task<NomenclatureTypeGrpc> Update(NomenclatureTypeGrpc request, ServerCallContext context) =>
+            await Execute(async () =>
+            {
+                UpdateNomenclatureTypeQueryResponse response = await _mediator.Send(new UpdateNomenclatureTypeQuery()
+                {
+                    NomenclatureType = NomenclatureTypeMapper.GrpcToDto(request)
+                }, context.CancellationToken);
+
+                return NomenclatureTypeMapper.DtoToGrpc(response.NomenclatureType);
+            });
+
+        private static async Task<T> Execute<T>(Func<Task<T>> func) where T : IMessage<T>
+        {
+            try
+            {
+                return await func();
+            }
+            catch (ArgumentException ex)
+            {
+                throw new RpcException(new Status(StatusCode.InvalidArgument, ex.Message));
+            }
+        }
     }
 }
