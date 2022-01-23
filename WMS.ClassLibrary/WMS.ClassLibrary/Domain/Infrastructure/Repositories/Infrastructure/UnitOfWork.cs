@@ -1,4 +1,4 @@
-using MediatR;
+п»їusing MediatR;
 
 using Microsoft.Extensions.Options;
 
@@ -18,32 +18,32 @@ using WMS.ClassLibrary.Domain.Models;
 namespace WMS.ClassLibrary.Domain.Infrastructure.Repositories.Infrastructure
 {
     /// <summary>
-    /// Представляет обработку транзакции.
+    /// РџСЂРµРґСЃС‚Р°РІР»СЏРµС‚ РѕР±СЂР°Р±РѕС‚РєСѓ С‚СЂР°РЅР·Р°РєС†РёРё.
     /// </summary>
     public class UnitOfWork : IUnitOfWork
     {
         /// <summary>
-        /// Список сущностей.
+        /// РЎРїРёСЃРѕРє СЃСѓС‰РЅРѕСЃС‚РµР№.
         /// </summary>
         private readonly IEnumerable<Entity> _trackedEntities;
 
         /// <summary>
-        /// Настройки подключения к базе данных.
+        /// РќР°СЃС‚СЂРѕР№РєРё РїРѕРґРєР»СЋС‡РµРЅРёСЏ Рє Р±Р°Р·Рµ РґР°РЅРЅС‹С….
         /// </summary>
         private readonly DatabaseConnectionOptions _options;
 
         /// <summary>
-        /// Экземпляр класса для публикации уведомлений.
+        /// Р­РєР·РµРјРїР»СЏСЂ РєР»Р°СЃСЃР° РґР»СЏ РїСѓР±Р»РёРєР°С†РёРё СѓРІРµРґРѕРјР»РµРЅРёР№.
         /// </summary>
         private readonly IPublisher _publisher;
 
         /// <summary>
-        /// Транзакция.
+        /// РўСЂР°РЅР·Р°РєС†РёСЏ.
         /// </summary>
         private NpgsqlTransaction _npgsqlTransaction;
 
         /// <summary>
-        /// Создает экземпляр класса <see cref="UnitOfWork"/>.
+        /// РЎРѕР·РґР°РµС‚ СЌРєР·РµРјРїР»СЏСЂ РєР»Р°СЃСЃР° <see cref="UnitOfWork"/>.
         /// </summary>
         public UnitOfWork(
             IOptions<DatabaseConnectionOptions> options,
@@ -56,12 +56,12 @@ namespace WMS.ClassLibrary.Domain.Infrastructure.Repositories.Infrastructure
         }
 
         /// <summary>
-        /// Освобождает ресурсы.
+        /// РћСЃРІРѕР±РѕР¶РґР°РµС‚ СЂРµСЃСѓСЂСЃС‹.
         /// </summary>
         void IDisposable.Dispose() => _npgsqlTransaction?.Dispose();
 
         /// <summary>
-        /// Сохраняет изменения.
+        /// РЎРѕС…СЂР°РЅСЏРµС‚ РёР·РјРµРЅРµРЅРёСЏ.
         /// </summary>
         public async Task SaveChanges(CancellationToken token)
         {
@@ -89,7 +89,7 @@ namespace WMS.ClassLibrary.Domain.Infrastructure.Repositories.Infrastructure
         }
 
         /// <summary>
-        /// Начинает транзакцию.
+        /// РќР°С‡РёРЅР°РµС‚ С‚СЂР°РЅР·Р°РєС†РёСЋ.
         /// </summary>
         public async ValueTask StartTransaction(CancellationToken token)
         {

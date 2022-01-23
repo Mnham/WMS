@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Hosting;
+п»їusing Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
 using Serilog;
@@ -6,17 +6,17 @@ using Serilog;
 namespace WMS.NomenclatureService
 {
     /// <summary>
-    /// Представляет точку входа.
+    /// РџСЂРµРґСЃС‚Р°РІР»СЏРµС‚ С‚РѕС‡РєСѓ РІС…РѕРґР°.
     /// </summary>
     public class Program
     {
         /// <summary>
-        /// Точка входа.
+        /// РўРѕС‡РєР° РІС…РѕРґР°.
         /// </summary>
         public static void Main(string[] args) => CreateHostBuilder(args).Build().Run();
 
         /// <summary>
-        /// Конфигурирует хост.
+        /// РљРѕРЅС„РёРіСѓСЂРёСЂСѓРµС‚ С…РѕСЃС‚.
         /// </summary>
         public static IHostBuilder CreateHostBuilder(string[] args) =>
          Host.CreateDefaultBuilder(args)

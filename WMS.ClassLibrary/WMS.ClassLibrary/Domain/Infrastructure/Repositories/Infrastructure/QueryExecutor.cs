@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,22 +9,22 @@ using WMS.ClassLibrary.Domain.Models;
 namespace WMS.ClassLibrary.Domain.Infrastructure.Repositories.Infrastructure
 {
     /// <summary>
-    /// Представляет обработку запроса к базе данных.
+    /// РџСЂРµРґСЃС‚Р°РІР»СЏРµС‚ РѕР±СЂР°Р±РѕС‚РєСѓ Р·Р°РїСЂРѕСЃР° Рє Р±Р°Р·Рµ РґР°РЅРЅС‹С….
     /// </summary>
     public class QueryExecutor : IQueryExecutor
     {
         /// <summary>
-        /// Экземпляр класса для отслеживания изменений.
+        /// Р­РєР·РµРјРїР»СЏСЂ РєР»Р°СЃСЃР° РґР»СЏ РѕС‚СЃР»РµР¶РёРІР°РЅРёСЏ РёР·РјРµРЅРµРЅРёР№.
         /// </summary>
         private readonly IChangeTracker _changeTracker;
 
         /// <summary>
-        /// Создает экземпляр класса <see cref="QueryExecutor"/>.
+        /// РЎРѕР·РґР°РµС‚ СЌРєР·РµРјРїР»СЏСЂ РєР»Р°СЃСЃР° <see cref="QueryExecutor"/>.
         /// </summary>
         public QueryExecutor(IChangeTracker changeTracker) => _changeTracker = changeTracker;
 
         /// <summary>
-        /// Обрабатывает запрос к базе данных.
+        /// РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ Р·Р°РїСЂРѕСЃ Рє Р±Р°Р·Рµ РґР°РЅРЅС‹С….
         /// </summary>
         public async Task<T> Execute<T>(T entity, Func<Task> method) where T : Entity
         {
@@ -35,7 +35,7 @@ namespace WMS.ClassLibrary.Domain.Infrastructure.Repositories.Infrastructure
         }
 
         /// <summary>
-        /// Обрабатывает запрос к базе данных.
+        /// РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ Р·Р°РїСЂРѕСЃ Рє Р±Р°Р·Рµ РґР°РЅРЅС‹С….
         /// </summary>
         public async Task<T> Execute<T>(Func<Task<T>> method) where T : Entity
         {
@@ -46,7 +46,7 @@ namespace WMS.ClassLibrary.Domain.Infrastructure.Repositories.Infrastructure
         }
 
         /// <summary>
-        /// Обрабатывает запрос к базе данных.
+        /// РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ Р·Р°РїСЂРѕСЃ Рє Р±Р°Р·Рµ РґР°РЅРЅС‹С….
         /// </summary>
         public async Task<IEnumerable<T>> Execute<T>(Func<Task<IEnumerable<T>>> method) where T : Entity
         {

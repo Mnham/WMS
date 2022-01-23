@@ -1,4 +1,4 @@
-using MediatR;
+п»їusing MediatR;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -15,22 +15,22 @@ using WMS.NomenclatureService.GrpcServices;
 namespace WMS.NomenclatureService
 {
     /// <summary>
-    /// Представляет конфигурацию приложения.
+    /// РџСЂРµРґСЃС‚Р°РІР»СЏРµС‚ РєРѕРЅС„РёРіСѓСЂР°С†РёСЋ РїСЂРёР»РѕР¶РµРЅРёСЏ.
     /// </summary>
     public class Startup
     {
         /// <summary>
-        /// Конфигурация.
+        /// РљРѕРЅС„РёРіСѓСЂР°С†РёСЏ.
         /// </summary>
         public IConfiguration Configuration { get; }
 
         /// <summary>
-        /// Создает экземпляр класса <see cref="Startup"/>.
+        /// РЎРѕР·РґР°РµС‚ СЌРєР·РµРјРїР»СЏСЂ РєР»Р°СЃСЃР° <see cref="Startup"/>.
         /// </summary>
         public Startup(IConfiguration configuration) => Configuration = configuration;
 
         /// <summary>
-        /// Конфигурирует способ ответа на запрос.
+        /// РљРѕРЅС„РёРіСѓСЂРёСЂСѓРµС‚ СЃРїРѕСЃРѕР± РѕС‚РІРµС‚Р° РЅР° Р·Р°РїСЂРѕСЃ.
         /// </summary>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) =>
             app.UseRouting()
@@ -43,7 +43,7 @@ namespace WMS.NomenclatureService
                 });
 
         /// <summary>
-        /// Настраивает и регистрирует сервис при послуплении запроса.
+        /// РќР°СЃС‚СЂР°РёРІР°РµС‚ Рё СЂРµРіРёСЃС‚СЂРёСЂСѓРµС‚ СЃРµСЂРІРёСЃ РїСЂРё РїРѕСЃР»СѓРїР»РµРЅРёРё Р·Р°РїСЂРѕСЃР°.
         /// </summary>
         public void ConfigureServices(IServiceCollection services)
         {

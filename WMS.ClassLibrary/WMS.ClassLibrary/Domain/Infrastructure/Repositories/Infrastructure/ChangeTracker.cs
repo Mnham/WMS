@@ -1,4 +1,4 @@
-using System.Collections.Concurrent;
+п»їusing System.Collections.Concurrent;
 using System.Collections.Generic;
 
 using WMS.ClassLibrary.Domain.Infrastructure.Repositories.Infrastructure.Contracts;
@@ -7,22 +7,22 @@ using WMS.ClassLibrary.Domain.Models;
 namespace WMS.ClassLibrary.Domain.Infrastructure.Repositories.Infrastructure
 {
     /// <summary>
-    /// Представляет отслеживание изменений.
+    /// РџСЂРµРґСЃС‚Р°РІР»СЏРµС‚ РѕС‚СЃР»РµР¶РёРІР°РЅРёРµ РёР·РјРµРЅРµРЅРёР№.
     /// </summary>
     public class ChangeTracker : IChangeTracker
     {
         /// <summary>
-        /// Список сущностей.
+        /// РЎРїРёСЃРѕРє СЃСѓС‰РЅРѕСЃС‚РµР№.
         /// </summary>
         private readonly ConcurrentBag<Entity> _usedEntitiesBackingField = new();
 
         /// <summary>
-        /// Список сущностей.
+        /// РЎРїРёСЃРѕРє СЃСѓС‰РЅРѕСЃС‚РµР№.
         /// </summary>
         public IEnumerable<Entity> TrackedEntities => _usedEntitiesBackingField.ToArray();
 
         /// <summary>
-        /// Добавляет сущность для отслеживания.
+        /// Р”РѕР±Р°РІР»СЏРµС‚ СЃСѓС‰РЅРѕСЃС‚СЊ РґР»СЏ РѕС‚СЃР»РµР¶РёРІР°РЅРёСЏ.
         /// </summary>
         public void Track(Entity entity) => _usedEntitiesBackingField.Add(entity);
     }

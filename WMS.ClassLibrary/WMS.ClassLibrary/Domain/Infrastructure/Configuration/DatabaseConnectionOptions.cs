@@ -1,12 +1,12 @@
-namespace WMS.ClassLibrary.Domain.Infrastructure.Configuration
+п»їnamespace WMS.ClassLibrary.Domain.Infrastructure.Configuration
 {
     /// <summary>
-    /// Представляет настройки подключения к базе данных.
+    /// РџСЂРµРґСЃС‚Р°РІР»СЏРµС‚ РЅР°СЃС‚СЂРѕР№РєРё РїРѕРґРєР»СЋС‡РµРЅРёСЏ Рє Р±Р°Р·Рµ РґР°РЅРЅС‹С….
     /// </summary>
     public sealed class DatabaseConnectionOptions
     {
         /// <summary>
-        /// Строка подключения.
+        /// РЎС‚СЂРѕРєР° РїРѕРґРєР»СЋС‡РµРЅРёСЏ.
         /// </summary>
         public string ConnectionString { get; set; }
     }

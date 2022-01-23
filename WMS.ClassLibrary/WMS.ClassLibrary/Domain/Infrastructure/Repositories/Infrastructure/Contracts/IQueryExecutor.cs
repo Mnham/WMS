@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,22 +7,22 @@ using WMS.ClassLibrary.Domain.Models;
 namespace WMS.ClassLibrary.Domain.Infrastructure.Repositories.Infrastructure.Contracts
 {
     /// <summary>
-    /// Интерфейс обработки запроса к базе данных.
+    /// РРЅС‚РµСЂС„РµР№СЃ РѕР±СЂР°Р±РѕС‚РєРё Р·Р°РїСЂРѕСЃР° Рє Р±Р°Р·Рµ РґР°РЅРЅС‹С….
     /// </summary>
     public interface IQueryExecutor
     {
         /// <summary>
-        /// Обрабатывает запрос к базе данных.
+        /// РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ Р·Р°РїСЂРѕСЃ Рє Р±Р°Р·Рµ РґР°РЅРЅС‹С….
         /// </summary>
         Task<T> Execute<T>(T entity, Func<Task> method) where T : Entity;
 
         /// <summary>
-        /// Обрабатывает запрос к базе данных.
+        /// РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ Р·Р°РїСЂРѕСЃ Рє Р±Р°Р·Рµ РґР°РЅРЅС‹С….
         /// </summary>
         Task<T> Execute<T>(Func<Task<T>> method) where T : Entity;
 
         /// <summary>
-        /// Обрабатывает запрос к базе данных.
+        /// РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ Р·Р°РїСЂРѕСЃ Рє Р±Р°Р·Рµ РґР°РЅРЅС‹С….
         /// </summary>
         Task<IEnumerable<T>> Execute<T>(Func<Task<IEnumerable<T>>> method) where T : Entity;
     }
