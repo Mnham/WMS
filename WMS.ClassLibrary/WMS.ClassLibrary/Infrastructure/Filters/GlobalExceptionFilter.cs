@@ -4,8 +4,14 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace WMS.ClassLibrary.Infrastructure.Filters
 {
+    /// <summary>
+    /// Представляет глобальную обработку исключений.
+    /// </summary>
     public class GlobalExceptionFilter : ExceptionFilterAttribute
     {
+        /// <summary>
+        /// Обрабатывает исключение.
+        /// </summary>
         public override void OnException(ExceptionContext context)
         {
             var resultObject = new

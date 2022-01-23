@@ -14,12 +14,24 @@ using WMS.NomenclatureService.GrpcServices;
 
 namespace WMS.NomenclatureService
 {
+    /// <summary>
+    /// Представляет конфигурацию приложения.
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// Конфигурация.
+        /// </summary>
         public IConfiguration Configuration { get; }
 
+        /// <summary>
+        /// Создает экземпляр класса <see cref="Startup"/>.
+        /// </summary>
         public Startup(IConfiguration configuration) => Configuration = configuration;
 
+        /// <summary>
+        /// Конфигурирует способ ответа на запрос.
+        /// </summary>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) =>
             app.UseRouting()
                 .UseGrpcWeb()
@@ -30,6 +42,9 @@ namespace WMS.NomenclatureService
                     endpoints.MapControllers();
                 });
 
+        /// <summary>
+        /// Настраивает и регистрирует сервис при послуплении запроса.
+        /// </summary>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDatabaseComponents(Configuration)

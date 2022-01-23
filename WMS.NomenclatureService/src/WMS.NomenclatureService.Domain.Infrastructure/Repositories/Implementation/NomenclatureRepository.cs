@@ -21,18 +21,38 @@ using static Dapper.SqlMapper;
 
 namespace WMS.NomenclatureService.Domain.Infrastructure.Repositories.Implementation
 {
+    /// <summary>
+    /// Представляет репозиторий номенклатуры.
+    /// </summary>
     public class NomenclatureRepository : INomenclatureRepository
     {
+        /// <summary>
+        /// Таймаут подключения к базе данных.
+        /// </summary>
         private const int TIMEOUT = 5;
+
+        /// <summary>
+        /// Настройки подключения к базе данных.
+        /// </summary>
         private readonly DatabaseConnectionOptions _options;
+
+        /// <summary>
+        /// Экземпляр класса для обработки запроса к базе данных.
+        /// </summary>
         private readonly IQueryExecutor _queryExecutor;
 
+        /// <summary>
+        /// Создает экземпляр класса <see cref="NomenclatureRepository"/>.
+        /// </summary>
         public NomenclatureRepository(IOptions<DatabaseConnectionOptions> options, IQueryExecutor queryExecutor)
         {
             _options = options.Value;
             _queryExecutor = queryExecutor;
         }
 
+        /// <summary>
+        /// Выполняет поиск.
+        /// </summary>
         public async Task<IReadOnlyCollection<Nomenclature>> Search(NomenclatureFilter filter, CancellationToken cancellationToken)
         {
             const string sql = @"
@@ -79,6 +99,9 @@ namespace WMS.NomenclatureService.Domain.Infrastructure.Repositories.Implementat
             return result.ToList();
         }
 
+        /// <summary>
+        /// Добавляет номенклатуру.
+        /// </summary>
         public async Task<Nomenclature> Insert(Nomenclature itemToInsert, CancellationToken cancellationToken)
         {
             const string sql = @"
@@ -126,6 +149,9 @@ namespace WMS.NomenclatureService.Domain.Infrastructure.Repositories.Implementat
             });
         }
 
+        /// <summary>
+        /// Обновляет номенклатуру.
+        /// </summary>
         public async Task<Nomenclature> Update(Nomenclature itemToUpdate, CancellationToken cancellationToken)
         {
             const string sql = @"
