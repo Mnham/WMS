@@ -8,36 +8,39 @@ using WMS.Manager.Infrastructure.Helpers;
 using WMS.Manager.Nomenclature;
 using WMS.Manager.NomenclatureType;
 
-namespace WMS.Manager.Infrastructure.Services;
-
-public class DialogService
+namespace WMS.Manager.Infrastructure.Services
 {
-    private ContentDialog _currentDialog;
-
-    public async Task ShowExceptionDialogAsync(Exception ex)
+    public class DialogService
     {
-        _currentDialog?.Hide();
-        _currentDialog = new ExceptionDialog(ex)
-        {
-            RequestedTheme = ThemeHelper.ActualTheme
-        };
-        await _currentDialog.ShowAsync();
-    }
+        private ContentDialog _currentDialog;
 
-    public async Task<NomenclatureSearchDialog> ShowNomenclatureSearchDialogAsync(IReadOnlyCollection<NomenclatureTypeViewModel> types)
-    {
-        NomenclatureSearchDialog dialog = new(types)
+        public async Task ShowExceptionDialogAsync(Exception ex)
         {
-            RequestedTheme = ThemeHelper.ActualTheme
-        };
-        if (_currentDialog?.IsLoaded == true)
-        {
-            return dialog;
+            _currentDialog?.Hide();
+            _currentDialog = new ExceptionDialog(ex)
+            {
+                RequestedTheme = ThemeHelper.ActualTheme
+            };
+            await _currentDialog.ShowAsync();
         }
 
-        _currentDialog = dialog;
-        await dialog.ShowAsync();
+        public async Task<NomenclatureSearchDialog> ShowNomenclatureSearchDialogAsync(IReadOnlyCollection<NomenclatureTypeViewModel> types)
+        {
+            NomenclatureSearchDialog dialog = new(types)
+            {
+                RequestedTheme = ThemeHelper.ActualTheme
+            };
+            if (_currentDialog?.IsLoaded == true)
+            {
+                return dialog;
+            }
 
-        return dialog;
+            _currentDialog = dialog;
+            await dialog.ShowAsync();
+
+            return dialog;
+        }
     }
+
 }
+

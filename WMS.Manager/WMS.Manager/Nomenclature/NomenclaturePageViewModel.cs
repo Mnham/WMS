@@ -40,7 +40,7 @@ namespace WMS.Manager.Nomenclature
 
             Items.Clear();
 
-            RequestResult<NomenclatureList> result = await GrpcClient.NomenclatureSearchAsync(new NomenclatureSearchFilter()
+            RequestResult<NomenclatureList> result = await GrpcClient.Nomenclature.SearchAsync(new NomenclatureSearchFilter()
             {
                 NomenclatureId = dialog.NomenclatureIdResult,
                 NomenclatureName = dialog.NomenclatureNameResult,
@@ -59,9 +59,9 @@ namespace WMS.Manager.Nomenclature
         });
 
         protected override async Task<RequestResult<NomenclatureGrpc>> InsertAsync() =>
-            await GrpcClient.NomenclatureInsertAsync(Editor.GetNewGrpcModel());
+            await GrpcClient.Nomenclature.InsertAsync(Editor.GetNewGrpcModel());
         protected override async Task<RequestResult<NomenclatureGrpc>> UpdateAsync() =>
-            await GrpcClient.NomenclatureUpdateAsync(Editor.GetNewGrpcModel());
+            await GrpcClient.Nomenclature.UpdateAsync(Editor.GetNewGrpcModel());
 
         protected override void UpdateSelectedItem(NomenclatureViewModel selectedItem)
         {
@@ -75,7 +75,7 @@ namespace WMS.Manager.Nomenclature
 
         private async void LoadNomenclatureTypes()
         {
-            RequestResult<NomenclatureTypeList> result = await GrpcClient.NomenclatureTypeGetAllAsync();
+            RequestResult<NomenclatureTypeList> result = await GrpcClient.NomenclatureType.GetAllAsync();
             if (result.IsSuccess)
             {
                 foreach (NomenclatureTypeGrpc type in result.Response.NomenclatureTypes)

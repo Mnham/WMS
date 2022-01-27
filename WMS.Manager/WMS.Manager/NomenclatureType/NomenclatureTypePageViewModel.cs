@@ -17,13 +17,13 @@ namespace WMS.Manager.NomenclatureType
         public new NomenclatureTypeEditorViewModel Editor => (NomenclatureTypeEditorViewModel)base.Editor;
 
         protected override async Task<RequestResult<NomenclatureTypeGrpc>> InsertAsync() =>
-            await GrpcClient.NomenclatureTypeInsertAsync(Editor.GetNewGrpcModel());
+            await GrpcClient.NomenclatureType.InsertAsync(Editor.GetNewGrpcModel());
 
         protected override async Task<RequestResult<NomenclatureTypeGrpc>> UpdateAsync() =>
-            await GrpcClient.NomenclatureTypeUpdateAsync(Editor.GetNewGrpcModel());
+            await GrpcClient.NomenclatureType.UpdateAsync(Editor.GetNewGrpcModel());
         private async void LoadNomenclatureTypes()
         {
-            RequestResult<NomenclatureTypeList> result = await GrpcClient.NomenclatureTypeGetAllAsync();
+            RequestResult<NomenclatureTypeList> result = await GrpcClient.NomenclatureType.GetAllAsync();
             if (result.IsSuccess)
             {
                 foreach (NomenclatureTypeGrpc type in result.Response.NomenclatureTypes)

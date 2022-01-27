@@ -98,7 +98,7 @@ namespace WMS.Manager
             WmsGrpcClient grpcClient = Services.GetService<WmsGrpcClient>();
             DialogService serviceDialog = Services.GetService<DialogService>();
 
-            grpcClient.ExceptionHandler = async ex => await serviceDialog.ShowExceptionDialogAsync(ex);
+            grpcClient.SetExceptionHandler(async ex => await serviceDialog.ShowExceptionDialogAsync(ex));
         }
     }
 
