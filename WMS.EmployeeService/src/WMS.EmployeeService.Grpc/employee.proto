@@ -1,0 +1,47 @@
+﻿syntax = "proto3";
+option csharp_namespace = "WMS.EmployeeService.Grpc";
+package EmployeeService;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+
+
+service EmployeeApiGrpc
+{
+    rpc Insert (EmployeeGrpc) returns (EmployeeGrpc) {}
+    rpc Update (EmployeeGrpc) returns (EmployeeGrpc) {}
+	rpc Search (EmployeeSearchFilter) returns (EmployeeList) {}
+}
+
+message EmployeeGrpc {
+    int64 id = 1;
+	string name = 2;
+}
+
+message EmployeeList {
+    repeated EmployeeGrpc employees = 1;
+}
+
+message EmployeeSearchFilter {
+    google.protobuf.Int64Value employee_id = 1;
+	google.protobuf.StringValue employee_name = 2;
+}
+
+
+service EmployeeSessionApiGrpc
+{
+    rpc Insert (EmployeeSessionGrpc) returns (EmployeeSessionGrpc) {}
+    rpc Update (EmployeeSessionGrpc) returns (EmployeeSessionGrpc) {}
+	rpc GetById (IntIdModel) returns (EmployeeSessionGrpc) {}
+}
+
+message EmployeeSessionGrpc {
+    int64 id = 1;
+	int64 employee_id = 2;
+	int64 task_type_id = 3;
+	int64 equipment_id = 4;
+}
+
+message IntIdModel{
+  int64 id = 1;
+}
