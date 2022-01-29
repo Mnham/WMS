@@ -1,4 +1,5 @@
-﻿using WMS.EmployeeService.Domain.Infrastructure.Models;
+﻿using WMS.EmployeeService.Domain.AggregationModels.EmployeeAggregate;
+using WMS.EmployeeService.Domain.Infrastructure.Models;
 using WMS.EmployeeService.Grpc;
 
 namespace WMS.EmployeeService.Domain.Infrastructure.Helpers
@@ -26,7 +27,7 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Helpers
         public static Employee DtoToEntity(EmployeeDto item) => new
         (
             item.Id,
-            item.Name,
+            item.Name
         );
     }
 }

@@ -13,12 +13,13 @@
     <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.3.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
-    <PackageReference Include="Test.WMS.ClassLibrary" Version="0.2.0-build.5" />
+    <PackageReference Include="Test.WMS.ClassLibrary" Version="0.2.0-build.7" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\WMS.EmployeeService.Domain.Infrastructure\WMS.EmployeeService.Domain.Infrastructure.csproj" />
     <ProjectReference Include="..\WMS.EmployeeService.Grpc\WMS.EmployeeService.Grpc.csproj" />
+    <ProjectReference Include="..\WMS.EmployeeService.Migrator\WMS.EmployeeService.Migrator.csproj" />
   </ItemGroup>
 
 </Project>

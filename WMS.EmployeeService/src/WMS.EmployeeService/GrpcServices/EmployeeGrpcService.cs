@@ -6,6 +6,7 @@ using MediatR;
 
 using WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeAggregate;
 using WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeAggregate.Responses;
+using WMS.EmployeeService.Domain.Infrastructure.Helpers;
 using WMS.EmployeeService.Grpc;
 
 namespace WMS.EmployeeService.GrpcServices
@@ -35,16 +36,10 @@ namespace WMS.EmployeeService.GrpcServices
             });
 
         public override async Task<EmployeeList> Search(EmployeeSearchFilter request, ServerCallContext context) =>
-            await HandleException(async () =>
-            {
-
-            });
+     throw new Exception();
 
         public override async Task<EmployeeGrpc> Update(EmployeeGrpc request, ServerCallContext context) =>
-            await HandleException(async () =>
-            {
-
-            });
+         throw new Exception();
 
         /// <summary>
         /// Обрабатывает исключение.

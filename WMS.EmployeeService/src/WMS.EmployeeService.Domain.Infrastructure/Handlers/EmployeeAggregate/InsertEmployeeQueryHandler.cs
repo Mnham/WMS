@@ -1,26 +1,28 @@
 ﻿using MediatR;
 
+using WMS.EmployeeService.Domain.AggregationModels.EmployeeAggregate;
 using WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeAggregate;
 using WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeAggregate.Responses;
+using WMS.EmployeeService.Domain.Infrastructure.Helpers;
 
 namespace WMS.EmployeeService.Domain.Infrastructure.Handlers.EmployeeAggregate
 {
     public class InsertEmployeeQueryHandler : IRequestHandler<InsertEmployeeQuery, InsertEmployeeQueryResponse>
     {
-        private readonly INomenclatureRepository _nomenclatureRepository;
+        private readonly IEmployeeRepository _employeeRepository;
 
-        public InsertNomenclatureQueryHandler(INomenclatureRepository nomenclatureRepository) =>
-            _nomenclatureRepository = nomenclatureRepository;
+        public InsertEmployeeQueryHandler(IEmployeeRepository employeeRepository) =>
+            _employeeRepository = employeeRepository;
 
         public async Task<InsertEmployeeQueryResponse> Handle(InsertEmployeeQuery request, CancellationToken cancellationToken)
         {
-            Nomenclature nomenclature = await _nomenclatureRepository.Insert(
+            Employee employee = await _employeeRepository.Insert(
                 EmployeeMapper.DtoToEntity(request.Employee),
                 cancellationToken);
 
-            return new InsertNomenclatureQueryResponse()
+            return new InsertEmployeeQueryResponse()
             {
-                Nomenclature = NomenclatureMapper.EntityToDto(nomenclature)
+                Employee = EmployeeMapper.EntityToDto(employee)
             };
         }
     }

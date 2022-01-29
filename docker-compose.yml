@@ -9,11 +9,24 @@ services:
     environment:
       DatabaseConnectionOptions__ConnectionString: "Host=wms-db;Port=5432;Database=wms-db;Username=postgres;Password=wmsPassword"
     ports:
-      - "8010:80"
+      - "8000:80"
     networks:
       - wms-network
     depends_on:
       - wms-db
+
+  employee-service:
+    build:
+      context: ./WMS.EmployeeService
+      dockerfile: Dockerfile
+    environment:
+      DatabaseConnectionOptions__ConnectionString: "Host=employee-db;Port=5432;Database=employee-db;Username=postgres;Password=employeePassword"
+    ports:
+      - "8010:80"
+    networks:
+      - wms-network
+    depends_on:
+      - employee-db
 
   wms-db:
     image: postgres:latest
@@ -24,7 +37,21 @@ services:
     volumes:
       - wms-db:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5400:5432"
+    networks:
+      - wms-network
+    command: "-c log_statement=all"
+
+  employee-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: employeePassword
+      POSTGRES_DB: employee-db
+    volumes:
+      - employee-db:/var/lib/postgresql/data
+    ports:
+      - "5410:5432"
     networks:
       - wms-network
     command: "-c log_statement=all"
@@ -74,5 +101,9 @@ volumes:
     driver: local
   nomenclature-service:
     driver: local
+  employee-service:
+    driver: local
   wms-db:
+    driver: local
+  employee-db:
     driver: local

@@ -3,6 +3,8 @@
 using WMS.ClassLibrary.Infrastructure.Filters;
 using WMS.ClassLibrary.Infrastructure.Interceptors;
 using WMS.ClassLibrary.Infrastructure.StartupFilters;
+using WMS.EmployeeService.Domain.Infrastructure.Extensions;
+using WMS.EmployeeService.Domain.Infrastructure.Handlers.EmployeeAggregate;
 using WMS.EmployeeService.GrpcServices;
 
 namespace WMS.EmployeeService
@@ -31,7 +33,6 @@ namespace WMS.EmployeeService
                 .UseEndpoints(endpoints =>
                 {
                     endpoints.MapGrpcService<EmployeeGrpcService>().EnableGrpcWeb();
-                    endpoints.MapGrpcService<NomenclatureTypeGrpsService>().EnableGrpcWeb();
                     endpoints.MapControllers();
                 });
 
@@ -42,7 +43,7 @@ namespace WMS.EmployeeService
         {
             services.AddDatabaseComponents(Configuration)
                 .AddRepositories()
-                .AddMediatR(typeof(SearchNomenclatureQueryHandler).Assembly)
+                .AddMediatR(typeof(InsertEmployeeQueryHandler).Assembly)
                 .AddSingleton<IStartupFilter, TerminalStartupFilter>()
                 .AddControllers(options => options.Filters.Add<GlobalExceptionFilter>());
 
