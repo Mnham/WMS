@@ -7,10 +7,19 @@ using System.Runtime.CompilerServices;
 
 namespace WMS.Manager.Infrastructure.Helpers
 {
+    /// <summary>
+    /// Представляет Логгер.
+    /// </summary>
     public sealed class LogManager
     {
-
+        /// <summary>
+        /// Полное имя класса.
+        /// </summary>
         private string _classFullName;
+
+        /// <summary>
+        /// Возвращает экземпляр Логгера на класс, вызвавший метод.
+        /// </summary>
         public static LogManager GetCurrentClassLogger()
         {
             LogManager logger = new();
@@ -19,25 +28,39 @@ namespace WMS.Manager.Infrastructure.Helpers
             return logger;
         }
 
-        public void Trace([CallerMemberName] string caller = null) =>
+        /// <summary>
+        /// Записывает в журнал события уровня Verbose.
+        /// </summary>
+        public void Verbose([CallerMemberName] string caller = null) =>
            Log.Logger.Verbose("{Caller}", GetFullCallerName(caller));
 
-
-        public void Trace(object value, [CallerMemberName] string caller = null) =>
+        /// <summary>
+        /// Записывает в журнал события уровня Verbose.
+        /// </summary>
+        public void Verbose(object value, [CallerMemberName] string caller = null) =>
             Log.Logger.Verbose("{Caller} {@Value}", GetFullCallerName(caller), value);
 
-
+        /// <summary>
+        /// Записывает в журнал события уровня Debug.
+        /// </summary>
         public void Debug(object value, [CallerMemberName] string caller = null) =>
             Log.Logger.Debug("{Caller} {@Value}", GetFullCallerName(caller), value);
 
-
+        /// <summary>
+        /// Записывает в журнал события уровня Info.
+        /// </summary>
         public void Info(object value, [CallerMemberName] string caller = null) =>
             Log.Logger.Information("{Caller} {@Value}", GetFullCallerName(caller), value);
 
-
+        /// <summary>
+        /// Записывает в журнал события уровня Error.
+        /// </summary>
         public void Error(Exception ex, [CallerMemberName] string caller = null) =>
             Log.Logger.Error(ex, "{Caller}", GetFullCallerName(caller));
 
+        /// <summary>
+        /// Возвращает полное имя класса.
+        /// </summary>
         private static string NameOfCallingClass()
         {
             string fullName;
@@ -60,6 +83,9 @@ namespace WMS.Manager.Infrastructure.Helpers
             return fullName;
         }
 
+        /// <summary>
+        /// Возвращает полное имя вызывающего метода.
+        /// </summary>
         private string GetFullCallerName(string caller) => $"{_classFullName}.{caller}";
     }
 }

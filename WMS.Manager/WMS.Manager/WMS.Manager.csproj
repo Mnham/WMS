@@ -146,7 +146,7 @@
     <Compile Include="Domain\ViewModels\PageViewModel.cs" />
     <Compile Include="NomenclatureType\NomenclatureTypeViewModel.cs" />
     <Compile Include="Domain\ViewModels\GrpcViewModel.cs" />
-    <Compile Include="Nomenclature\EditorMode.cs" />
+    <Compile Include="Domain\ViewModels\EditorMode.cs" />
     <Compile Include="Domain\Interfaces\IGrpcModelEditor.cs" />
     <Compile Include="Nomenclature\NomenclatureEditorViewModel.cs" />
     <Compile Include="Nomenclature\NomenclatureSearchDialog.xaml.cs">

@@ -10,10 +10,19 @@ using WMS.Manager.NomenclatureType;
 
 namespace WMS.Manager.Infrastructure.Services
 {
+    /// <summary>
+    /// Сервис диалоговых окон.
+    /// </summary>
     public class DialogService
     {
+        /// <summary>
+        /// Диалоговое окно.
+        /// </summary>
         private ContentDialog _currentDialog;
 
+        /// <summary>
+        /// Показывает диалоговое окно исключения.
+        /// </summary>
         public async Task ShowExceptionDialogAsync(Exception ex)
         {
             _currentDialog?.Hide();
@@ -24,6 +33,9 @@ namespace WMS.Manager.Infrastructure.Services
             await _currentDialog.ShowAsync();
         }
 
+        /// <summary>
+        /// Показывает диалоговое окно поиска номенклатуры.
+        /// </summary>
         public async Task<NomenclatureSearchDialog> ShowNomenclatureSearchDialogAsync(IReadOnlyCollection<NomenclatureTypeViewModel> types)
         {
             NomenclatureSearchDialog dialog = new(types)
