@@ -99,7 +99,7 @@ namespace WMS.Manager.Nomenclature
         }
 
         /// <summary>
-        /// 
+        /// Объем.
         /// </summary>
         public string Volume =>
             string.IsNullOrWhiteSpace(Length)

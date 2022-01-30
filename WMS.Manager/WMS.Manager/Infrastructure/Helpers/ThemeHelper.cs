@@ -1,31 +1,31 @@
-using Windows.Storage;
+п»їusing Windows.Storage;
 using Windows.UI.Xaml;
 
 namespace WMS.Manager.Infrastructure.Helpers
 {
     /// <summary>
-    /// Представляет помощник для переключения темы оформления приложения.
+    /// РџСЂРµРґСЃС‚Р°РІР»СЏРµС‚ РїРѕРјРѕС‰РЅРёРє РґР»СЏ РїРµСЂРµРєР»СЋС‡РµРЅРёСЏ С‚РµРјС‹ РѕС„РѕСЂРјР»РµРЅРёСЏ РїСЂРёР»РѕР¶РµРЅРёСЏ.
     /// </summary>
     public static class ThemeHelper
 
     {
         /// <summary>
-        /// Имя локального свойства для хранения выбранной темы.
+        /// РРјСЏ Р»РѕРєР°Р»СЊРЅРѕРіРѕ СЃРІРѕР№СЃС‚РІР° РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РІС‹Р±СЂР°РЅРЅРѕР№ С‚РµРјС‹.
         /// </summary>
         private const string SELECTED_APP_THEME_KEY = "SelectedAppTheme";
 
         /// <summary>
-        /// Текущее окно приложения.
+        /// РўРµРєСѓС‰РµРµ РѕРєРЅРѕ РїСЂРёР»РѕР¶РµРЅРёСЏ.
         /// </summary>
         private static Window _currentWindow;
 
         /// <summary>
-        /// Текущая тема.
+        /// РўРµРєСѓС‰Р°СЏ С‚РµРјР°.
         /// </summary>
         public static ElementTheme ActualTheme => ((FrameworkElement)_currentWindow.Content).RequestedTheme;
 
         /// <summary>
-        /// Текущая системная тема.
+        /// РўРµРєСѓС‰Р°СЏ СЃРёСЃС‚РµРјРЅР°СЏ С‚РµРјР°.
         /// </summary>
         public static ElementTheme RootTheme
         {
@@ -44,7 +44,7 @@ namespace WMS.Manager.Infrastructure.Helpers
         }
 
         /// <summary>
-        /// Инициализирует класс. 
+        /// РРЅРёС†РёР°Р»РёР·РёСЂСѓРµС‚ РєР»Р°СЃСЃ. 
         /// </summary>
         public static void Initialize()
         {

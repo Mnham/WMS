@@ -51,7 +51,7 @@
                 <ComboBox
                     Width="200"
                     DisplayMemberPath="Name"
-                    ItemsSource="{x:Bind NomenclatureTypeViewModels}"
+                    ItemsSource="{x:Bind NomenclatureTypes}"
                     SelectedValue="{x:Bind NomenclatureTypeId, Mode=TwoWay}"
                     SelectedValuePath="Id" />
             </StackPanel>

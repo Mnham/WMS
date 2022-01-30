@@ -1,15 +1,15 @@
-using FluentMigrator;
+п»їusing FluentMigrator;
 
 namespace WMS.NomenclatureService.Migrator.Migrations
 {
     /// <summary>
-    /// Представляет миграцию для создания таблицы номенклатуры.
+    /// РџСЂРµРґСЃС‚Р°РІР»СЏРµС‚ РјРёРіСЂР°С†РёСЋ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ С‚Р°Р±Р»РёС†С‹ РЅРѕРјРµРЅРєР»Р°С‚СѓСЂС‹.
     /// </summary>
     [Migration(2)]
     public class NomenclatureTable : Migration
     {
         /// <summary>
-        /// Применяет миграцию.
+        /// РџСЂРёРјРµРЅСЏРµС‚ РјРёРіСЂР°С†РёСЋ.
         /// </summary>
         public override void Up() => Create
                 .Table("nomenclature")
@@ -22,7 +22,7 @@ namespace WMS.NomenclatureService.Migrator.Migrations
                 .WithColumn("weight").AsInt32().NotNullable();
 
         /// <summary>
-        /// Откатывает миграцию.
+        /// РћС‚РєР°С‚С‹РІР°РµС‚ РјРёРіСЂР°С†РёСЋ.
         /// </summary>
         public override void Down() => Delete.Table("nomenclature");
     }

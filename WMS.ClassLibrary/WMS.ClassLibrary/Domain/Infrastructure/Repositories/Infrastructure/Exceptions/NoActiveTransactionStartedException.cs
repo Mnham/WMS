@@ -1,36 +1,36 @@
-using System;
+п»їusing System;
 using System.Runtime.Serialization;
 
 namespace WMS.ClassLibrary.Domain.Infrastructure.Repositories.Infrastructure.Exceptions
 {
     /// <summary>
-    /// Представляет исключение, возникающее при отсутствии запущенной транзакции.
+    /// РџСЂРµРґСЃС‚Р°РІР»СЏРµС‚ РёСЃРєР»СЋС‡РµРЅРёРµ, РІРѕР·РЅРёРєР°СЋС‰РµРµ РїСЂРё РѕС‚СЃСѓС‚СЃС‚РІРёРё Р·Р°РїСѓС‰РµРЅРЅРѕР№ С‚СЂР°РЅР·Р°РєС†РёРё.
     /// </summary>
     public class NoActiveTransactionStartedException : Exception
     {
         /// <summary>
-        /// Создает экземпляр класса <see cref="NoActiveTransactionStartedException"/>.
+        /// РЎРѕР·РґР°РµС‚ СЌРєР·РµРјРїР»СЏСЂ РєР»Р°СЃСЃР° <see cref="NoActiveTransactionStartedException"/>.
         /// </summary>
         public NoActiveTransactionStartedException()
         {
         }
 
         /// <summary>
-        /// Создает экземпляр класса <see cref="NoActiveTransactionStartedException"/>.
+        /// РЎРѕР·РґР°РµС‚ СЌРєР·РµРјРїР»СЏСЂ РєР»Р°СЃСЃР° <see cref="NoActiveTransactionStartedException"/>.
         /// </summary>
         public NoActiveTransactionStartedException(string message) : base(message)
         {
         }
 
         /// <summary>
-        /// Создает экземпляр класса <see cref="NoActiveTransactionStartedException"/>.
+        /// РЎРѕР·РґР°РµС‚ СЌРєР·РµРјРїР»СЏСЂ РєР»Р°СЃСЃР° <see cref="NoActiveTransactionStartedException"/>.
         /// </summary>
         public NoActiveTransactionStartedException(string message, Exception innerException) : base(message, innerException)
         {
         }
 
         /// <summary>
-        /// Создает экземпляр класса <see cref="NoActiveTransactionStartedException"/>.
+        /// РЎРѕР·РґР°РµС‚ СЌРєР·РµРјРїР»СЏСЂ РєР»Р°СЃСЃР° <see cref="NoActiveTransactionStartedException"/>.
         /// </summary>
         protected NoActiveTransactionStartedException(SerializationInfo info, StreamingContext context) : base(info, context)
         {

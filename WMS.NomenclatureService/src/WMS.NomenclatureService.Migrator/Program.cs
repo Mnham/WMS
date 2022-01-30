@@ -1,4 +1,4 @@
-using FluentMigrator.Runner;
+п»їusing FluentMigrator.Runner;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,12 +12,12 @@ using System.Linq;
 namespace WMS.NomenclatureService.Migrator
 {
     /// <summary>
-    /// Представляет точку входа.
+    /// РџСЂРµРґСЃС‚Р°РІР»СЏРµС‚ С‚РѕС‡РєСѓ РІС…РѕРґР°.
     /// </summary>
     public class Program
     {
         /// <summary>
-        /// Точка входа.
+        /// РўРѕС‡РєР° РІС…РѕРґР°.
         /// </summary>
         private static void Main(string[] args)
         {

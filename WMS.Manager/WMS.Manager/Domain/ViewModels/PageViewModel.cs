@@ -41,7 +41,7 @@ namespace WMS.Manager.Domain.ViewModels
         private RelayCommand _saveCommand;
 
         /// <summary>
-        /// 
+        /// Выбранная сущность.
         /// </summary>
         private TGrpcViewModel _selectedItem;
 

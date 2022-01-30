@@ -42,7 +42,7 @@ namespace WMS.Manager.Nomenclature
         public long? NomenclatureTypeIdValue => NomenclatureTypeId == 0 ? null : NomenclatureTypeId;
 
         /// <summary>
-        /// Типы номенклатуры.
+        /// Типы номенклатур.
         /// </summary>
         private IReadOnlyCollection<NomenclatureTypeViewModel> NomenclatureTypes { get; }
 
