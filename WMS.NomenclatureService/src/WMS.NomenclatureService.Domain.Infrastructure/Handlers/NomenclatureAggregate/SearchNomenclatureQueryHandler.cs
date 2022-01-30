@@ -13,13 +13,25 @@ using WMS.NomenclatureService.Domain.Infrastructure.Helpers;
 
 namespace WMS.NomenclatureService.Domain.Infrastructure.Handlers.NomenclatureAggregate
 {
+    /// <summary>
+    /// Представляет обработчик команды поиска номенклатуры.
+    /// </summary>
     public class SearchNomenclatureQueryHandler : IRequestHandler<SearchNomenclatureQuery, SearchNomenclatureQueryResponse>
     {
+        /// <summary>
+        /// Экземпляр репозитория номенклатуры.
+        /// </summary>
         private readonly INomenclatureRepository _nomenclatureRepository;
 
+        /// <summary>
+        /// Создает экземпляр класса <see cref="SearchNomenclatureQueryHandler"/>.
+        /// </summary>
         public SearchNomenclatureQueryHandler(INomenclatureRepository nomenclatureRepository) =>
             _nomenclatureRepository = nomenclatureRepository;
 
+        /// <summary>
+        /// Обрабатывает команду поиска номенклатуры.
+        /// </summary>
         public async Task<SearchNomenclatureQueryResponse> Handle(SearchNomenclatureQuery request, CancellationToken cancellationToken)
         {
             IReadOnlyCollection<Nomenclature> nomenclatures = await _nomenclatureRepository.Search(

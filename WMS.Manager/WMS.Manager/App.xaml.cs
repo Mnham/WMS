@@ -22,44 +22,45 @@ using WMS.Manager.NomenclatureType;
 
 namespace WMS.Manager
 {
+    /// <summary>
+    /// Представляет точку входа приложения.
+    /// </summary>
     public sealed partial class App : Application
     {
+        /// <summary>
+        /// Создает экземпляр класса <see cref="App"/>.
+        /// </summary>
         public App()
         {
             ConfigureLogger();
             //NativeMethods.AllocConsole();
-
-            string[] langs = new string[]
-            {
-                "ar-AE", // 0
-                "de-DE", // 1
-                "en-US", // 2
-                "es-ES", // 3
-                "fr-FR", // 4
-                "it-IT", // 5
-                "ja-JP", // 6
-                "ko-KR", // 7
-                "pt-PT", // 8
-                "ru-RU", // 9
-                "zh-CN", // 10
-            };
-
-            ApplicationLanguages.PrimaryLanguageOverride = langs[9];
             Services = ConfigureServices();
             ConfigureWmsGrpcClient();
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Текущий экземпляр <see cref="App"/>.
+        /// </summary>
         public static new App Current => (App)Application.Current;
 
+        /// <summary>
+        /// Экземпляр служб приложения.
+        /// </summary>
         public IServiceProvider Services { get; }
 
+        /// <summary>
+        /// Конфигурирует логгер.
+        /// </summary>
         public static void ConfigureLogger() =>
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Verbose()
                 .WriteTo.Console(theme: AnsiConsoleTheme.Code)
                 .CreateLogger();
 
+        /// <summary>
+        /// Конфигурирует запуск приложения.
+        /// </summary>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
@@ -85,6 +86,9 @@ namespace WMS.Manager
             }
         }
 
+        /// <summary>
+        /// Конфигурирует службы приложения.
+        /// </summary>
         private static IServiceProvider ConfigureServices() =>
                             new ServiceCollection()
             .AddSingleton<DialogService>()
@@ -93,19 +97,27 @@ namespace WMS.Manager
             .AddTransient<NomenclatureTypePageViewModel>()
             .BuildServiceProvider();
 
+        /// <summary>
+        /// Конфигурирует WmsGrpc-клиент.
+        /// </summary>
         private void ConfigureWmsGrpcClient()
         {
             WmsGrpcClient grpcClient = Services.GetService<WmsGrpcClient>();
             DialogService serviceDialog = Services.GetService<DialogService>();
 
-            grpcClient.ExceptionHandler = async ex => await serviceDialog.ShowExceptionDialogAsync(ex);
+            grpcClient.SetExceptionHandler(async ex => await serviceDialog.ShowExceptionDialogAsync(ex));
         }
     }
 
+    /// <summary>
+    /// Представляет вызовы нативных методов.
+    /// </summary>
     internal static class NativeMethods
     {
         #region Public Methods
-
+        /// <summary>
+        /// Выделяет новую консоль для вызывающего процесса.
+        /// </summary>
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool AllocConsole();

@@ -16,12 +16,24 @@ using WMS.NomenclatureService.Grpc;
 
 namespace WMS.NomenclatureService.GrpcServices
 {
+    /// <summary>
+    /// Представляет сервис типа номенклатуры.
+    /// </summary>
     public class NomenclatureTypeGrpsService : NomenclatureTypeGrpcService.NomenclatureTypeGrpcServiceBase
     {
+        /// <summary>
+        /// Экземпляр медиатора.
+        /// </summary>
         private readonly IMediator _mediator;
 
+        /// <summary>
+        /// Создает экземпляр класса <see cref="NomenclatureTypeGrpsService"/>.
+        /// </summary>
         public NomenclatureTypeGrpsService(IMediator mediator) => _mediator = mediator;
 
+        /// <summary>
+        /// Возвращает все типы номенклатур.
+        /// </summary>
         public override async Task<NomenclatureTypeList> GetAll(Empty request, ServerCallContext context)
         {
             GetAllNomenclatureTypeQueryResponse response = await _mediator.Send(new GetAllNomenclatureTypeQuery(), context.CancellationToken);
@@ -32,8 +44,11 @@ namespace WMS.NomenclatureService.GrpcServices
             };
         }
 
+        /// <summary>
+        /// Добавляет тип номенклатуры.
+        /// </summary>
         public override async Task<NomenclatureTypeGrpc> Insert(NomenclatureTypeGrpc request, ServerCallContext context) =>
-            await Execute(async () =>
+            await HandleException(async () =>
             {
                 InsertNomenclatureTypeQueryResponse response = await _mediator.Send(new InsertNomenclatureTypeQuery()
                 {
@@ -43,8 +58,11 @@ namespace WMS.NomenclatureService.GrpcServices
                 return NomenclatureTypeMapper.DtoToGrpc(response.NomenclatureType);
             });
 
+        /// <summary>
+        /// Обновляет тип номенклатуры.
+        /// </summary>
         public override async Task<NomenclatureTypeGrpc> Update(NomenclatureTypeGrpc request, ServerCallContext context) =>
-            await Execute(async () =>
+            await HandleException(async () =>
             {
                 UpdateNomenclatureTypeQueryResponse response = await _mediator.Send(new UpdateNomenclatureTypeQuery()
                 {
@@ -54,7 +72,10 @@ namespace WMS.NomenclatureService.GrpcServices
                 return NomenclatureTypeMapper.DtoToGrpc(response.NomenclatureType);
             });
 
-        private static async Task<T> Execute<T>(Func<Task<T>> func) where T : IMessage<T>
+        /// <summary>
+        /// Обрабатывает исключение.
+        /// </summary>
+        private static async Task<T> HandleException<T>(Func<Task<T>> func) where T : IMessage<T>
         {
             try
             {

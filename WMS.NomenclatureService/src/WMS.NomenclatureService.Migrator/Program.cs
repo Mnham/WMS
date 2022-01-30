@@ -1,4 +1,4 @@
-using FluentMigrator.Runner;
+﻿using FluentMigrator.Runner;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,8 +11,14 @@ using System.Linq;
 
 namespace WMS.NomenclatureService.Migrator
 {
+    /// <summary>
+    /// Представляет точку входа.
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Точка входа.
+        /// </summary>
         private static void Main(string[] args)
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()

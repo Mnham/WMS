@@ -6,8 +6,14 @@ using static Dapper.SqlMapper;
 
 namespace WMS.ClassLibrary.Extensions
 {
+    /// <summary>
+    /// Представляет методы расширения для <see cref="GridReader"/>.
+    /// </summary>
     public static class GridReaderExtension
     {
+        /// <summary>
+        /// Извлекает сущности и устанавливает связь между зависимыми сущностями.
+        /// </summary>
         public static IEnumerable<TFirst> Map<TFirst, TSecond, TKey>(
             this GridReader reader,
             Func<TFirst, TKey> firstKey,

@@ -9,19 +9,34 @@ using System.Threading.Tasks;
 
 namespace WMS.ClassLibrary.Infrastructure.Interceptors
 {
+    /// <summary>
+    /// Представляет логирование запроса GRPC.
+    /// </summary>
     public class LoggingInterceptor : Interceptor
     {
+        /// <summary>
+        /// Логгер.
+        /// </summary>
         private readonly ILogger<LoggingInterceptor> _logger;
 
+        /// <summary>
+        /// Настройки сериализации.
+        /// </summary>
         private readonly JsonSerializerOptions _defaultSerializationOptions = new()
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             WriteIndented = true
         };
 
+        /// <summary>
+        /// Создает экземпляр класса <see cref="LoggingInterceptor"/>.
+        /// </summary>
         public LoggingInterceptor(ILogger<LoggingInterceptor> logger) =>
             _logger = logger;
 
+        /// <summary>
+        /// Логирует GRPC-запрос.
+        /// </summary>
         public override async Task<TResponse> UnaryServerHandler<TRequest, TResponse>(
             TRequest request,
             ServerCallContext context,

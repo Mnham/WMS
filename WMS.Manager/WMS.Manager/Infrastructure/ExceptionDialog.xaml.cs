@@ -5,14 +5,23 @@ using Windows.UI.Xaml.Controls;
 
 namespace WMS.Manager.Infrastructure
 {
+    /// <summary>
+    /// Представляет диалоговое окно исключения.
+    /// </summary>
     public sealed partial class ExceptionDialog : ContentDialog
     {
+        /// <summary>
+        /// Создает экземпляр класса <see cref="ExceptionDialog"/>.
+        /// </summary>
         public ExceptionDialog(Exception ex)
         {
             InitializeComponent();
             Message.Text = GetInnerException(ex);
         }
 
+        /// <summary>
+        /// Возвращает сообщения внутренних исключений.
+        /// </summary>
         private string GetInnerException(Exception ex)
         {
             StringBuilder result = new();
