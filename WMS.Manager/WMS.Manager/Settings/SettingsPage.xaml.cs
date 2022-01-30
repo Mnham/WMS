@@ -5,8 +5,14 @@ using WMS.Manager.Infrastructure.Helpers;
 
 namespace WMS.Manager.Settings
 {
+    /// <summary>
+    /// Представляет настройки приложения.
+    /// </summary>
     public sealed partial class SettingsPage : Page
     {
+        /// <summary>
+        /// Создает экземпляр класса <see cref="NomenclatureTypePageViewModel"/>.
+        /// </summary>
         public SettingsPage()
         {
             InitializeComponent();
@@ -24,6 +30,9 @@ namespace WMS.Manager.Settings
             }
         }
 
+        /// <summary>
+        /// Обрабатывает переключение темы оформления приложения.
+        /// </summary>
         private void OnThemeRadioButtonChecked(object sender, RoutedEventArgs e)
         {
             string selectedTheme = ((RadioButton)sender)?.Tag?.ToString();

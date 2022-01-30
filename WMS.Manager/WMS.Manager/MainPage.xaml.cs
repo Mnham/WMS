@@ -10,10 +10,19 @@ using NavigationViewSelectionChangedEventArgs = Microsoft.UI.Xaml.Controls.Navig
 
 namespace WMS.Manager
 {
+    /// <summary>
+    /// Представляет основную страницу.
+    /// </summary>
     public sealed partial class MainPage : Page
     {
+        /// <summary>
+        /// Создает экземпляр класса <see cref="MainPage"/>.
+        /// </summary>
         public MainPage() => InitializeComponent();
 
+        /// <summary>
+        /// Обрабатывает изменение выбранного эелемента <see cref="NavigationView"/>.
+        /// </summary>
         private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
             if (args.IsSettingsSelected)
