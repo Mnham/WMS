@@ -4,8 +4,8 @@
     {
         Task<Employee> Insert(Employee employee, CancellationToken cancellationToken);
 
-        Task<IReadOnlyCollection<Employee>> Search(EmployeeFilter request, CancellationToken cancellationToken);
+        Task<IReadOnlyCollection<Employee>> Search(EmployeeFilter filter, CancellationToken cancellationToken);
 
-        Task<Employee> Update(Employee employee, CancellationToken cancellationToken);
+        Task<Employee> Update(Employee itemToUpdate, CancellationToken cancellationToken);
     }
 }

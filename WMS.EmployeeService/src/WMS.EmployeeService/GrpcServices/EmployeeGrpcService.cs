@@ -13,7 +13,6 @@ namespace WMS.EmployeeService.GrpcServices
 {
     public class EmployeeGrpcService : EmployeeApiGrpc.EmployeeApiGrpcBase
     {
-
         /// <summary>
         /// Экземпляр медиатора.
         /// </summary>
@@ -24,6 +23,12 @@ namespace WMS.EmployeeService.GrpcServices
         /// </summary>
         public EmployeeGrpcService(IMediator mediator) => _mediator = mediator;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public override async Task<EmployeeGrpc> Insert(EmployeeGrpc request, ServerCallContext context) =>
             await HandleException(async () =>
             {
@@ -36,10 +41,18 @@ namespace WMS.EmployeeService.GrpcServices
             });
 
         public override async Task<EmployeeList> Search(EmployeeSearchFilter request, ServerCallContext context) =>
-     throw new Exception();
+            throw new Exception();
 
         public override async Task<EmployeeGrpc> Update(EmployeeGrpc request, ServerCallContext context) =>
-         throw new Exception();
+            await HandleException(async () =>
+            {
+                UpdateEmployeeQueryResponse response = await _mediator.Send(new UpdateEmployeeQuery
+                {
+                    Employee = EmployeeMapper.GrpcToDto(request)
+                }, context.CancellationToken);
+
+                return EmployeeMapper.DtoToGrpc(response.Employee);
+            });
 
         /// <summary>
         /// Обрабатывает исключение.
