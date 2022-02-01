@@ -4,8 +4,14 @@ using Npgsql;
 
 namespace WMS.EmployeeService.Migrator
 {
+    /// <summary>
+    /// ѕредоставл€ет методы запуска миграции базы данных.
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// ¬ыполн€ет миграцию базы данных.
+        /// </summary>
         private static void Main(string[] args)
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()

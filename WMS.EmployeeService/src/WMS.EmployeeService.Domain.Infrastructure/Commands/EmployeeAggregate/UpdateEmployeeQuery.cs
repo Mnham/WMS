@@ -4,8 +4,14 @@ using WMS.EmployeeService.Domain.Infrastructure.Models;
 
 namespace WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeAggregate
 {
+    /// <summary>
+    /// Представляет команду обновления данных сотрудника.
+    /// </summary>
     public class UpdateEmployeeQuery : IRequest<UpdateEmployeeQueryResponse>
     {
-        public EmployeeDto Employee { get; set; }
+        /// <summary>
+        /// Предоставляет данные сотрудника.
+        /// </summary>
+        public EmployeeDto Employee { get; init; }
     }
 }

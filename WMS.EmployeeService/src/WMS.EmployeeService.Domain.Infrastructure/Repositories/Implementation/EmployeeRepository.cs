@@ -8,23 +8,41 @@ using WMS.ClassLibrary.Domain.Infrastructure.Configuration;
 using WMS.ClassLibrary.Domain.Infrastructure.Repositories.Infrastructure;
 using WMS.ClassLibrary.Domain.Infrastructure.Repositories.Infrastructure.Contracts;
 using WMS.EmployeeService.Domain.AggregationModels.EmployeeAggregate;
-using WMS.EmployeeService.Domain.Infrastructure.Models;
+
 using static Dapper.SqlMapper;
 
 namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
 {
+    /// <summary>
+    /// Представляет репозиторий данных сотрудников.
+    /// </summary>
     public class EmployeeRepository : IEmployeeRepository
     {
+        /// <summary>
+        /// Предоставляет время ожидания подключения к базе данных.
+        /// </summary>
         private const int TIMEOUT = 5;
+
+        /// <summary>
+        /// Предоставляет настройки подключения к базе жанных.
+        /// </summary>
         private readonly DatabaseConnectionOptions _options;
+
+        /// <summary>
+        /// Предоставляет обработчик запроса.
+        /// </summary>
         private readonly IQueryExecutor _queryExecutor;
 
+        /// <summary>
+        /// Инициализирует новый экземпляр <see cref="EmployeeRepository"/>.
+        /// </summary>
         public EmployeeRepository(IOptions<DatabaseConnectionOptions> options, IQueryExecutor queryExecutor)
         {
             _options = options.Value;
             _queryExecutor = queryExecutor;
         }
 
+        /// <inheritdoc />
         public async Task<Employee> Insert(Employee itemToInsert, CancellationToken cancellationToken)
         {
             const string sql = @"
@@ -40,7 +58,7 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
             using NpgsqlConnection connection = new(_options.ConnectionString);
             await connection.OpenAsync(cancellationToken);
 
-            CommandDefinition commandDefinition = new(
+            CommandDefinition command = new(
                 commandText: sql,
                 parameters: parameters,
                 commandTimeout: TIMEOUT,
@@ -48,11 +66,12 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
 
             return await _queryExecutor.Execute(itemToInsert, async () =>
             {
-                long id = await connection.QuerySingleAsync<long>(commandDefinition);
+                long id = await connection.QuerySingleAsync<long>(command);
                 itemToInsert.SetId(id);
             });
         }
 
+        /// <inheritdoc />
         public async Task<IReadOnlyCollection<Employee>> Search(EmployeeFilter filter, CancellationToken cancellationToken)
         {
             const string sql = @"
@@ -61,31 +80,32 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
                 /**where**/;";
 
             SqlBuilder builder = new();
-            SqlBuilder.Template select = builder.AddTemplate(sql);
+            SqlBuilder.Template querySelect = builder.AddTemplate(sql);
             DynamicParameters parameter = new();
             IReadOnlyList<FilterParameter> filters = FilterParameter.GetFilters(filter);
 
-            foreach (FilterParameter f in filters)
+            foreach (FilterParameter filterItem in filters)
             {
-                parameter.Add(f.ParameterName, f.Value);
-                builder.Where($"{f.SqlField} {f.SqlOperator} @{f.ParameterName}");
+                parameter.Add(filterItem.ParameterName, filterItem.Value);
+                builder.Where($"{filterItem.SqlField} {filterItem.SqlOperator} @{filterItem.ParameterName}");
             }
 
             using NpgsqlConnection connection = new(_options.ConnectionString);
             await connection.OpenAsync(cancellationToken);
 
-            CommandDefinition commandDefinition = new(
-                commandText: select.RawSql,
+            CommandDefinition command = new(
+                commandText: querySelect.RawSql,
                 parameters: parameter,
                 commandTimeout: TIMEOUT,
                 cancellationToken: cancellationToken);
 
-            IEnumerable<Employee> result = await _queryExecutor.Execute(async ()
-                    => await connection.QueryAsync<Employee>(commandDefinition));
+            IEnumerable<Employee> result = await _queryExecutor.Execute(async () =>
+                await connection.QueryAsync<Employee>(command));
 
             return result.ToList();
         }
 
+        /// <inheritdoc />
         public async Task<Employee> Update(Employee itemToUpdate, CancellationToken cancellationToken)
         {
             const string sql = @"
@@ -102,13 +122,13 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
             using NpgsqlConnection connection = new(_options.ConnectionString);
             await connection.OpenAsync(cancellationToken);
 
-            CommandDefinition commandDefinition = new(
+            CommandDefinition command = new(
                 commandText: sql,
                 parameters: parameters,
                 commandTimeout: TIMEOUT,
                 cancellationToken: cancellationToken);
 
-            return await _queryExecutor.Execute(itemToUpdate, async () => await connection.ExecuteAsync(commandDefinition));
+            return await _queryExecutor.Execute(itemToUpdate, async () => await connection.ExecuteAsync(command));
         }
     }
 }
