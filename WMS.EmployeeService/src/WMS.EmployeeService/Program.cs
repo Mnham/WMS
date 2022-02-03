@@ -1,19 +1,19 @@
-using Serilog;
+п»їusing Serilog;
 
 namespace WMS.EmployeeService
 {
     /// <summary>
-    /// Представляет точку входа.
+    /// РџСЂРµРґСЃС‚Р°РІР»СЏРµС‚ С‚РѕС‡РєСѓ РІС…РѕРґР°.
     /// </summary>
     public class Program
     {
         /// <summary>
-        /// Точка входа.
+        /// РўРѕС‡РєР° РІС…РѕРґР°.
         /// </summary>
         public static void Main(string[] args) => CreateHostBuilder(args).Build().Run();
 
         /// <summary>
-        /// Конфигурирует хост.
+        /// РљРѕРЅС„РёРіСѓСЂРёСЂСѓРµС‚ С…РѕСЃС‚.
         /// </summary>
         public static IHostBuilder CreateHostBuilder(string[] args) =>
          Host.CreateDefaultBuilder(args)

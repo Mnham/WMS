@@ -3,6 +3,7 @@
 using Grpc.Core;
 
 using MediatR;
+
 using WMS.ClassLibrary.Extensions;
 using WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeAggregate;
 using WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeAggregate.Responses;
@@ -12,12 +13,12 @@ using WMS.EmployeeService.Grpc;
 namespace WMS.EmployeeService.GrpcServices
 {
     /// <summary>
-    /// Представляет сервис данных сотрудников.
+    /// Представляет сервис сотрудников.
     /// </summary>
     public class EmployeeGrpcService : EmployeeApiGrpc.EmployeeApiGrpcBase
     {
         /// <summary>
-        /// Предоставляет экземпляр медиатора.
+        /// Медиатор.
         /// </summary>
         private readonly IMediator _mediator;
 
@@ -27,7 +28,7 @@ namespace WMS.EmployeeService.GrpcServices
         public EmployeeGrpcService(IMediator mediator) => _mediator = mediator;
 
         /// <summary>
-        /// Добовляет данные о сотрудника.
+        /// Добовляет сотрудника.
         /// </summary>
         public override async Task<EmployeeGrpc> Insert(EmployeeGrpc request, ServerCallContext context) =>
             await HandleException(async () =>
@@ -41,7 +42,7 @@ namespace WMS.EmployeeService.GrpcServices
             });
 
         /// <summary>
-        /// Выполняет поиск данных сотрудника.
+        /// Выполняет поиск сотрудников.
         /// </summary>
         public override async Task<EmployeeList> Search(EmployeeSearchFilter request, ServerCallContext context)
         {

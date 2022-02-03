@@ -1,4 +1,5 @@
 ﻿using MediatR;
+
 using WMS.ClassLibrary.Extensions;
 using WMS.EmployeeService.Domain.AggregationModels.EmployeeAggregate;
 using WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeAggregate;
@@ -20,11 +21,7 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Handlers.EmployeeAggregate
         /// <summary>
         /// Инициализирует новый экземпляр <see cref="SearchEmployeeQueryHandler"/>.
         /// </summary>
-        /// <param name="employeeRepository"></param>
-        public SearchEmployeeQueryHandler(IEmployeeRepository employeeRepository)
-        {
-            _employeeRepository = employeeRepository;
-        }
+        public SearchEmployeeQueryHandler(IEmployeeRepository employeeRepository) => _employeeRepository = employeeRepository;
 
         /// <summary>
         /// Выполняет обработку команды поиска данных сотрудника.

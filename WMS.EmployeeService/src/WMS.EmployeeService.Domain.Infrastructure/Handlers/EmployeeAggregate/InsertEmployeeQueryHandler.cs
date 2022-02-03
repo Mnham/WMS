@@ -20,7 +20,6 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Handlers.EmployeeAggregate
         /// <summary>
         /// Инициализирует новый экземпляр <see cref="InsertEmployeeQueryHandler"/>.
         /// </summary>
-        /// <param name="employeeRepository">Экземпляр репозитория данных сотрудников.</param>
         public InsertEmployeeQueryHandler(IEmployeeRepository employeeRepository) =>
             _employeeRepository = employeeRepository;
 

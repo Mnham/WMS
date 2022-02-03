@@ -3,18 +3,18 @@
 namespace WMS.EmployeeService.Domain.AggregationModels.EmployeeAggregate
 {
     /// <summary>
-    /// Представляет параметры фильтра поиска данных сотрудника.
+    /// Представляет параметры фильтра поиска сотрудника.
     /// </summary>
     public class EmployeeFilter
     {
         /// <summary>
-        /// Предоставляет или утсанавливает идентификатор сотрудника.
+        /// Идентификатор сотрудника.
         /// </summary>
         [SqlField("employee.id"), SqlOperator("=")]
         public long? EmployeeId { get; set; }
 
         /// <summary>
-        /// Предоставляет или устанавливает имя сотрудника.
+        /// Имя сотрудника.
         /// </summary>
 
         [SqlField("employee.name"), SqlOperator("LIKE")]

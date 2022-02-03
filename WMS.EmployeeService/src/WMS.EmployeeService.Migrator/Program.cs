@@ -1,16 +1,16 @@
-using FluentMigrator.Runner;
+п»їusing FluentMigrator.Runner;
 
 using Npgsql;
 
 namespace WMS.EmployeeService.Migrator
 {
     /// <summary>
-    /// Предоставляет методы запуска миграции базы данных.
+    /// РџСЂРµРґРѕСЃС‚Р°РІР»СЏРµС‚ РјРµС‚РѕРґС‹ Р·Р°РїСѓСЃРєР° РјРёРіСЂР°С†РёРё Р±Р°Р·С‹ РґР°РЅРЅС‹С….
     /// </summary>
     public class Program
     {
         /// <summary>
-        /// Выполняет миграцию базы данных.
+        /// Р’С‹РїРѕР»РЅСЏРµС‚ РјРёРіСЂР°С†РёСЋ Р±Р°Р·С‹ РґР°РЅРЅС‹С….
         /// </summary>
         private static void Main(string[] args)
         {

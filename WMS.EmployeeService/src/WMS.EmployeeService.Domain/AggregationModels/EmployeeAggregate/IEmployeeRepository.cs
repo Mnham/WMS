@@ -1,7 +1,7 @@
 ﻿namespace WMS.EmployeeService.Domain.AggregationModels.EmployeeAggregate
 {
     /// <summary>
-    /// Определяет интерфейс репозитория данных пользователей.
+    /// Представляет интерфейс репозитория данных пользователей.
     /// </summary>
     public interface IEmployeeRepository
     {

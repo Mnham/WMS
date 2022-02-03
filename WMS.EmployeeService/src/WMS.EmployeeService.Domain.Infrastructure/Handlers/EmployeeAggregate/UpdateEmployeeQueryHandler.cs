@@ -1,4 +1,5 @@
 ﻿using MediatR;
+
 using WMS.EmployeeService.Domain.AggregationModels.EmployeeAggregate;
 using WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeAggregate;
 using WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeAggregate.Responses;
@@ -19,11 +20,7 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Handlers.EmployeeAggregate
         /// <summary>
         /// Инициализирует новый экземпляр <see cref="IEmployeeRepository"/>.
         /// </summary>
-        /// <param name="employeeRepository"></param>
-        public UpdateEmployeeQueryHandler(IEmployeeRepository employeeRepository)
-        {
-            _employeeRepository = employeeRepository;
-        }
+        public UpdateEmployeeQueryHandler(IEmployeeRepository employeeRepository) => _employeeRepository = employeeRepository;
 
         /// <summary>
         /// Выполняет обработку команды обновления данных сотрудника.

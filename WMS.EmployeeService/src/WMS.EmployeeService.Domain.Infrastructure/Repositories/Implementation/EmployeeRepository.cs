@@ -42,7 +42,7 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
             _queryExecutor = queryExecutor;
         }
 
-        /// <inheritdoc />
+        // TODO: документация
         public async Task<Employee> Insert(Employee itemToInsert, CancellationToken cancellationToken)
         {
             const string sql = @"
@@ -71,7 +71,7 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
             });
         }
 
-        /// <inheritdoc />
+        // TODO: документация
         public async Task<IReadOnlyCollection<Employee>> Search(EmployeeFilter filter, CancellationToken cancellationToken)
         {
             const string sql = @"
@@ -105,7 +105,7 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
             return result.ToList();
         }
 
-        /// <inheritdoc />
+        // TODO: документация
         public async Task<Employee> Update(Employee itemToUpdate, CancellationToken cancellationToken)
         {
             const string sql = @"
