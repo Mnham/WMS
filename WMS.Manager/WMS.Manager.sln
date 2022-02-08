@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31911.196
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMS.Manager", "WMS.Manager\WMS.Manager.csproj", "{A55A6723-0C01-491B-AF89-D420781114E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMS.Manager.UWP", "WMS.Manager.UWP\WMS.Manager.UWP.csproj", "{A55A6723-0C01-491B-AF89-D420781114E1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WMS.Manager.GrpcClient", "WMS.Manager.GrpcClient\WMS.Manager.GrpcClient.csproj", "{EEB21F1F-22CF-4104-AAB7-9B65830CDE10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMS.Manager.WPF", "WMS.Manager.WPF\WMS.Manager.WPF.csproj", "{59C7720E-485F-4CFB-B88C-6919F49F83CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,26 @@ Global
 		{EEB21F1F-22CF-4104-AAB7-9B65830CDE10}.Release|x64.Build.0 = Release|Any CPU
 		{EEB21F1F-22CF-4104-AAB7-9B65830CDE10}.Release|x86.ActiveCfg = Release|Any CPU
 		{EEB21F1F-22CF-4104-AAB7-9B65830CDE10}.Release|x86.Build.0 = Release|Any CPU
+		{59C7720E-485F-4CFB-B88C-6919F49F83CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59C7720E-485F-4CFB-B88C-6919F49F83CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59C7720E-485F-4CFB-B88C-6919F49F83CC}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{59C7720E-485F-4CFB-B88C-6919F49F83CC}.Debug|ARM.Build.0 = Debug|Any CPU
+		{59C7720E-485F-4CFB-B88C-6919F49F83CC}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{59C7720E-485F-4CFB-B88C-6919F49F83CC}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{59C7720E-485F-4CFB-B88C-6919F49F83CC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{59C7720E-485F-4CFB-B88C-6919F49F83CC}.Debug|x64.Build.0 = Debug|Any CPU
+		{59C7720E-485F-4CFB-B88C-6919F49F83CC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{59C7720E-485F-4CFB-B88C-6919F49F83CC}.Debug|x86.Build.0 = Debug|Any CPU
+		{59C7720E-485F-4CFB-B88C-6919F49F83CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59C7720E-485F-4CFB-B88C-6919F49F83CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59C7720E-485F-4CFB-B88C-6919F49F83CC}.Release|ARM.ActiveCfg = Release|Any CPU
+		{59C7720E-485F-4CFB-B88C-6919F49F83CC}.Release|ARM.Build.0 = Release|Any CPU
+		{59C7720E-485F-4CFB-B88C-6919F49F83CC}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{59C7720E-485F-4CFB-B88C-6919F49F83CC}.Release|ARM64.Build.0 = Release|Any CPU
+		{59C7720E-485F-4CFB-B88C-6919F49F83CC}.Release|x64.ActiveCfg = Release|Any CPU
+		{59C7720E-485F-4CFB-B88C-6919F49F83CC}.Release|x64.Build.0 = Release|Any CPU
+		{59C7720E-485F-4CFB-B88C-6919F49F83CC}.Release|x86.ActiveCfg = Release|Any CPU
+		{59C7720E-485F-4CFB-B88C-6919F49F83CC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
