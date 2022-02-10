@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Общие сведения о сборке можно задать с помощью следующего 
 // атрибутов. Отредактируйте значения этих атрибутов, чтобы изменить
 // сведений о сборке.
-[assembly: AssemblyTitle("WMS.Manager")]
+[assembly: AssemblyTitle("WMS.Manager.UWP")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("WMS.Manager")]
+[assembly: AssemblyProduct("WMS.Manager.UWP")]
 [assembly: AssemblyCopyright("Copyright ©  2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

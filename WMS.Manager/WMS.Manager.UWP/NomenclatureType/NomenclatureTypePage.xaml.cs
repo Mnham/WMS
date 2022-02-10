@@ -2,7 +2,7 @@
 
 using Windows.UI.Xaml.Controls;
 
-namespace WMS.Manager.NomenclatureType
+namespace WMS.Manager.UWP.NomenclatureType
 {
     /// <summary>
     /// Представляет страницу типа номенклатуры.

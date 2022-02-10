@@ -3,7 +3,7 @@
 using WMS.Manager.Domain.Interfaces;
 using WMS.NomenclatureService.Grpc;
 
-namespace WMS.Manager.Nomenclature
+namespace WMS.Manager.UWP.Nomenclature
 {
     /// <summary>
     /// Представляет ViewModel редактора номенклатуры.
@@ -140,7 +140,7 @@ namespace WMS.Manager.Nomenclature
             && string.IsNullOrWhiteSpace(Weight) == false;
 
         /// <summary>
-        /// Возвращает новую Grpc-модель. 
+        /// Возвращает новую Grpc-модель.
         /// </summary>
         public NomenclatureGrpc GetNewGrpcModel() => new()
         {

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 using WMS.Manager.Domain.ViewModels;
 using WMS.Manager.GrpcClient.Clients;
-using WMS.Manager.Infrastructure.Services;
-using WMS.Manager.NomenclatureType;
+using WMS.Manager.UWP.Infrastructure.Services;
+using WMS.Manager.UWP.NomenclatureType;
 using WMS.NomenclatureService.Grpc;
 
-namespace WMS.Manager.Nomenclature
+namespace WMS.Manager.UWP.Nomenclature
 {
     /// <summary>
     /// Представляет ViewModel страницы номенклатуры.
@@ -54,32 +54,32 @@ namespace WMS.Manager.Nomenclature
         /// Команда поиска.
         /// </summary>
         public RelayCommand SearchCommand => _searchCommand ??= new(async () =>
-        {
-            NomenclatureSearchDialog dialog = await _serviceDialog.ShowNomenclatureSearchDialogAsync(NomenclatureTypes);
-            if (dialog.IsOK == false)
-            {
-                return;
-            }
+          {
+              NomenclatureSearchDialog dialog = await _serviceDialog.ShowNomenclatureSearchDialogAsync(NomenclatureTypes);
+              if (dialog.IsOK == false)
+              {
+                  return;
+              }
 
-            Items.Clear();
+              Items.Clear();
 
-            RequestResult<NomenclatureList> result = await GrpcClient.Nomenclature.SearchAsync(new NomenclatureSearchFilter()
-            {
-                NomenclatureId = dialog.NomenclatureIdValue,
-                NomenclatureName = dialog.NomenclatureNameValue,
-                NomenclatureTypeId = dialog.NomenclatureTypeIdValue
-            });
+              RequestResult<NomenclatureList> result = await GrpcClient.Nomenclature.SearchAsync(new NomenclatureSearchFilter()
+              {
+                  NomenclatureId = dialog.NomenclatureIdValue,
+                  NomenclatureName = dialog.NomenclatureNameValue,
+                  NomenclatureTypeId = dialog.NomenclatureTypeIdValue
+              });
 
-            if (result.IsSuccess)
-            {
-                foreach (NomenclatureGrpc item in result.Response.Nomenclatures)
-                {
-                    NomenclatureViewModel vm = new();
-                    vm.SetModel(item);
-                    Items.Add(vm);
-                }
-            }
-        });
+              if (result.IsSuccess)
+              {
+                  foreach (NomenclatureGrpc item in result.Response.Nomenclatures)
+                  {
+                      NomenclatureViewModel vm = new();
+                      vm.SetModel(item);
+                      Items.Add(vm);
+                  }
+              }
+          });
 
         /// <summary>
         /// Добавляет номенклатуру.

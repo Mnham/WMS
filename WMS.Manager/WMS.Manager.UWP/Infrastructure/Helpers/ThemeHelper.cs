@@ -1,7 +1,9 @@
 ﻿using Windows.Storage;
 using Windows.UI.Xaml;
 
-namespace WMS.Manager.Infrastructure.Helpers
+using WMS.Manager.Infrastructure.Helpers;
+
+namespace WMS.Manager.UWP.Infrastructure.Helpers
 {
     /// <summary>
     /// Представляет помощник для переключения темы оформления приложения.
@@ -44,7 +46,7 @@ namespace WMS.Manager.Infrastructure.Helpers
         }
 
         /// <summary>
-        /// Инициализирует класс. 
+        /// Инициализирует класс.
         /// </summary>
         public static void Initialize()
         {
@@ -57,6 +59,4 @@ namespace WMS.Manager.Infrastructure.Helpers
             }
         }
     }
-
 }
-

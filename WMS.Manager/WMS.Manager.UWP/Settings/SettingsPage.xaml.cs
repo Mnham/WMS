@@ -2,8 +2,9 @@
 using Windows.UI.Xaml.Controls;
 
 using WMS.Manager.Infrastructure.Helpers;
+using WMS.Manager.UWP.Infrastructure.Helpers;
 
-namespace WMS.Manager.Settings
+namespace WMS.Manager.UWP.Settings
 {
     /// <summary>
     /// Представляет настройки приложения.
@@ -21,9 +22,11 @@ namespace WMS.Manager.Settings
                 case ElementTheme.Default:
                     DefaultTheme.IsChecked = true;
                     break;
+
                 case ElementTheme.Light:
                     LightTheme.IsChecked = true;
                     break;
+
                 case ElementTheme.Dark:
                     DarkTheme.IsChecked = true;
                     break;

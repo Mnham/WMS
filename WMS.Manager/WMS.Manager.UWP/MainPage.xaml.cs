@@ -2,13 +2,13 @@
 
 using Windows.UI.Xaml.Controls;
 
-using WMS.Manager.Settings;
+using WMS.Manager.UWP.Settings;
 
 using NavigationView = Microsoft.UI.Xaml.Controls.NavigationView;
 using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
 using NavigationViewSelectionChangedEventArgs = Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs;
 
-namespace WMS.Manager
+namespace WMS.Manager.UWP
 {
     /// <summary>
     /// Представляет основную страницу.

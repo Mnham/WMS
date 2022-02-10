@@ -3,7 +3,7 @@ using System.Text;
 
 using Windows.UI.Xaml.Controls;
 
-namespace WMS.Manager.Infrastructure
+namespace WMS.Manager.UWP.Infrastructure
 {
     /// <summary>
     /// Представляет диалоговое окно исключения.

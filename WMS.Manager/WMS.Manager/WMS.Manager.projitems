@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>d0902650-69ff-4005-a4ef-b1a745735b3b</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>WMS.Manager</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Domain\Interfaces\IGrpcModelEditor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Domain\ViewModels\EditorMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Domain\ViewModels\GrpcViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Domain\ViewModels\PageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Infrastructure\Helpers\EnumHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Infrastructure\Helpers\LogManager.cs" />
+  </ItemGroup>
+</Project>

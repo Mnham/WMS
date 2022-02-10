@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 
 using Windows.UI.Xaml.Controls;
 
-using WMS.Manager.Infrastructure.Helpers;
-using WMS.Manager.Nomenclature;
-using WMS.Manager.NomenclatureType;
+using WMS.Manager.UWP.Infrastructure.Helpers;
+using WMS.Manager.UWP.Nomenclature;
+using WMS.Manager.UWP.NomenclatureType;
 
-namespace WMS.Manager.Infrastructure.Services
+namespace WMS.Manager.UWP.Infrastructure.Services
 {
     /// <summary>
     /// Сервис диалоговых окон.
@@ -53,6 +53,4 @@ namespace WMS.Manager.Infrastructure.Services
             return dialog;
         }
     }
-
 }
-

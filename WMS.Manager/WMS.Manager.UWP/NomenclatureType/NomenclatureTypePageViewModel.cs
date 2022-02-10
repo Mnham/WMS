@@ -4,7 +4,7 @@ using WMS.Manager.Domain.ViewModels;
 using WMS.Manager.GrpcClient.Clients;
 using WMS.NomenclatureService.Grpc;
 
-namespace WMS.Manager.NomenclatureType
+namespace WMS.Manager.UWP.NomenclatureType
 {
     /// <summary>
     /// Представляет ViewModel страницы номенклатуры.

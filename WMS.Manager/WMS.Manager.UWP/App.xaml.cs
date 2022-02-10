@@ -8,19 +8,18 @@ using System.Runtime.InteropServices;
 
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
-using Windows.Globalization;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 using WMS.Manager.GrpcClient.Clients;
-using WMS.Manager.Infrastructure.Helpers;
-using WMS.Manager.Infrastructure.Services;
-using WMS.Manager.Nomenclature;
-using WMS.Manager.NomenclatureType;
+using WMS.Manager.UWP.Infrastructure.Helpers;
+using WMS.Manager.UWP.Infrastructure.Services;
+using WMS.Manager.UWP.Nomenclature;
+using WMS.Manager.UWP.NomenclatureType;
 
-namespace WMS.Manager
+namespace WMS.Manager.UWP
 {
     /// <summary>
     /// Представляет точку входа приложения.
@@ -42,7 +41,7 @@ namespace WMS.Manager
         /// <summary>
         /// Текущий экземпляр <see cref="App"/>.
         /// </summary>
-        public static new App Current => (App)Application.Current;
+        public new static App Current => (App)Application.Current;
 
         /// <summary>
         /// Экземпляр служб приложения.
@@ -90,12 +89,12 @@ namespace WMS.Manager
         /// Конфигурирует службы приложения.
         /// </summary>
         private static IServiceProvider ConfigureServices() =>
-                            new ServiceCollection()
-            .AddSingleton<DialogService>()
-            .AddSingleton<WmsGrpcClient>()
-            .AddTransient<NomenclaturePageViewModel>()
-            .AddTransient<NomenclatureTypePageViewModel>()
-            .BuildServiceProvider();
+            new ServiceCollection()
+                .AddSingleton<DialogService>()
+                .AddSingleton<WmsGrpcClient>()
+                .AddTransient<NomenclaturePageViewModel>()
+                .AddTransient<NomenclatureTypePageViewModel>()
+                .BuildServiceProvider();
 
         /// <summary>
         /// Конфигурирует WmsGrpc-клиент.
@@ -115,6 +114,7 @@ namespace WMS.Manager
     internal static class NativeMethods
     {
         #region Public Methods
+
         /// <summary>
         /// Выделяет новую консоль для вызывающего процесса.
         /// </summary>

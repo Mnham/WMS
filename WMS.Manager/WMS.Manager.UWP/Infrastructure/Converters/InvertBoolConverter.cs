@@ -2,7 +2,7 @@
 
 using Windows.UI.Xaml.Data;
 
-namespace WMS.Manager.Infrastructure.Converters
+namespace WMS.Manager.UWP.Infrastructure.Converters
 {
     /// <summary>
     /// Представляет инвертированный конвертер для <see cref="bool"/> значений.
@@ -11,6 +11,7 @@ namespace WMS.Manager.Infrastructure.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language) =>
             !(bool)value;
+
         public object ConvertBack(object value, Type targetType, object parameter, string language) =>
             throw new NotImplementedException();
     }

@@ -1,6 +1,5 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 
-using System;
 using System.Threading.Tasks;
 
 using WMS.NomenclatureService.Grpc;
@@ -24,7 +23,7 @@ namespace WMS.Manager.GrpcClient.Clients
         /// <summary>
         /// Тип номенклатуры.
         /// </summary>
-        private NomenclatureTypeGrpcServiceClient NomenclatureType { get; }
+        private NomenclatureTypeGrpcServiceClient NomenclatureType { get; } = new NomenclatureTypeGrpcServiceClient();
 
         /// <summary>
         /// Возвращает все типы номенклатур.

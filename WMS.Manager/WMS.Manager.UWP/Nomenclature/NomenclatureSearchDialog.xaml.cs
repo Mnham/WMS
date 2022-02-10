@@ -3,9 +3,9 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-using WMS.Manager.NomenclatureType;
+using WMS.Manager.UWP.NomenclatureType;
 
-namespace WMS.Manager.Nomenclature
+namespace WMS.Manager.UWP.Nomenclature
 {
     /// <summary>
     /// Представляет диалоговое окно поиска номенклатуры.

@@ -12,6 +12,8 @@
     <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
     <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.2.0" />
     <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
+    <PackageReference Include="Serilog" Version="2.10.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,5 +22,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+
+  <Import Project="..\WMS.Manager\WMS.Manager.projitems" Label="Shared" />
 
 </Project>

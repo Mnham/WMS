@@ -2,7 +2,7 @@
 
 using Windows.UI.Xaml.Controls;
 
-namespace WMS.Manager.Nomenclature
+namespace WMS.Manager.UWP.Nomenclature
 {
     /// <summary>
     /// Представляет страницу номенклатуры.

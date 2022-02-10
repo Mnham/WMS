@@ -4,60 +4,58 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    d:DesignHeight="600"
-    d:DesignWidth="800"
-    GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
-    NonActiveGlowBrush="#CDFF0000"
-    ResizeMode="CanResizeWithGrip"
-    ShowIconOnTitleBar="True"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    ResizeMode="CanResize"
+    SaveWindowPosition="True"
+    TitleBarHeight="32"
     WindowStartupLocation="CenterScreen"
+    WindowTitleBrush="Transparent"
     mc:Ignorable="d">
+    <mah:MetroWindow.Resources>
 
-    <mah:MetroWindow.RightWindowCommands>
+        <Style x:Key="MenuStyle" TargetType="Menu">
+            <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}" />
+            <Setter Property="FontFamily" Value="{StaticResource MaterialDesignFont}" />
+            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="UseLayoutRounding" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Menu">
+                        <ItemsPresenter SnapsToDevicePixels="True" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </mah:MetroWindow.Resources>
+
+    <mah:MetroWindow.LeftWindowCommands>
         <mah:WindowCommands ShowLastSeparator="False">
-            <Menu IsMainMenu="True">
-                <MenuItem Header="_File">
-                    <MenuItem Header="Save" Icon="{materialDesign:PackIcon Kind=ContentSave}" />
-                    <MenuItem Header="Save As.." />
+            <Menu IsMainMenu="True" Style="{StaticResource MenuStyle}">
+                <MenuItem
+                    Height="32"
+                    Header="Номенклатура"
+                    Icon="{materialDesign:PackIcon Kind=ViewQuiltOutline}">
                     <MenuItem
-                        Header="Exit"
-                        Icon="{materialDesign:PackIcon Kind=ExitToApp}"
-                        InputGestureText="Ctrl+E" />
-                    <Separator />
+                        Click="MenuItemClickHandler"
+                        Header="Номенклатура"
+                        Icon="{materialDesign:PackIcon Kind=ViewQuiltOutline}"
+                        Tag="WMS.Manager.WPF.Page1" />
                     <MenuItem
-                        Header="Excellent"
-                        IsCheckable="True"
-                        IsChecked="True" />
-                    <MenuItem Header="Rubbish" IsCheckable="True" />
-                    <MenuItem Header="Dig Deeper" InputGestureText="Ctrl+D">
-                        <MenuItem Header="Enlightenment?" IsCheckable="True" />
-                        <MenuItem Header="Disappointment" IsCheckable="True" />
-                    </MenuItem>
-                    <MenuItem Header="Look Deeper" InputGestureText="Ctrl+D">
-                        <MenuItem Header="Plain" />
-                        <MenuItem Header="Ice Cream" />
-                    </MenuItem>
-                </MenuItem>
-                <MenuItem Header="_Edit">
-                    <MenuItem
-                        Command="Cut"
-                        Header="_Cut"
-                        Icon="{materialDesign:PackIcon Kind=ContentCut}" />
-                    <MenuItem
-                        Command="Copy"
-                        Header="_Copy"
-                        Icon="{materialDesign:PackIcon Kind=ContentCopy}" />
-                    <MenuItem
-                        Command="Paste"
-                        Header="_Paste"
-                        Icon="{materialDesign:PackIcon Kind=ContentPaste}" />
+                        Click="MenuItemClickHandler"
+                        Header="Тип номенклатуры"
+                        Icon="{materialDesign:PackIcon Kind=ViewHeadline}"
+                        Tag="WMS.Manager.WPF.Page2" />
                 </MenuItem>
             </Menu>
         </mah:WindowCommands>
-    </mah:MetroWindow.RightWindowCommands>
+    </mah:MetroWindow.LeftWindowCommands>
 
+    <Grid>
+        <materialDesign:DialogHost Identifier="RootDialog" SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
+            <ContentControl x:Name="ContentFrame" />
+        </materialDesign:DialogHost>
+        <materialDesign:Snackbar x:Name="MainSnackbar" MessageQueue="{materialDesign:MessageQueue}" />
+    </Grid>
 </mah:MetroWindow>
-
-
-
