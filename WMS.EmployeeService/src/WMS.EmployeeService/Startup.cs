@@ -33,6 +33,7 @@ namespace WMS.EmployeeService
                 .UseEndpoints(endpoints =>
                 {
                     endpoints.MapGrpcService<EmployeeGrpcService>().EnableGrpcWeb();
+                    endpoints.MapGrpcService<EmployeeSessionGrpcService>().EnableGrpcWeb();
                     endpoints.MapControllers();
                 });
 
