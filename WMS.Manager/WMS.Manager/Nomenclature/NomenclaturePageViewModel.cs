@@ -24,7 +24,7 @@ namespace WMS.Manager.Nomenclature
         /// <summary>
         /// Сервис диалоговых окон.
         /// </summary>
-        private readonly DialogService _serviceDialog;
+        private readonly IDialogService _serviceDialog;
 
         /// <summary>
         /// Команда поиска.
@@ -34,7 +34,7 @@ namespace WMS.Manager.Nomenclature
         /// <summary>
         /// Создает экземпляр класса <see cref="NomenclaturePageViewModel"/>.
         /// </summary>
-        public NomenclaturePageViewModel(WmsGrpcClient grpcClient, DialogService serviceDialog) : base(grpcClient)
+        public NomenclaturePageViewModel(WmsGrpcClient grpcClient, IDialogService serviceDialog) : base(grpcClient)
         {
             _serviceDialog = serviceDialog;
             LoadNomenclatureTypes();
@@ -54,32 +54,32 @@ namespace WMS.Manager.Nomenclature
         /// Команда поиска.
         /// </summary>
         public RelayCommand SearchCommand => _searchCommand ??= new(async () =>
-        {
-            NomenclatureSearchDialog dialog = await _serviceDialog.ShowNomenclatureSearchDialogAsync(NomenclatureTypes);
-            if (dialog.IsOK == false)
-            {
-                return;
-            }
+          {
+              INomenclatureSearchDialog dialog = await _serviceDialog.ShowNomenclatureSearchDialogAsync(NomenclatureTypes);
+              if (dialog.IsOK == false)
+              {
+                  return;
+              }
 
-            Items.Clear();
+              Items.Clear();
 
-            RequestResult<NomenclatureList> result = await GrpcClient.Nomenclature.SearchAsync(new NomenclatureSearchFilter()
-            {
-                NomenclatureId = dialog.NomenclatureIdValue,
-                NomenclatureName = dialog.NomenclatureNameValue,
-                NomenclatureTypeId = dialog.NomenclatureTypeIdValue
-            });
+              RequestResult<NomenclatureList> result = await GrpcClient.Nomenclature.SearchAsync(new NomenclatureSearchFilter()
+              {
+                  NomenclatureId = dialog.NomenclatureIdValue,
+                  NomenclatureName = dialog.NomenclatureNameValue,
+                  NomenclatureTypeId = dialog.NomenclatureTypeIdValue
+              });
 
-            if (result.IsSuccess)
-            {
-                foreach (NomenclatureGrpc item in result.Response.Nomenclatures)
-                {
-                    NomenclatureViewModel vm = new();
-                    vm.SetModel(item);
-                    Items.Add(vm);
-                }
-            }
-        });
+              if (result.IsSuccess)
+              {
+                  foreach (NomenclatureGrpc item in result.Response.Nomenclatures)
+                  {
+                      NomenclatureViewModel vm = new();
+                      vm.SetModel(item);
+                      Items.Add(vm);
+                  }
+              }
+          });
 
         /// <summary>
         /// Добавляет номенклатуру.

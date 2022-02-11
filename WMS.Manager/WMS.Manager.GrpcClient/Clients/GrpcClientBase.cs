@@ -10,20 +10,17 @@ using System.Threading.Tasks;
 namespace WMS.Manager.GrpcClient.Clients
 {
     /// <summary>
-    /// Представляет базовый класс Grpc-клиента. 
+    /// Представляет базовый класс Grpc-клиента.
     /// </summary>
     public abstract class GrpcClientBase
     {
         /// <summary>
         /// Создает экземпляр класса <see cref="GrpcClientBase"/>.
         /// </summary>
-        protected GrpcClientBase(string address)
+        protected GrpcClientBase(string address) => Channel = GrpcChannel.ForAddress(address, new GrpcChannelOptions
         {
-            Channel = GrpcChannel.ForAddress(address, new GrpcChannelOptions
-            {
-                HttpHandler = new GrpcWebHandler(new HttpClientHandler())
-            });
-        }
+            HttpHandler = new GrpcWebHandler(new HttpClientHandler())
+        });
 
         /// <summary>
         /// Канал подключения.
@@ -54,9 +51,6 @@ namespace WMS.Manager.GrpcClient.Clients
         /// <summary>
         /// Устанавливает обработчик исключения.
         /// </summary>
-        public void SetExceptionHandler(Action<Exception> exceptionHandler)
-        {
-            _exceptionHandler = exceptionHandler;
-        }
+        public void SetExceptionHandler(Action<Exception> exceptionHandler) => _exceptionHandler = exceptionHandler;
     }
 }

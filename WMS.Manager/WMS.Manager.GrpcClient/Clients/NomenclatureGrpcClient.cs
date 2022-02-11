@@ -14,9 +14,8 @@ namespace WMS.Manager.GrpcClient.Clients
         /// <summary>
         /// Создает экземпляр класса <see cref="NomenclatureGrpcClient"/>.
         /// </summary>
-        public NomenclatureGrpcClient(string address) : base(address)
-        {
-        }
+        public NomenclatureGrpcClient(string address) : base(address) =>
+            Nomenclature = new NomenclatureGrpcServiceClient(Channel);
 
         /// <summary>
         /// Номенклатура.
