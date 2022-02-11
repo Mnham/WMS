@@ -15,5 +15,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Domain\ViewModels\PageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Infrastructure\Helpers\EnumHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Infrastructure\Helpers\LogManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Infrastructure\Services\IDialogService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NomenclatureType\NomenclatureTypeEditorViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NomenclatureType\NomenclatureTypePageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NomenclatureType\NomenclatureTypeViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Nomenclature\INomenclatureSearchDialog.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Nomenclature\NomenclatureEditorViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Nomenclature\NomenclaturePageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Nomenclature\NomenclatureViewModel.cs" />
   </ItemGroup>
 </Project>

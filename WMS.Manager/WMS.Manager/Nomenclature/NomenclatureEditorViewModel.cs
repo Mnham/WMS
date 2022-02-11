@@ -3,7 +3,7 @@
 using WMS.Manager.Domain.Interfaces;
 using WMS.NomenclatureService.Grpc;
 
-namespace WMS.Manager.UWP.Nomenclature
+namespace WMS.Manager.Nomenclature
 {
     /// <summary>
     /// Представляет ViewModel редактора номенклатуры.

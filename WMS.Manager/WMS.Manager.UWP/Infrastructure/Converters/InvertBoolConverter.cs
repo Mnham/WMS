@@ -9,6 +9,7 @@ namespace WMS.Manager.UWP.Infrastructure.Converters
     /// </summary>
     public class InvertBoolConverter : IValueConverter
     {
+        // TODO: коммент
         public object Convert(object value, Type targetType, object parameter, string language) =>
             !(bool)value;
 

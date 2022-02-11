@@ -2,6 +2,8 @@
 
 using Windows.UI.Xaml.Controls;
 
+using WMS.Manager.NomenclatureType;
+
 namespace WMS.Manager.UWP.NomenclatureType
 {
     /// <summary>
@@ -12,7 +14,7 @@ namespace WMS.Manager.UWP.NomenclatureType
         /// <summary>
         /// ViewModel.
         /// </summary>
-        private readonly NomenclatureTypePageViewModel VM = App.Current.Services.GetService<NomenclatureTypePageViewModel>();
+        private NomenclatureTypePageViewModel VM { get; } = App.Current.Services.GetService<NomenclatureTypePageViewModel>();
 
         /// <summary>
         /// Создает экземпляр класса <see cref="NomenclatureTypePage"/>.

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 using WMS.Manager.Domain.ViewModels;
 using WMS.Manager.GrpcClient.Clients;
-using WMS.Manager.UWP.Infrastructure.Services;
-using WMS.Manager.UWP.NomenclatureType;
+using WMS.Manager.Infrastructure.Services;
+using WMS.Manager.NomenclatureType;
 using WMS.NomenclatureService.Grpc;
 
-namespace WMS.Manager.UWP.Nomenclature
+namespace WMS.Manager.Nomenclature
 {
     /// <summary>
     /// Представляет ViewModel страницы номенклатуры.
@@ -24,7 +24,7 @@ namespace WMS.Manager.UWP.Nomenclature
         /// <summary>
         /// Сервис диалоговых окон.
         /// </summary>
-        private readonly DialogService _serviceDialog;
+        private readonly IDialogService _serviceDialog;
 
         /// <summary>
         /// Команда поиска.
@@ -34,7 +34,7 @@ namespace WMS.Manager.UWP.Nomenclature
         /// <summary>
         /// Создает экземпляр класса <see cref="NomenclaturePageViewModel"/>.
         /// </summary>
-        public NomenclaturePageViewModel(WmsGrpcClient grpcClient, DialogService serviceDialog) : base(grpcClient)
+        public NomenclaturePageViewModel(WmsGrpcClient grpcClient, IDialogService serviceDialog) : base(grpcClient)
         {
             _serviceDialog = serviceDialog;
             LoadNomenclatureTypes();
@@ -55,7 +55,7 @@ namespace WMS.Manager.UWP.Nomenclature
         /// </summary>
         public RelayCommand SearchCommand => _searchCommand ??= new(async () =>
           {
-              NomenclatureSearchDialog dialog = await _serviceDialog.ShowNomenclatureSearchDialogAsync(NomenclatureTypes);
+              INomenclatureSearchDialog dialog = await _serviceDialog.ShowNomenclatureSearchDialogAsync(NomenclatureTypes);
               if (dialog.IsOK == false)
               {
                   return;

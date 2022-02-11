@@ -14,10 +14,11 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 using WMS.Manager.GrpcClient.Clients;
+using WMS.Manager.Infrastructure.Services;
+using WMS.Manager.Nomenclature;
+using WMS.Manager.NomenclatureType;
 using WMS.Manager.UWP.Infrastructure.Helpers;
 using WMS.Manager.UWP.Infrastructure.Services;
-using WMS.Manager.UWP.Nomenclature;
-using WMS.Manager.UWP.NomenclatureType;
 
 namespace WMS.Manager.UWP
 {
@@ -90,7 +91,7 @@ namespace WMS.Manager.UWP
         /// </summary>
         private static IServiceProvider ConfigureServices() =>
             new ServiceCollection()
-                .AddSingleton<DialogService>()
+                .AddSingleton<IDialogService, DialogService>()
                 .AddSingleton<WmsGrpcClient>()
                 .AddTransient<NomenclaturePageViewModel>()
                 .AddTransient<NomenclatureTypePageViewModel>()
@@ -102,7 +103,7 @@ namespace WMS.Manager.UWP
         private void ConfigureWmsGrpcClient()
         {
             WmsGrpcClient grpcClient = Services.GetService<WmsGrpcClient>();
-            DialogService serviceDialog = Services.GetService<DialogService>();
+            IDialogService serviceDialog = Services.GetService<IDialogService>();
 
             grpcClient.SetExceptionHandler(async ex => await serviceDialog.ShowExceptionDialogAsync(ex));
         }

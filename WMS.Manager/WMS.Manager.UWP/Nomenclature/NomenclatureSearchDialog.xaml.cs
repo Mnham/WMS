@@ -3,14 +3,15 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-using WMS.Manager.UWP.NomenclatureType;
+using WMS.Manager.Nomenclature;
+using WMS.Manager.NomenclatureType;
 
 namespace WMS.Manager.UWP.Nomenclature
 {
     /// <summary>
     /// Представляет диалоговое окно поиска номенклатуры.
     /// </summary>
-    public sealed partial class NomenclatureSearchDialog : ContentDialog
+    public sealed partial class NomenclatureSearchDialog : ContentDialog, INomenclatureSearchDialog
     {
         /// <summary>
         /// Создает экземпляр класса <see cref="NomenclatureSearchDialog"/>.

@@ -16,14 +16,13 @@ namespace WMS.Manager.GrpcClient.Clients
         /// <summary>
         /// Создает экземпляр класса <see cref="NomenclatureTypeGrpcClient"/>.
         /// </summary>
-        public NomenclatureTypeGrpcClient(string address) : base(address)
-        {
-        }
+        public NomenclatureTypeGrpcClient(string address) : base(address) =>
+            NomenclatureType = new NomenclatureTypeGrpcServiceClient(Channel);
 
         /// <summary>
         /// Тип номенклатуры.
         /// </summary>
-        private NomenclatureTypeGrpcServiceClient NomenclatureType { get; } = new NomenclatureTypeGrpcServiceClient();
+        private NomenclatureTypeGrpcServiceClient NomenclatureType { get; }
 
         /// <summary>
         /// Возвращает все типы номенклатур.

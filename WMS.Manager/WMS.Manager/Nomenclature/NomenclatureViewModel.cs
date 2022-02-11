@@ -1,7 +1,7 @@
 ﻿using WMS.Manager.Domain.ViewModels;
 using WMS.NomenclatureService.Grpc;
 
-namespace WMS.Manager.UWP.Nomenclature
+namespace WMS.Manager.Nomenclature
 {
     /// <summary>
     /// Представляет ViewModel номенклатуры.

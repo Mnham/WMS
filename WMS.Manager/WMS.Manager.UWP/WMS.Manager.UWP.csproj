@@ -136,21 +136,15 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="NomenclatureType\NomenclatureTypeEditorViewModel.cs" />
     <Compile Include="NomenclatureType\NomenclatureTypePage.xaml.cs">
       <DependentUpon>NomenclatureTypePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="NomenclatureType\NomenclatureTypePageViewModel.cs" />
-    <Compile Include="NomenclatureType\NomenclatureTypeViewModel.cs" />
-    <Compile Include="Nomenclature\NomenclatureEditorViewModel.cs" />
     <Compile Include="Nomenclature\NomenclaturePage.xaml.cs">
       <DependentUpon>NomenclaturePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Nomenclature\NomenclaturePageViewModel.cs" />
     <Compile Include="Nomenclature\NomenclatureSearchDialog.xaml.cs">
       <DependentUpon>NomenclatureSearchDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Nomenclature\NomenclatureViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>

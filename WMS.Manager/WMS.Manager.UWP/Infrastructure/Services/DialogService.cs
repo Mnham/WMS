@@ -4,16 +4,18 @@ using System.Threading.Tasks;
 
 using Windows.UI.Xaml.Controls;
 
+using WMS.Manager.Infrastructure.Services;
+using WMS.Manager.Nomenclature;
+using WMS.Manager.NomenclatureType;
 using WMS.Manager.UWP.Infrastructure.Helpers;
 using WMS.Manager.UWP.Nomenclature;
-using WMS.Manager.UWP.NomenclatureType;
 
 namespace WMS.Manager.UWP.Infrastructure.Services
 {
     /// <summary>
     /// Сервис диалоговых окон.
     /// </summary>
-    public class DialogService
+    public class DialogService : IDialogService
     {
         /// <summary>
         /// Диалоговое окно.
@@ -36,12 +38,13 @@ namespace WMS.Manager.UWP.Infrastructure.Services
         /// <summary>
         /// Показывает диалоговое окно поиска номенклатуры.
         /// </summary>
-        public async Task<NomenclatureSearchDialog> ShowNomenclatureSearchDialogAsync(IReadOnlyCollection<NomenclatureTypeViewModel> types)
+        public async Task<INomenclatureSearchDialog> ShowNomenclatureSearchDialogAsync(IReadOnlyCollection<NomenclatureTypeViewModel> types)
         {
             NomenclatureSearchDialog dialog = new(types)
             {
                 RequestedTheme = ThemeHelper.ActualTheme
             };
+
             if (_currentDialog?.IsLoaded == true)
             {
                 return dialog;
