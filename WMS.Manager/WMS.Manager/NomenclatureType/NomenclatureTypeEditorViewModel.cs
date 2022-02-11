@@ -44,7 +44,7 @@ namespace WMS.Manager.NomenclatureType
         public bool CanSaveChange() => string.IsNullOrWhiteSpace(Name) == false;
 
         /// <summary>
-        /// Возвращает новую Grpc-модель. 
+        /// Возвращает новую Grpc-модель.
         /// </summary>
         public NomenclatureTypeGrpc GetNewGrpcModel() => new()
         {

@@ -140,7 +140,7 @@ namespace WMS.Manager.Nomenclature
             && string.IsNullOrWhiteSpace(Weight) == false;
 
         /// <summary>
-        /// Возвращает новую Grpc-модель. 
+        /// Возвращает новую Grpc-модель.
         /// </summary>
         public NomenclatureGrpc GetNewGrpcModel() => new()
         {
