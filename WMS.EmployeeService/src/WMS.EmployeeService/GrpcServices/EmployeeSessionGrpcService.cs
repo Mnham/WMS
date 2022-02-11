@@ -1,5 +1,12 @@
-﻿using Grpc.Core;
+﻿using Google.Protobuf;
+using Grpc.Core;
 using MediatR;
+using WMS.ClassLibrary.Extensions;
+using WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeAggregate;
+using WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeAggregate.Responses;
+using WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeSessionAggregate;
+using WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeSessionAggregate.Responses;
+using WMS.EmployeeService.Domain.Infrastructure.Helpers;
 using WMS.EmployeeService.Grpc;
 
 namespace WMS.EmployeeService.GrpcServices
@@ -10,19 +17,51 @@ namespace WMS.EmployeeService.GrpcServices
 
         public EmployeeSessionGrpcService(IMediator mediator) => _mediator = mediator;
 
-        public override Task<EmployeeSessionGrpc> Insert(EmployeeSessionGrpc request, ServerCallContext context)
+        public override async Task<EmployeeSessionGrpc> Insert(EmployeeSessionGrpc request, ServerCallContext context) =>
+            await HandleException(async () =>
+            {
+                InsertEmployeeSessionQueryResponse response = await _mediator.Send(new InsertEmployeeSessionQuery
+                {
+                    Session = EmployeeSessionMapper.GrpcToDto(request)
+                }, context.CancellationToken);
+
+                return EmployeeSessionMapper.DtoToGrpc(response.Session);
+            });
+
+        public override async Task<EmployeeSessionGrpc> Update(EmployeeSessionGrpc request, ServerCallContext context) =>
+            await HandleException(async () =>
+            {
+                UpdateEmployeeSessionQueryResponse response = await _mediator.Send(new UpdateEmployeeSessionQuery
+                {
+                    Session = EmployeeSessionMapper.GrpcToDto(request)
+                }, context.CancellationToken);
+
+                return EmployeeSessionMapper.DtoToGrpc(response.Session);
+            });
+
+        public override async Task<EmployeeSessionGrpc> GetById(IntIdModel request, ServerCallContext context)
         {
-            return base.Insert(request, context);
+            SearchEmployeeSessionQueryResponse response = await _mediator.Send(new SearchEmployeeSessionQuery
+            {
+                SessionId = request.Id
+            }, context.CancellationToken);
+
+            return EmployeeSessionMapper.DtoToGrpc(response.Session);
         }
 
-        public override Task<EmployeeSessionGrpc> Update(EmployeeSessionGrpc request, ServerCallContext context)
+        /// <summary>
+        /// Обрабатывает исключение.
+        /// </summary>
+        private static async Task<T> HandleException<T>(Func<Task<T>> func) where T : IMessage<T>
         {
-            return base.Update(request, context);
-        }
-
-        public override Task<EmployeeSessionGrpc> GetById(IntIdModel request, ServerCallContext context)
-        {
-            return base.GetById(request, context);
+            try
+            {
+                return await func();
+            }
+            catch (ArgumentException ex)
+            {
+                throw new RpcException(new Status(StatusCode.InvalidArgument, ex.Message));
+            }
         }
     }
 }

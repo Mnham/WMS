@@ -5,7 +5,6 @@ using WMS.ClassLibrary.Domain.Infrastructure.Configuration;
 using WMS.ClassLibrary.Domain.Infrastructure.Repositories.Infrastructure;
 using WMS.ClassLibrary.Domain.Infrastructure.Repositories.Infrastructure.Contracts;
 using WMS.ClassLibrary.Extensions;
-using WMS.EmployeeService.Domain.AggregationModels.EmployeeAggregate;
 using WMS.EmployeeService.Domain.AggregationModels.EmployeeSessionAggregate;
 using WMS.EmployeeService.Domain.Infrastructure.Helpers;
 using WMS.EmployeeService.Domain.Infrastructure.Models;
@@ -74,7 +73,7 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
             });
         }
 
-        public async Task<IReadOnlyCollection<EmployeeSession>> GetById(IntIdModel id, CancellationToken cancellationToken)
+        public async Task<EmployeeSession> GetById(IntIdModel id, CancellationToken cancellationToken)
         {
             const string sql = @"
                 SELECT *
@@ -101,13 +100,11 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
                 commandTimeout: TIMEOUT,
                 cancellationToken: cancellationToken);
 
-            IEnumerable<EmployeeSession> result = await _queryExecutor.Execute(async () =>
+            return await _queryExecutor.Execute(async () =>
             {
                 IEnumerable<EmployeeSessionDto> sessions = await connection.QueryAsync<EmployeeSessionDto>(command);
-                return sessions.Distinct().Map(EmployeeSessionMapper.DtoToEntity);
+                return sessions.Map(EmployeeSessionMapper.DtoToEntity).First();
             });
-
-            return result.ToList();
         }
 
         public async Task<EmployeeSession> Update(EmployeeSession itemToUpdate, CancellationToken cancellationToken)

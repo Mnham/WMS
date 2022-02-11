@@ -12,7 +12,7 @@ namespace WMS.EmployeeService.Domain.AggregationModels.EmployeeSessionAggregate
         /// <summary>
         /// Выполняет поиск данных сотрудника в базе данных.
         /// </summary>
-        public Task<IReadOnlyCollection<EmployeeSession>> GetById(IntIdModel id, CancellationToken cancellationToken);
+        public Task<EmployeeSession> GetById(IntIdModel id, CancellationToken cancellationToken);
 
         /// <summary>
         /// Выполняет обновление данных сотрудника в базу данных.
