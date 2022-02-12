@@ -7,7 +7,7 @@ using MediatR;
 using System;
 using System.Threading.Tasks;
 
-using WMS.ClassLibrary.Extensions;
+using WMS.Microservice.Extensions;
 using WMS.NomenclatureService.Domain.Exceptions;
 using WMS.NomenclatureService.Domain.Infrastructure.Commands.NomenclatureAggregate;
 using WMS.NomenclatureService.Domain.Infrastructure.Commands.NomenclatureAggregate.Responses;
@@ -19,7 +19,7 @@ namespace WMS.NomenclatureService.GrpcServices
     /// <summary>
     /// Представляет сервис номенклатуры.
     /// </summary>
-    public class NomenclatureGrpsService : NomenclatureGrpcService.NomenclatureGrpcServiceBase
+    public class NomenclatureGrpsService : NomenclatureApiGrpc.NomenclatureApiGrpcBase
     {
         /// <summary>
         /// Экземпляр медиатора.

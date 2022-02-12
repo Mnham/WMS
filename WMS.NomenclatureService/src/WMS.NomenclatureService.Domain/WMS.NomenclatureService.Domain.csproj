@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="10.0.0" />
-    <PackageReference Include="Test.WMS.ClassLibrary" Version="0.2.0-build.7" />
+    <PackageReference Include="MediatR" Version="10.0.1" />
+    <PackageReference Include="WMS.Microservice" Version="0.1.0" />
   </ItemGroup>
 
   <ItemGroup>

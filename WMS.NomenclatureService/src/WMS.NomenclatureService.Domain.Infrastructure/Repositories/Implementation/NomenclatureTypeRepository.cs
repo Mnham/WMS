@@ -9,9 +9,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-using WMS.ClassLibrary.Domain.Infrastructure.Configuration;
-using WMS.ClassLibrary.Domain.Infrastructure.Repositories.Infrastructure.Contracts;
-using WMS.ClassLibrary.Extensions;
+using WMS.Microservice.Domain.Infrastructure.Configuration;
+using WMS.Microservice.Domain.Infrastructure.Repositories.Infrastructure.Contracts;
+using WMS.Microservice.Extensions;
 using WMS.NomenclatureService.Domain.AggregationModels.NomenclatureTypeAggregate;
 using WMS.NomenclatureService.Domain.Infrastructure.Helpers;
 using WMS.NomenclatureService.Domain.Infrastructure.Models;
