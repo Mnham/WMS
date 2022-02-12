@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
-        <id>WMS.ClassLibrary</id>
+        <id>WMS.Microservice</id>
         <version>0.1.0</version>
         <authors>YuryR</authors>
-        <description>Test wms</description>
-        <releaseNotes>Test</releaseNotes>
+        <description>Инфраструктура для микросервисов</description>
+        <releaseNotes>Первый выпуск</releaseNotes>
 
         <dependencies>
             <dependency id="Dapper" version="2.0.123" />
@@ -16,9 +16,9 @@
     </metadata>
 
     <files>
-        <file src="WMS.ClassLibrary\bin\Release\net6.0\WMS.ClassLibrary.dll" target="lib\net6.0"/>
-        <file src="WMS.ClassLibrary\bin\Release\net6.0\WMS.ClassLibrary.pdb" target="lib\net6.0"/>
-        <file src="WMS.ClassLibrary\bin\Release\net6.0\WMS.ClassLibrary.xml" target="lib\net6.0"/> 
-        <file src="WMS.ClassLibrary\bin\Release\net6.0\WMS.ClassLibrary.deps.json" target="lib\net6.0"/>
+        <file src="WMS.Microservice\bin\Release\net6.0\WMS.Microservice.dll" target="lib\net6.0"/>
+        <file src="WMS.Microservice\bin\Release\net6.0\WMS.Microservice.pdb" target="lib\net6.0"/>
+        <file src="WMS.Microservice\bin\Release\net6.0\WMS.Microservice.xml" target="lib\net6.0"/> 
+        <file src="WMS.Microservice\bin\Release\net6.0\WMS.Microservice.deps.json" target="lib\net6.0"/>
     </files>
 </package>
