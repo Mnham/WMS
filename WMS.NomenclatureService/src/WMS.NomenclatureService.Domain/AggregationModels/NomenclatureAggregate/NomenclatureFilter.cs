@@ -1,4 +1,4 @@
-﻿using WMS.ClassLibrary.Domain.Infrastructure.Repositories.Infrastructure.Attributes;
+﻿using WMS.Microservice.Domain.Infrastructure.Repositories.Infrastructure.Attributes;
 
 namespace WMS.NomenclatureService.Domain.AggregationModels.NomenclatureAggregate
 {

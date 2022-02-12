@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-using WMS.ClassLibrary.Infrastructure.Filters;
-using WMS.ClassLibrary.Infrastructure.Interceptors;
-using WMS.ClassLibrary.Infrastructure.StartupFilters;
+using WMS.Microservice.Infrastructure.Filters;
+using WMS.Microservice.Infrastructure.Interceptors;
+using WMS.Microservice.Infrastructure.StartupFilters;
 using WMS.NomenclatureService.Domain.Infrastructure.Extensions;
 using WMS.NomenclatureService.Domain.Infrastructure.Handlers.NomenclatureAggregate;
 using WMS.NomenclatureService.GrpcServices;

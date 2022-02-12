@@ -1,6 +1,6 @@
 ﻿using System;
 
-using WMS.ClassLibrary.Domain.Models;
+using WMS.Microservice.Domain.Models;
 using WMS.NomenclatureService.Domain.AggregationModels.NomenclatureTypeAggregate;
 using WMS.NomenclatureService.Domain.Exceptions;
 
