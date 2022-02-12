@@ -8,7 +8,7 @@ using MediatR;
 using System;
 using System.Threading.Tasks;
 
-using WMS.ClassLibrary.Extensions;
+using WMS.Microservice.Extensions;
 using WMS.NomenclatureService.Domain.Infrastructure.Commands.NomenclatureTypeAggregate;
 using WMS.NomenclatureService.Domain.Infrastructure.Commands.NomenclatureTypeAggregate.Responses;
 using WMS.NomenclatureService.Domain.Infrastructure.Helpers;

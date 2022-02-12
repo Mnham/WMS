@@ -3,9 +3,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-using WMS.ClassLibrary.Domain.Infrastructure.Configuration;
-using WMS.ClassLibrary.Domain.Infrastructure.Repositories.Infrastructure;
-using WMS.ClassLibrary.Domain.Infrastructure.Repositories.Infrastructure.Contracts;
+using WMS.Microservice.Domain.Infrastructure.Configuration;
+using WMS.Microservice.Domain.Infrastructure.Repositories.Infrastructure;
+using WMS.Microservice.Domain.Infrastructure.Repositories.Infrastructure.Contracts;
 using WMS.NomenclatureService.Domain.AggregationModels.NomenclatureAggregate;
 using WMS.NomenclatureService.Domain.AggregationModels.NomenclatureTypeAggregate;
 using WMS.NomenclatureService.Domain.Infrastructure.Repositories.Implementation;

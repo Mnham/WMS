@@ -9,8 +9,8 @@
     <PackageReference Include="Dapper.SqlBuilder" Version="2.0.78" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
-    <PackageReference Include="Npgsql" Version="6.0.2" />
-    <PackageReference Include="Test.WMS.ClassLibrary" Version="0.2.0-build.7" />
+    <PackageReference Include="Npgsql" Version="6.0.3" />
+    <PackageReference Include="WMS.Microservice" Version="0.1.0" />
   </ItemGroup>
 
   <ItemGroup>
