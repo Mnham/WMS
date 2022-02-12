@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>WMS.Microservice</id>
+        <version>0.1.0</version>
+        <authors>YuryR</authors>
+        <description>Инфраструктура для микросервисов</description>
+        <releaseNotes>Первый выпуск</releaseNotes>
+
+        <dependencies>
+            <dependency id="Dapper" version="2.0.123" />
+            <dependency id="Grpc.AspNetCore" version="2.42.0" />
+            <dependency id="MediatR" version="10.0.1" />
+            <dependency id="Npgsql" version="6.0.3" />
+        </dependencies>
+    </metadata>
+
+    <files>
+        <file src="WMS.Microservice\bin\Release\net6.0\WMS.Microservice.dll" target="lib\net6.0"/>
+        <file src="WMS.Microservice\bin\Release\net6.0\WMS.Microservice.pdb" target="lib\net6.0"/>
+        <file src="WMS.Microservice\bin\Release\net6.0\WMS.Microservice.xml" target="lib\net6.0"/> 
+        <file src="WMS.Microservice\bin\Release\net6.0\WMS.Microservice.deps.json" target="lib\net6.0"/>
+    </files>
+</package>
