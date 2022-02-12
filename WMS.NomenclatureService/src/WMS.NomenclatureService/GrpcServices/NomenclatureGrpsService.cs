@@ -19,7 +19,7 @@ namespace WMS.NomenclatureService.GrpcServices
     /// <summary>
     /// Представляет сервис номенклатуры.
     /// </summary>
-    public class NomenclatureGrpsService : NomenclatureGrpcService.NomenclatureGrpcServiceBase
+    public class NomenclatureGrpsService : NomenclatureApiGrpc.NomenclatureApiGrpcBase
     {
         /// <summary>
         /// Экземпляр медиатора.

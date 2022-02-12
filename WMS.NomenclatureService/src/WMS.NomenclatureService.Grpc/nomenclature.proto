@@ -6,7 +6,7 @@ import "google/protobuf/empty.proto";
 import "google/protobuf/wrappers.proto";
 
 
-service NomenclatureTypeGrpcService
+service NomenclatureTypeApiGrpc
 {
     rpc GetAll (google.protobuf.Empty) returns (NomenclatureTypeList) {}
     rpc Insert (NomenclatureTypeGrpc) returns (NomenclatureTypeGrpc) {}
@@ -23,7 +23,7 @@ message NomenclatureTypeList {
 }
 
 
-service NomenclatureGrpcService
+service NomenclatureApiGrpc
 {
     rpc Insert (NomenclatureGrpc) returns (NomenclatureGrpc) {}
     rpc Update (NomenclatureGrpc) returns (NomenclatureGrpc) {}
