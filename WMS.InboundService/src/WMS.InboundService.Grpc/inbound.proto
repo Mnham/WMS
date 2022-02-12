@@ -2,11 +2,10 @@
 option csharp_namespace = "WMS.InboundService.Grpc";
 package InboundService;
 
-import "google/protobuf/empty.proto";
 import "google/protobuf/wrappers.proto";
 
 
-service BillOfLadingGrpcService
+service BillOfLadingApiGrpc
 {
     rpc Insert (BillOfLadingGrpc) returns (BillOfLadingGrpc) {}
     rpc Update (BillOfLadingGrpc) returns (BillOfLadingGrpc) {}
@@ -29,7 +28,7 @@ message BillOfLadingSearchFilter {
 }
 
 
-service AdvanceShipmentNoticeGrpcService
+service AdvanceShipmentNoticeApiGrpc
 {
     rpc Insert (AdvanceShipmentNoticeGrpc) returns (AdvanceShipmentNoticeGrpc) {}
     rpc Update (AdvanceShipmentNoticeGrpc) returns (AdvanceShipmentNoticeGrpc) {}
