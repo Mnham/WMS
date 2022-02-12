@@ -1,4 +1,4 @@
-﻿using WMS.ClassLibrary.Domain.Models;
+﻿using WMS.Microservice.Domain.Models;
 
 namespace WMS.EmployeeService.Domain.AggregationModels.EmployeeAggregate
 {

@@ -1,11 +1,10 @@
 ﻿using MediatR;
-
-using WMS.ClassLibrary.Infrastructure.Filters;
-using WMS.ClassLibrary.Infrastructure.Interceptors;
-using WMS.ClassLibrary.Infrastructure.StartupFilters;
 using WMS.EmployeeService.Domain.Infrastructure.Extensions;
 using WMS.EmployeeService.Domain.Infrastructure.Handlers.EmployeeAggregate;
 using WMS.EmployeeService.GrpcServices;
+using WMS.Microservice.Infrastructure.Filters;
+using WMS.Microservice.Infrastructure.Interceptors;
+using WMS.Microservice.Infrastructure.StartupFilters;
 
 namespace WMS.EmployeeService
 {

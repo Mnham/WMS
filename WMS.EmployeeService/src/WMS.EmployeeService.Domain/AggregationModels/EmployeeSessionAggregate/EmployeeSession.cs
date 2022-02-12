@@ -1,5 +1,5 @@
-﻿using WMS.ClassLibrary.Domain.Models;
-using WMS.EmployeeService.Domain.Exceptions;
+﻿using WMS.EmployeeService.Domain.Exceptions;
+using WMS.Microservice.Domain.Models;
 
 namespace WMS.EmployeeService.Domain.AggregationModels.EmployeeSessionAggregate
 {

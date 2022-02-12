@@ -1,5 +1,4 @@
-﻿using WMS.EmployeeService.Domain.AggregationModels.EmployeeAggregate;
-using WMS.EmployeeService.Domain.AggregationModels.EmployeeSessionAggregate;
+﻿using WMS.EmployeeService.Domain.AggregationModels.EmployeeSessionAggregate;
 using WMS.EmployeeService.Domain.Infrastructure.Models;
 using WMS.EmployeeService.Grpc;
 

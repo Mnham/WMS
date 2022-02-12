@@ -3,15 +3,13 @@
 using Microsoft.Extensions.Options;
 
 using Npgsql;
-
-using WMS.ClassLibrary.Domain.Infrastructure.Configuration;
-using WMS.ClassLibrary.Domain.Infrastructure.Repositories.Infrastructure;
-using WMS.ClassLibrary.Domain.Infrastructure.Repositories.Infrastructure.Contracts;
-using WMS.ClassLibrary.Extensions;
 using WMS.EmployeeService.Domain.AggregationModels.EmployeeAggregate;
 using WMS.EmployeeService.Domain.Infrastructure.Helpers;
 using WMS.EmployeeService.Domain.Infrastructure.Models;
-using static Dapper.SqlMapper;
+using WMS.Microservice.Domain.Infrastructure.Configuration;
+using WMS.Microservice.Domain.Infrastructure.Repositories.Infrastructure;
+using WMS.Microservice.Domain.Infrastructure.Repositories.Infrastructure.Contracts;
+using WMS.Microservice.Extensions;
 
 namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
 {
