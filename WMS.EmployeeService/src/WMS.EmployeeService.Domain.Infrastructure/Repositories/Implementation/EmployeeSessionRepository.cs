@@ -2,15 +2,15 @@
 using Microsoft.Extensions.Options;
 using Npgsql;
 using WMS.EmployeeService.Domain.AggregationModels.EmployeeSessionAggregate;
-using WMS.EmployeeService.Domain.Infrastructure.Helpers;
-using WMS.EmployeeService.Domain.Infrastructure.Models;
 using WMS.Microservice.Domain.Infrastructure.Configuration;
 using WMS.Microservice.Domain.Infrastructure.Repositories.Infrastructure;
 using WMS.Microservice.Domain.Infrastructure.Repositories.Infrastructure.Contracts;
-using WMS.Microservice.Extensions;
 
 namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
 {
+    /// <summary>
+    /// Представляет репозиторий сессий.
+    /// </summary>
     public class EmployeeSessionRepository : IEmployeeSessionRepository
     {
         /// <summary>
@@ -29,7 +29,7 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
         private readonly IQueryExecutor _queryExecutor;
 
         /// <summary>
-        /// Инициализирует новый экземпляр <see cref="EmployeeRepository"/>.
+        /// Инициализирует новый экземпляр <see cref="EmployeeSessionRepository"/>.
         /// </summary>
         public EmployeeSessionRepository(IOptions<DatabaseConnectionOptions> options, IQueryExecutor queryExecutor)
         {
@@ -37,6 +37,9 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
             _queryExecutor = queryExecutor;
         }
 
+        /// <summary>
+        /// Добавляет сессию.
+        /// </summary>
         public async Task<EmployeeSession> Insert(EmployeeSession itemToInsert, CancellationToken cancellationToken)
         {
             const string sql = @"
@@ -73,10 +76,13 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
             });
         }
 
+        /// <summary>
+        /// Возвращает данные сессии по идентификатору.
+        /// </summary>
         public async Task<EmployeeSession> GetById(IntIdModel id, CancellationToken cancellationToken)
         {
             const string sql = @"
-                SELECT *
+                TOP (1)
                 FROM nomenclature
                 /**where**/;";
 
@@ -100,13 +106,12 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
                 commandTimeout: TIMEOUT,
                 cancellationToken: cancellationToken);
 
-            return await _queryExecutor.Execute(async () =>
-            {
-                IEnumerable<EmployeeSessionDto> sessions = await connection.QueryAsync<EmployeeSessionDto>(command);
-                return sessions.Map(EmployeeSessionMapper.DtoToEntity).First();
-            });
+            return await _queryExecutor.Execute(async () => await connection.ExecuteScalarAsync<EmployeeSession>(command));
         }
 
+        /// <summary>
+        /// Обновлет данные сессии.
+        /// </summary>
         public async Task<EmployeeSession> Update(EmployeeSession itemToUpdate, CancellationToken cancellationToken)
         {
             const string sql = @"

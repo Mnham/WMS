@@ -8,12 +8,24 @@ using WMS.EmployeeService.Grpc;
 
 namespace WMS.EmployeeService.GrpcServices
 {
+    /// <summary>
+    /// Представляет сервис сессий.
+    /// </summary>
     public class EmployeeSessionGrpcService : EmployeeSessionApiGrpc.EmployeeSessionApiGrpcBase
     {
+        /// <summary>
+        /// Экземпляр медиатора.
+        /// </summary>
         private readonly IMediator _mediator;
 
+        /// <summary>
+        /// Инициализирует новый экземпляр <see cref="EmployeeSessionGrpcService"/>.
+        /// </summary>
         public EmployeeSessionGrpcService(IMediator mediator) => _mediator = mediator;
 
+        /// <summary>
+        /// Добавляет сессию.
+        /// </summary>
         public override async Task<EmployeeSessionGrpc> Insert(EmployeeSessionGrpc request, ServerCallContext context) =>
             await HandleException(async () =>
             {
@@ -25,6 +37,9 @@ namespace WMS.EmployeeService.GrpcServices
                 return EmployeeSessionMapper.DtoToGrpc(response.Session);
             });
 
+        /// <summary>
+        /// Обновляет данные сессии.
+        /// </summary>
         public override async Task<EmployeeSessionGrpc> Update(EmployeeSessionGrpc request, ServerCallContext context) =>
             await HandleException(async () =>
             {
@@ -36,6 +51,9 @@ namespace WMS.EmployeeService.GrpcServices
                 return EmployeeSessionMapper.DtoToGrpc(response.Session);
             });
 
+        /// <summary>
+        /// Возвращает сессиию по идентификатору.
+        /// </summary>
         public override async Task<EmployeeSessionGrpc> GetById(IntIdModel request, ServerCallContext context)
         {
             SearchEmployeeSessionQueryResponse response = await _mediator.Send(new SearchEmployeeSessionQuery

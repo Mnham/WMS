@@ -4,6 +4,9 @@ using WMS.EmployeeService.Grpc;
 
 namespace WMS.EmployeeService.Domain.Infrastructure.Helpers
 {
+    /// <summary>
+    /// Предоставляет методы мапинга данных сессии.
+    /// </summary>
     public class EmployeeSessionMapper
     {
         /// <summary>
