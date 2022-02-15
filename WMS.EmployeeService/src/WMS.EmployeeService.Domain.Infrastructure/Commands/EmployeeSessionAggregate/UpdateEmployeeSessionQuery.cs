@@ -5,7 +5,7 @@ using WMS.EmployeeService.Domain.Infrastructure.Models;
 namespace WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeSessionAggregate
 {
     /// <summary>
-    /// Представляет команду для запроса обновления данных сессии.
+    /// Представляет команду обновления сессии.
     /// </summary>
     public class UpdateEmployeeSessionQuery : IRequest<UpdateEmployeeSessionQueryResponse>
     {
