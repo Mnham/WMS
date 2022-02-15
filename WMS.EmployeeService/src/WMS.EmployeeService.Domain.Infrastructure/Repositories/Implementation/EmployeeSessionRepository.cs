@@ -14,22 +14,22 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
     public class EmployeeSessionRepository : IEmployeeSessionRepository
     {
         /// <summary>
-        /// Предоставляет время ожидания подключения к базе данных.
+        /// Таймаут подключения к базе данных.
         /// </summary>
         private const int TIMEOUT = 5;
 
         /// <summary>
-        /// Предоставляет настройки подключения к базе жанных.
+        /// Настройки подключения к базе данных.
         /// </summary>
         private readonly DatabaseConnectionOptions _options;
 
         /// <summary>
-        /// Предоставляет обработчик запроса.
+        /// Обработчик запроса к базе данных.
         /// </summary>
         private readonly IQueryExecutor _queryExecutor;
 
         /// <summary>
-        /// Инициализирует новый экземпляр <see cref="EmployeeSessionRepository"/>.
+        /// Создает экземпляр класса <see cref="EmployeeSessionRepository"/>.
         /// </summary>
         public EmployeeSessionRepository(IOptions<DatabaseConnectionOptions> options, IQueryExecutor queryExecutor)
         {
@@ -77,7 +77,7 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
         }
 
         /// <summary>
-        /// Возвращает данные сессии по идентификатору.
+        /// Возвращает сессию по идентификатору.
         /// </summary>
         public async Task<EmployeeSession> GetById(IntIdModel id, CancellationToken cancellationToken)
         {
@@ -110,7 +110,7 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
         }
 
         /// <summary>
-        /// Обновлет данные сессии.
+        /// Обновлет сессию.
         /// </summary>
         public async Task<EmployeeSession> Update(EmployeeSession itemToUpdate, CancellationToken cancellationToken)
         {
