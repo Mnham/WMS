@@ -5,7 +5,7 @@ using WMS.EmployeeService.Domain.Infrastructure.Models;
 namespace WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeSessionAggregate
 {
     /// <summary>
-    /// Представляет команду для запроса добавления сессии.
+    /// Представляет команду добавления сессии.
     /// </summary>
     public class InsertEmployeeSessionQuery : IRequest<InsertEmployeeSessionQueryResponse>
     {

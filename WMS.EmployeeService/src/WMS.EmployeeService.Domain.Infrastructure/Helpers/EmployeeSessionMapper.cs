@@ -5,12 +5,12 @@ using WMS.EmployeeService.Grpc;
 namespace WMS.EmployeeService.Domain.Infrastructure.Helpers
 {
     /// <summary>
-    /// Предоставляет методы мапинга данных сессии.
+    /// Предоставляет методы мапинга сессии.
     /// </summary>
     public class EmployeeSessionMapper
     {
         /// <summary>
-        /// Выполняет преобразование экземпляра <see cref="EmployeeSessionDto"/> в экземпляр <see cref="EmployeeSessionGrpc"/>.
+        /// Возвращает экземпляр Grpc, преобразованный из Dto.
         /// </summary>
         public static EmployeeSessionGrpc DtoToGrpc(EmployeeSessionDto item) => new()
         {
@@ -21,7 +21,7 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Helpers
         };
 
         /// <summary>
-        /// Выполняет преобразование экземпляра <see cref="EmployeeSessionGrpc"/> в экземпляр <see cref="EmployeeSessionDto"/>.
+        /// Возвращает экземпляр Dto, преобразованный из Grpc.
         /// </summary>
         public static EmployeeSessionDto GrpcToDto(EmployeeSessionGrpc item) => new()
         {
@@ -32,7 +32,7 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Helpers
         };
 
         /// <summary>
-        /// Выполняет преобразование экземпляра <see cref="EmployeeSession"/> в экземпляр <see cref="EmployeeSessionDto"/>.
+        /// Возвращает экземпляр Dto, преобразованный из Entity.
         /// </summary>
         public static EmployeeSessionDto EntityToDto(EmployeeSession item) => new()
         {
@@ -43,7 +43,7 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Helpers
         };
 
         /// <summary>
-        /// Выполняет преобразование экземпляра <see cref="EmployeeSessionDto"/> в экземпляр <see cref="EmployeeSession"/>.
+        /// Возвращает экземпляр Entity, преобразованный из Dto.
         /// </summary>
         public static EmployeeSession DtoToEntity(EmployeeSessionDto item) => new
         (

@@ -14,27 +14,27 @@ using WMS.Microservice.Extensions;
 namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
 {
     /// <summary>
-    /// Представляет репозиторий данных сотрудников.
+    /// Представляет репозиторий работников.
     /// </summary>
     public class EmployeeRepository : IEmployeeRepository
     {
         /// <summary>
-        /// Предоставляет время ожидания подключения к базе данных.
+        /// Таймаут подключения к базе данных.
         /// </summary>
         private const int TIMEOUT = 5;
 
         /// <summary>
-        /// Предоставляет настройки подключения к базе жанных.
+        /// Настройки подключения к базе данных.
         /// </summary>
         private readonly DatabaseConnectionOptions _options;
 
         /// <summary>
-        /// Предоставляет обработчик запроса.
+        /// Обработчик запроса к базе данных.
         /// </summary>
         private readonly IQueryExecutor _queryExecutor;
 
         /// <summary>
-        /// Инициализирует новый экземпляр <see cref="EmployeeRepository"/>.
+        /// Создает экземпляр класса <see cref="EmployeeRepository"/>.
         /// </summary>
         public EmployeeRepository(IOptions<DatabaseConnectionOptions> options, IQueryExecutor queryExecutor)
         {
@@ -42,7 +42,9 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
             _queryExecutor = queryExecutor;
         }
 
-        // TODO: документация
+        /// <summary>
+        /// Добавляет работника.
+        /// </summary>
         public async Task<Employee> Insert(Employee itemToInsert, CancellationToken cancellationToken)
         {
             const string sql = @"
@@ -71,7 +73,9 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
             });
         }
 
-        // TODO: документация
+        /// <summary>
+        /// Выполняет поиск.
+        /// </summary>
         public async Task<IReadOnlyCollection<Employee>> Search(EmployeeFilter filter, CancellationToken cancellationToken)
         {
             const string sql = @"
@@ -102,13 +106,16 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
             IEnumerable<Employee> result = await _queryExecutor.Execute(async () =>
             {
                 IEnumerable<EmployeeDto> employees = await connection.QueryAsync<EmployeeDto>(command);
+                
                 return employees.Distinct().Map(EmployeeMapper.DtoToEntity);
             });
 
             return result.ToList();
         }
 
-        // TODO: документация
+        /// <summary>
+        /// Обновляет данные работника.
+        /// </summary>
         public async Task<Employee> Update(Employee itemToUpdate, CancellationToken cancellationToken)
         {
             const string sql = @"
