@@ -26,11 +26,7 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Handlers.EmployeeSessionAggr
         /// </summary>
         public async Task<SearchEmployeeSessionQueryResponse> Handle(SearchEmployeeSessionQuery request, CancellationToken cancellationToken)
         {
-            EmployeeSession session = await _repository.GetById(
-                new IntIdModel
-                {
-                    Id = request.SessionId
-                }, cancellationToken);
+            EmployeeSession session = await _repository.GetById(request.SessionId, cancellationToken);
 
             return new SearchEmployeeSessionQueryResponse
             {

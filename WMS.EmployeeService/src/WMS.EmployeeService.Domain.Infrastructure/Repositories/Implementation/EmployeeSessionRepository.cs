@@ -79,29 +79,23 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
         /// <summary>
         /// Возвращает данные сессии по идентификатору.
         /// </summary>
-        public async Task<EmployeeSession> GetById(IntIdModel id, CancellationToken cancellationToken)
+        public async Task<EmployeeSession> GetById(long id, CancellationToken cancellationToken)
         {
             const string sql = @"
                 TOP (1)
                 FROM nomenclature
-                /**where**/;";
+                WHERE id = @Id";
 
-            SqlBuilder builder = new();
-            SqlBuilder.Template select = builder.AddTemplate(sql);
-            DynamicParameters parameter = new();
-            IReadOnlyList<FilterParameter> filters = FilterParameter.GetFilters(id);
-
-            foreach (FilterParameter f in filters)
+            var parameter = new
             {
-                parameter.Add(f.ParameterName, f.Value);
-                builder.Where($"{f.SqlField} {f.SqlOperator} @{f.ParameterName}");
-            }
+                Id = id
+            };
 
             using NpgsqlConnection connection = new(_options.ConnectionString);
             await connection.OpenAsync(cancellationToken);
 
             CommandDefinition command = new(
-                select.RawSql,
+                commandText: sql,
                 parameters: parameter,
                 commandTimeout: TIMEOUT,
                 cancellationToken: cancellationToken);

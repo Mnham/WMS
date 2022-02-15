@@ -13,7 +13,7 @@
         /// <summary>
         /// Выполняет поиск данных сессии в базе данных.
         /// </summary>
-        public Task<EmployeeSession> GetById(IntIdModel id, CancellationToken cancellationToken);
+        public Task<EmployeeSession> GetById(long id, CancellationToken cancellationToken);
 
         /// <summary>
         /// Выполняет обновление данных сессии в базу данных.
