@@ -7,7 +7,7 @@ using WMS.EmployeeService.Domain.Infrastructure.Helpers;
 namespace WMS.EmployeeService.Domain.Infrastructure.Handlers.EmployeeSessionAggregate
 {
     /// <summary>
-    /// Представляет обработчик команды поиска данных сессии.
+    /// Представляет обработчик команды поиска сессии.
     /// </summary>
     public class SearchEmployeeSessionQueryHandler : IRequestHandler<SearchEmployeeSessionQuery, SearchEmployeeSessionQueryResponse>
     {
@@ -22,7 +22,7 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Handlers.EmployeeSessionAggr
         public SearchEmployeeSessionQueryHandler(IEmployeeSessionRepository repository) => _repository = repository;
 
         /// <summary>
-        /// Обрабатывает команду поиска данных сессии.
+        /// Обрабатывает команду поиска сессии.
         /// </summary>
         public async Task<SearchEmployeeSessionQueryResponse> Handle(SearchEmployeeSessionQuery request, CancellationToken cancellationToken)
         {
