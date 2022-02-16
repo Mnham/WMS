@@ -8,7 +8,7 @@ namespace WMS.EmployeeService.Domain.AggregationModels.EmployeeSessionAggregate
     public class EmployeeSession : Entity
     {
         /// <summary>
-        /// Идентификатор сотрудника.
+        /// Идентификатор работника.
         /// </summary>
         public long EmployeeId { get; private set; }
 
