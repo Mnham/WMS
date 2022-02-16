@@ -38,7 +38,7 @@ namespace WMS.EmployeeService.GrpcServices
             });
 
         /// <summary>
-        /// Обновляет данные сессии.
+        /// Обновляет сессию.
         /// </summary>
         public override async Task<EmployeeSessionGrpc> Update(EmployeeSessionGrpc request, ServerCallContext context) =>
             await HandleException(async () =>
@@ -65,7 +65,7 @@ namespace WMS.EmployeeService.GrpcServices
         }
 
         /// <summary>
-        /// Обрабатывает исключение.
+        /// Обрабатывает исключения.
         /// </summary>
         private static async Task<T> HandleException<T>(Func<Task<T>> func) where T : IMessage<T>
         {
