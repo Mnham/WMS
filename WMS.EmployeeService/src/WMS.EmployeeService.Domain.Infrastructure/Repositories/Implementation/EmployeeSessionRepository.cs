@@ -82,9 +82,10 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
         public async Task<EmployeeSession> GetById(long id, CancellationToken cancellationToken)
         {
             const string sql = @"
-                TOP (1)
+                SELECT *
                 FROM nomenclature
-                WHERE id = @Id";
+                WHERE id = @Id
+                LIMIT 1 ;";
 
             var parameter = new
             {
