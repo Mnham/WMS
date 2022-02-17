@@ -37,7 +37,7 @@ namespace WMS.NomenclatureService.Domain.Infrastructure.Repositories.Implementat
         private readonly DatabaseConnectionOptions _options;
 
         /// <summary>
-        /// Экземпляр класса для обработки запроса к базе данных.
+        /// Обработчик запроса к базе данных.
         /// </summary>
         private readonly IQueryExecutor _queryExecutor;
 
