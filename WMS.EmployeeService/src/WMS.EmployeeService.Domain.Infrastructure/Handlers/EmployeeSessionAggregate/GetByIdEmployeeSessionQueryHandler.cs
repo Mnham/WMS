@@ -8,7 +8,7 @@ using WMS.EmployeeService.Domain.Infrastructure.Helpers;
 namespace WMS.EmployeeService.Domain.Infrastructure.Handlers.EmployeeSessionAggregate
 {
     /// <summary>
-    /// Представляет обработчик команды поиска сессии.
+    /// Представляет обработчик команды запроса сессии.
     /// </summary>
     public class GetByIdEmployeeSessionQueryHandler : IRequestHandler<GetByIdEmployeeSessionQuery, GetByIdEmployeeSessionQueryResponse>
     {
