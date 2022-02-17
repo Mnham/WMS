@@ -1,4 +1,5 @@
 ﻿using MediatR;
+
 using WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeSessionAggregate.Responses;
 
 namespace WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeSessionAggregate
@@ -6,7 +7,7 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeSessionAggr
     /// <summary>
     /// Представляет команду для запроса сессии.
     /// </summary>
-    public class GetById : IRequest<GetByIdResponse>
+    public class GetByIdEmployeeSessionQuery : IRequest<GetByIdEmployeeSessionQueryResponse>
     {
         /// <summary>
         /// Сессия.

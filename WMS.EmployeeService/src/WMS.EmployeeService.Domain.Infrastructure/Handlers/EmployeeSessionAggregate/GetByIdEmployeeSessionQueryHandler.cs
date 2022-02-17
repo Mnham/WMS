@@ -1,4 +1,5 @@
 ﻿using MediatR;
+
 using WMS.EmployeeService.Domain.AggregationModels.EmployeeSessionAggregate;
 using WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeSessionAggregate;
 using WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeSessionAggregate.Responses;
@@ -9,7 +10,7 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Handlers.EmployeeSessionAggr
     /// <summary>
     /// Представляет обработчик команды поиска сессии.
     /// </summary>
-    public class GetByIdHandler : IRequestHandler<GetById, GetByIdResponse>
+    public class GetByIdEmployeeSessionQueryHandler : IRequestHandler<GetByIdEmployeeSessionQuery, GetByIdEmployeeSessionQueryResponse>
     {
         /// <summary>
         /// Экземпляр репозитория сессий.
@@ -17,18 +18,18 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Handlers.EmployeeSessionAggr
         private readonly IEmployeeSessionRepository _repository;
 
         /// <summary>
-        /// Инициализирует новый экземпляр <see cref="GetByIdHandler"/>.
+        /// Инициализирует новый экземпляр <see cref="GetByIdEmployeeSessionQueryHandler"/>.
         /// </summary>
-        public GetByIdHandler(IEmployeeSessionRepository repository) => _repository = repository;
+        public GetByIdEmployeeSessionQueryHandler(IEmployeeSessionRepository repository) => _repository = repository;
 
         /// <summary>
         /// Обрабатывает команду поиска сессии.
         /// </summary>
-        public async Task<GetByIdResponse> Handle(GetById request, CancellationToken cancellationToken)
+        public async Task<GetByIdEmployeeSessionQueryResponse> Handle(GetByIdEmployeeSessionQuery request, CancellationToken cancellationToken)
         {
             EmployeeSession session = await _repository.GetById(request.SessionId, cancellationToken);
 
-            return new GetByIdResponse
+            return new GetByIdEmployeeSessionQueryResponse
             {
                 Session = EmployeeSessionMapper.EntityToDto(session)
             };

@@ -1,11 +1,13 @@
 ﻿using Dapper;
+
 using Microsoft.Extensions.Options;
+
 using Npgsql;
+
 using WMS.EmployeeService.Domain.AggregationModels.EmployeeSessionAggregate;
 using WMS.EmployeeService.Domain.Infrastructure.Helpers;
 using WMS.EmployeeService.Domain.Infrastructure.Models;
 using WMS.Microservice.Domain.Infrastructure.Configuration;
-using WMS.Microservice.Domain.Infrastructure.Repositories.Infrastructure;
 using WMS.Microservice.Domain.Infrastructure.Repositories.Infrastructure.Contracts;
 
 namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
@@ -106,6 +108,7 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
             return await _queryExecutor.Execute(async () =>
             {
                 EmployeeSessionDto employee = await connection.QuerySingleOrDefaultAsync<EmployeeSessionDto>(command);
+
                 return EmployeeSessionMapper.DtoToEntity(employee);
             });
         }

@@ -5,7 +5,7 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeSessionAggr
     /// <summary>
     /// Представляет ответ на запрос сессии.
     /// </summary>
-    public class GetByIdResponse
+    public class GetByIdEmployeeSessionQueryResponse
     {
         /// <summary>
         /// Сессия.
