@@ -1,5 +1,5 @@
-﻿using WMS.ClassLibrary.Infrastructure.Models;
-using WMS.EmployeeService.Domain.Infrastructure.Models;
+﻿using WMS.EmployeeService.Domain.Infrastructure.Models;
+using WMS.Microservice.Infrastructure.Models;
 
 namespace WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeAggregate.Responses
 {

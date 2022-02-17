@@ -1,10 +1,9 @@
 ﻿using MediatR;
-
-using WMS.ClassLibrary.Extensions;
 using WMS.EmployeeService.Domain.AggregationModels.EmployeeAggregate;
 using WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeAggregate;
 using WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeAggregate.Responses;
 using WMS.EmployeeService.Domain.Infrastructure.Helpers;
+using WMS.Microservice.Extensions;
 
 namespace WMS.EmployeeService.Domain.Infrastructure.Handlers.EmployeeAggregate
 {

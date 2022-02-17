@@ -3,20 +3,19 @@
 using Microsoft.Extensions.Options;
 
 using Npgsql;
-using WMS.EmployeeService.Domain.AggregationModels.EmployeeAggregate;
+
+using WMS.EmployeeService.Domain.AggregationModels.EmployeeSessionAggregate;
 using WMS.EmployeeService.Domain.Infrastructure.Helpers;
 using WMS.EmployeeService.Domain.Infrastructure.Models;
 using WMS.Microservice.Domain.Infrastructure.Configuration;
-using WMS.Microservice.Domain.Infrastructure.Repositories.Infrastructure;
 using WMS.Microservice.Domain.Infrastructure.Repositories.Infrastructure.Contracts;
-using WMS.Microservice.Extensions;
 
 namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
 {
     /// <summary>
-    /// Представляет репозиторий работников.
+    /// Представляет репозиторий сессий.
     /// </summary>
-    public class EmployeeRepository : IEmployeeRepository
+    public class EmployeeSessionRepository : IEmployeeSessionRepository
     {
         /// <summary>
         /// Таймаут подключения к базе данных.
@@ -34,27 +33,35 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
         private readonly IQueryExecutor _queryExecutor;
 
         /// <summary>
-        /// Создает экземпляр класса <see cref="EmployeeRepository"/>.
+        /// Создает экземпляр класса <see cref="EmployeeSessionRepository"/>.
         /// </summary>
-        public EmployeeRepository(IOptions<DatabaseConnectionOptions> options, IQueryExecutor queryExecutor)
+        public EmployeeSessionRepository(IOptions<DatabaseConnectionOptions> options, IQueryExecutor queryExecutor)
         {
             _options = options.Value;
             _queryExecutor = queryExecutor;
         }
 
         /// <summary>
-        /// Добавляет работника.
+        /// Добавляет сессию.
         /// </summary>
-        public async Task<Employee> Insert(Employee itemToInsert, CancellationToken cancellationToken)
+        public async Task<EmployeeSession> Insert(EmployeeSession itemToInsert, CancellationToken cancellationToken)
         {
             const string sql = @"
-                INSERT INTO employee (name)
-                VALUES (@Name)
+                INSERT INTO employee_service (
+                    employee_id,
+                    task_type_id,
+                    equipment_id)
+                VALUES (
+                    @EmployeeId,
+                    @TaskTypeId,
+                    @EquipmentId)
                 RETURNING id;";
 
             var parameters = new
             {
-                Name = itemToInsert.Name
+                EmployeeId = itemToInsert.EmployeeId,
+                TaskTypeId = itemToInsert.TaskTypeId,
+                EquipmentId = itemToInsert.EquipmentId
             };
 
             using NpgsqlConnection connection = new(_options.ConnectionString);
@@ -74,59 +81,56 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation
         }
 
         /// <summary>
-        /// Выполняет поиск.
+        /// Возвращает сессию по идентификатору.
         /// </summary>
-        public async Task<IReadOnlyCollection<Employee>> Search(EmployeeFilter filter, CancellationToken cancellationToken)
+        public async Task<EmployeeSession> GetById(long id, CancellationToken cancellationToken)
         {
             const string sql = @"
                 SELECT *
-                FROM employee
-                /**where**/;";
+                FROM nomenclature
+                WHERE id = @Id
+                LIMIT 1 ;";
 
-            SqlBuilder builder = new();
-            SqlBuilder.Template querySelect = builder.AddTemplate(sql);
-            DynamicParameters parameter = new();
-            IReadOnlyList<FilterParameter> filters = FilterParameter.GetFilters(filter);
-
-            foreach (FilterParameter filterItem in filters)
+            var parameter = new
             {
-                parameter.Add(filterItem.ParameterName, filterItem.Value);
-                builder.Where($"{filterItem.SqlField} {filterItem.SqlOperator} @{filterItem.ParameterName}");
-            }
+                Id = id
+            };
 
             using NpgsqlConnection connection = new(_options.ConnectionString);
             await connection.OpenAsync(cancellationToken);
 
             CommandDefinition command = new(
-                commandText: querySelect.RawSql,
+                commandText: sql,
                 parameters: parameter,
                 commandTimeout: TIMEOUT,
                 cancellationToken: cancellationToken);
 
-            IEnumerable<Employee> result = await _queryExecutor.Execute(async () =>
+            return await _queryExecutor.Execute(async () =>
             {
-                IEnumerable<EmployeeDto> employees = await connection.QueryAsync<EmployeeDto>(command);
-                
-                return employees.Distinct().Map(EmployeeMapper.DtoToEntity);
-            });
+                EmployeeSessionDto employee = await connection.QuerySingleOrDefaultAsync<EmployeeSessionDto>(command);
 
-            return result.ToList();
+                return EmployeeSessionMapper.DtoToEntity(employee);
+            });
         }
 
         /// <summary>
-        /// Обновляет данные работника.
+        /// Обновлет сессию.
         /// </summary>
-        public async Task<Employee> Update(Employee itemToUpdate, CancellationToken cancellationToken)
+        public async Task<EmployeeSession> Update(EmployeeSession itemToUpdate, CancellationToken cancellationToken)
         {
             const string sql = @"
-                UPDATE employee
-                SET name = @Name
-                WHERE id = @EmployeeId;";
+                UPDATE employee_service
+                SET employee_id = @EmployeeId,
+                    task_type_id = @TaskTypeId,
+                    equipment_id = @EquipmentId
+                WHERE id = @Id";
 
             var parameters = new
             {
-                Name = itemToUpdate.Name,
-                EmployeeId = itemToUpdate.Id
+                Id = itemToUpdate.Id,
+                EmployeeId = itemToUpdate.EmployeeId,
+                TaskTypeId = itemToUpdate.TaskTypeId,
+                EquipmentId = itemToUpdate.EquipmentId
             };
 
             using NpgsqlConnection connection = new(_options.ConnectionString);

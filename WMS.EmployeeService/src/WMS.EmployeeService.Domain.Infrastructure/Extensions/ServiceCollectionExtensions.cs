@@ -2,12 +2,12 @@
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
-using WMS.ClassLibrary.Domain.Infrastructure.Configuration;
-using WMS.ClassLibrary.Domain.Infrastructure.Repositories.Infrastructure;
-using WMS.ClassLibrary.Domain.Infrastructure.Repositories.Infrastructure.Contracts;
 using WMS.EmployeeService.Domain.AggregationModels.EmployeeAggregate;
+using WMS.EmployeeService.Domain.AggregationModels.EmployeeSessionAggregate;
 using WMS.EmployeeService.Domain.Infrastructure.Repositories.Implementation;
+using WMS.Microservice.Domain.Infrastructure.Configuration;
+using WMS.Microservice.Domain.Infrastructure.Repositories.Infrastructure;
+using WMS.Microservice.Domain.Infrastructure.Repositories.Infrastructure.Contracts;
 
 namespace WMS.EmployeeService.Domain.Infrastructure.Extensions
 {
@@ -32,6 +32,7 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Extensions
         {
             DefaultTypeMap.MatchNamesWithUnderscores = true;
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IEmployeeSessionRepository, EmployeeSessionRepository>();
 
             return services;
         }
