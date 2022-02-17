@@ -9,7 +9,7 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Handlers.EmployeeSessionAggr
     /// <summary>
     /// Представляет обработчик команды поиска сессии.
     /// </summary>
-    public class SearchEmployeeSessionQueryHandler : IRequestHandler<SearchEmployeeSessionQuery, SearchEmployeeSessionQueryResponse>
+    public class GetByIdHandler : IRequestHandler<GetById, GetByIdResponse>
     {
         /// <summary>
         /// Экземпляр репозитория сессий.
@@ -17,18 +17,18 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Handlers.EmployeeSessionAggr
         private readonly IEmployeeSessionRepository _repository;
 
         /// <summary>
-        /// Инициализирует новый экземпляр <see cref="SearchEmployeeSessionQueryHandler"/>.
+        /// Инициализирует новый экземпляр <see cref="GetByIdHandler"/>.
         /// </summary>
-        public SearchEmployeeSessionQueryHandler(IEmployeeSessionRepository repository) => _repository = repository;
+        public GetByIdHandler(IEmployeeSessionRepository repository) => _repository = repository;
 
         /// <summary>
         /// Обрабатывает команду поиска сессии.
         /// </summary>
-        public async Task<SearchEmployeeSessionQueryResponse> Handle(SearchEmployeeSessionQuery request, CancellationToken cancellationToken)
+        public async Task<GetByIdResponse> Handle(GetById request, CancellationToken cancellationToken)
         {
             EmployeeSession session = await _repository.GetById(request.SessionId, cancellationToken);
 
-            return new SearchEmployeeSessionQueryResponse
+            return new GetByIdResponse
             {
                 Session = EmployeeSessionMapper.EntityToDto(session)
             };

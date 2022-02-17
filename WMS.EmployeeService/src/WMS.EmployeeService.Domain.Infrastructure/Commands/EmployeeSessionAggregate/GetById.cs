@@ -6,7 +6,7 @@ namespace WMS.EmployeeService.Domain.Infrastructure.Commands.EmployeeSessionAggr
     /// <summary>
     /// Представляет команду для запроса сессии.
     /// </summary>
-    public class SearchEmployeeSessionQuery : IRequest<SearchEmployeeSessionQueryResponse>
+    public class GetById : IRequest<GetByIdResponse>
     {
         /// <summary>
         /// Сессия.

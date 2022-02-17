@@ -56,7 +56,7 @@ namespace WMS.EmployeeService.GrpcServices
         /// </summary>
         public override async Task<EmployeeSessionGrpc> GetById(IntIdModel request, ServerCallContext context)
         {
-            SearchEmployeeSessionQueryResponse response = await _mediator.Send(new SearchEmployeeSessionQuery
+            GetByIdResponse response = await _mediator.Send(new GetById
             {
                 SessionId = request.Id
             }, context.CancellationToken);
