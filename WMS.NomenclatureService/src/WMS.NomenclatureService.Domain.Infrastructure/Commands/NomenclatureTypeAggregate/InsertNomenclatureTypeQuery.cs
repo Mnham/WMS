@@ -5,8 +5,14 @@ using WMS.NomenclatureService.Domain.Infrastructure.Models;
 
 namespace WMS.NomenclatureService.Domain.Infrastructure.Commands.NomenclatureTypeAggregate
 {
+    /// <summary>
+    /// Предствляет команду добавления типа номенклатуры.
+    /// </summary>
     public class InsertNomenclatureTypeQuery : IRequest<InsertNomenclatureTypeQueryResponse>
     {
+        /// <summary>
+        /// Тип номенклатуры.
+        /// </summary>
         public NomenclatureTypeDto NomenclatureType { get; init; }
     }
 }

@@ -9,9 +9,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-using WMS.ClassLibrary.Domain.Infrastructure.Configuration;
-using WMS.ClassLibrary.Domain.Infrastructure.Repositories.Infrastructure.Contracts;
-using WMS.ClassLibrary.Extensions;
+using WMS.Microservice.Domain.Infrastructure.Configuration;
+using WMS.Microservice.Domain.Infrastructure.Repositories.Infrastructure.Contracts;
+using WMS.Microservice.Extensions;
 using WMS.NomenclatureService.Domain.AggregationModels.NomenclatureTypeAggregate;
 using WMS.NomenclatureService.Domain.Infrastructure.Helpers;
 using WMS.NomenclatureService.Domain.Infrastructure.Models;
@@ -20,18 +20,38 @@ using static Dapper.SqlMapper;
 
 namespace WMS.NomenclatureService.Domain.Infrastructure.Repositories.Implementation
 {
+    /// <summary>
+    /// Представляет репозиторий типа номенклатуры.
+    /// </summary>
     public class NomenclatureTypeRepository : INomenclatureTypeRepository
     {
+        /// <summary>
+        /// Таймаут подключения к базе данных.
+        /// </summary>
         private const int TIMEOUT = 5;
+
+        /// <summary>
+        /// Настройки подключения к базе данных.
+        /// </summary>
         private readonly DatabaseConnectionOptions _options;
+
+        /// <summary>
+        /// Экземпляр класса для обработки запроса к базе данных.
+        /// </summary>
         private readonly IQueryExecutor _queryExecutor;
 
+        /// <summary>
+        /// Создает экземпляр класса <see cref="NomenclatureTypeRepository"/>.
+        /// </summary>
         public NomenclatureTypeRepository(IOptions<DatabaseConnectionOptions> options, IQueryExecutor queryExecutor)
         {
             _options = options.Value;
             _queryExecutor = queryExecutor;
         }
 
+        /// <summary>
+        /// Возвращает все типы номенклатур.
+        /// </summary>
         public async Task<IReadOnlyCollection<NomenclatureType>> GetAll(CancellationToken cancellationToken)
         {
             const string sql = @"
@@ -56,6 +76,9 @@ namespace WMS.NomenclatureService.Domain.Infrastructure.Repositories.Implementat
             return result.ToList();
         }
 
+        /// <summary>
+        /// Добавляет тип номенклатуры.
+        /// </summary>
         public async Task<NomenclatureType> Insert(NomenclatureType itemToInsert, CancellationToken cancellationToken)
         {
             const string sql = @"
@@ -84,6 +107,9 @@ namespace WMS.NomenclatureService.Domain.Infrastructure.Repositories.Implementat
             });
         }
 
+        /// <summary>
+        /// Обновляет тип номенклатуры.
+        /// </summary>
         public async Task<NomenclatureType> Update(NomenclatureType itemToUpdate, CancellationToken cancellationToken)
         {
             const string sql = @"

@@ -10,13 +10,25 @@ using WMS.NomenclatureService.Domain.Infrastructure.Helpers;
 
 namespace WMS.NomenclatureService.Domain.Infrastructure.Handlers.NomenclatureTypeAggregate
 {
+    /// <summary>
+    /// Представляет обработчик команды добавления типа номенклатуры.
+    /// </summary>
     public class InsertNomenclatureTypeQueryHandler : IRequestHandler<InsertNomenclatureTypeQuery, InsertNomenclatureTypeQueryResponse>
     {
+        /// <summary>
+        /// Экземпляр репозитория типа номенклатуры.
+        /// </summary>
         private readonly INomenclatureTypeRepository _nomenclatureTypeRepository;
 
+        /// <summary>
+        /// Создает экземпляр класса <see cref="InsertNomenclatureTypeQueryHandler"/>.
+        /// </summary>
         public InsertNomenclatureTypeQueryHandler(INomenclatureTypeRepository nomenclatureTypeRepository) =>
             _nomenclatureTypeRepository = nomenclatureTypeRepository;
 
+        /// <summary>
+        /// Обрабатывает команду добавления типа номенклатуры.
+        /// </summary>
         public async Task<InsertNomenclatureTypeQueryResponse> Handle(InsertNomenclatureTypeQuery request, CancellationToken cancellationToken)
         {
             NomenclatureType nomenclatureType = await _nomenclatureTypeRepository.Insert(

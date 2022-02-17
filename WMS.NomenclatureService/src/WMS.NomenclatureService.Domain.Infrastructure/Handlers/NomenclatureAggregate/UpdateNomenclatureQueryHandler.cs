@@ -10,13 +10,25 @@ using WMS.NomenclatureService.Domain.Infrastructure.Helpers;
 
 namespace WMS.NomenclatureService.Domain.Infrastructure.Handlers.NomenclatureAggregate
 {
+    /// <summary>
+    /// Представляет обработчик команды обновления номенклатуры.
+    /// </summary>
     public class UpdateNomenclatureQueryHandler : IRequestHandler<UpdateNomenclatureQuery, UpdateNomenclatureQueryResponse>
     {
+        /// <summary>
+        /// Экземпляр репозитория номенклатуры.
+        /// </summary>
         private readonly INomenclatureRepository _nomenclatureRepository;
 
+        /// <summary>
+        /// Создает экземпляр класса <see cref="UpdateNomenclatureQueryHandler"/>.
+        /// </summary>
         public UpdateNomenclatureQueryHandler(INomenclatureRepository nomenclatureRepository) =>
             _nomenclatureRepository = nomenclatureRepository;
 
+        /// <summary>
+        /// Обрабатывает команду обновления номенклатуры.
+        /// </summary>
         public async Task<UpdateNomenclatureQueryResponse> Handle(UpdateNomenclatureQuery request, CancellationToken cancellationToken)
         {
             Nomenclature nomenclature = await _nomenclatureRepository.Update(

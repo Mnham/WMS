@@ -1,0 +1,64 @@
+﻿syntax = "proto3";
+option csharp_namespace = "WMS.InboundService.Grpc";
+package InboundService;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+
+
+service BillOfLadingGrpcService
+{
+    rpc Insert (BillOfLadingGrpc) returns (BillOfLadingGrpc) {}
+    rpc Update (BillOfLadingGrpc) returns (BillOfLadingGrpc) {}
+    rpc Search (BillOfLadingSearchFilter) returns (BillOfLadingList) {}
+}
+
+message BillOfLadingGrpc {
+    int64 id = 1;
+    int64 status_id = 2;
+    repeated NomenclatureGrpc nomenclatures = 3;
+}
+
+message BillOfLadingList {
+    repeated BillOfLadingGrpc bill_of_ladings = 1;
+}
+
+message BillOfLadingSearchFilter {
+    google.protobuf.Int64Value bill_of_lading_id = 1;
+    google.protobuf.Int64Value bill_of_lading_status_id = 2;
+}
+
+
+service AdvanceShipmentNoticeGrpcService
+{
+    rpc Insert (AdvanceShipmentNoticeGrpc) returns (AdvanceShipmentNoticeGrpc) {}
+    rpc Update (AdvanceShipmentNoticeGrpc) returns (AdvanceShipmentNoticeGrpc) {}
+	rpc Search (AdvanceShipmentNoticeSearchFilter) returns (AdvanceShipmentNoticesList) {}
+    rpc GetById (IntIdModel) returns (AdvanceShipmentNoticeGrpc) {}
+}
+
+message AdvanceShipmentNoticeGrpc {
+    int64 id = 1;
+    int64 status_id = 2;
+    repeated NomenclatureGrpc nomenclatures = 3;
+}
+
+message AdvanceShipmentNoticesList {
+    repeated AdvanceShipmentNoticeGrpc advance_shipment_notices = 1;
+}
+
+message AdvanceShipmentNoticeSearchFilter {
+    google.protobuf.Int64Value bill_of_lading_id = 1;
+    google.protobuf.Int64Value bill_of_lading_status_id = 2;
+}
+
+message IntIdModel{
+    int64 id = 1;
+}
+
+
+message NomenclatureGrpc {
+    int64 id = 1;
+	string name = 2;
+    int32 quantity = 3;
+}

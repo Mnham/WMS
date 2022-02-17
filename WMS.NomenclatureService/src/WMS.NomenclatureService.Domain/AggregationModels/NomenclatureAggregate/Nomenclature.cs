@@ -1,13 +1,19 @@
 ﻿using System;
 
-using WMS.ClassLibrary.Domain.Models;
+using WMS.Microservice.Domain.Models;
 using WMS.NomenclatureService.Domain.AggregationModels.NomenclatureTypeAggregate;
 using WMS.NomenclatureService.Domain.Exceptions;
 
 namespace WMS.NomenclatureService.Domain.AggregationModels.NomenclatureAggregate
 {
+    /// <summary>
+    /// Представляет номенклатуру.
+    /// </summary>
     public class Nomenclature : Entity
     {
+        /// <summary>
+        /// Создает экземпляр класса <see cref="Nomenclature"/>.
+        /// </summary>
         public Nomenclature(
             long id,
             string name,
@@ -26,13 +32,39 @@ namespace WMS.NomenclatureService.Domain.AggregationModels.NomenclatureAggregate
             SetWeight(weight);
         }
 
+        /// <summary>
+        /// Наименование.
+        /// </summary>
         public string Name { get; private set; }
+
+        /// <summary>
+        /// Тип номенклатуры.
+        /// </summary>
         public NomenclatureType Type { get; private set; }
+
+        /// <summary>
+        /// Длина.
+        /// </summary>
         public long Length { get; private set; }
+
+        /// <summary>
+        /// Ширина.
+        /// </summary>
         public long Width { get; private set; }
+
+        /// <summary>
+        /// Высота.
+        /// </summary>
         public long Height { get; private set; }
+
+        /// <summary>
+        /// Вес.
+        /// </summary>
         public int Weight { get; private set; }
 
+        /// <summary>
+        /// Устанавливает наименование.
+        /// </summary>
         public void SetName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
@@ -43,8 +75,14 @@ namespace WMS.NomenclatureService.Domain.AggregationModels.NomenclatureAggregate
             Name = name;
         }
 
+        /// <summary>
+        /// Устанавливает тип номенклатуры.
+        /// </summary>
         public void SetType(NomenclatureType type) => Type = type ?? throw new ArgumentNullException(nameof(type));
 
+        /// <summary>
+        /// Устанавливает длину.
+        /// </summary>
         public void SetLength(long length)
         {
             if (length <= 0)
@@ -55,6 +93,9 @@ namespace WMS.NomenclatureService.Domain.AggregationModels.NomenclatureAggregate
             Length = length;
         }
 
+        /// <summary>
+        /// Устанавливает ширину.
+        /// </summary>
         public void SetWidth(long width)
         {
             if (width <= 0)
@@ -65,6 +106,9 @@ namespace WMS.NomenclatureService.Domain.AggregationModels.NomenclatureAggregate
             Width = width;
         }
 
+        /// <summary>
+        /// Устанавливает высоту.
+        /// </summary>
         public void SetHeight(long height)
         {
             if (height <= 0)
@@ -75,6 +119,9 @@ namespace WMS.NomenclatureService.Domain.AggregationModels.NomenclatureAggregate
             Height = height;
         }
 
+        /// <summary>
+        /// Устанавливает вес.
+        /// </summary>
         public void SetWeight(int weight)
         {
             if (weight <= 0)
